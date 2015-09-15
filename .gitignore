@@ -1,0 +1,13 @@
+node_modules
+bower_components
+
+// dist/*
+src/**/*.js
+src/**/*.css
+src/**/*.map
+
+*.log
+
+*.key
+*.crt
+*.pem

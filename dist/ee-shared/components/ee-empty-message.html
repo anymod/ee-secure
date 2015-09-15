@@ -1,0 +1,11 @@
+<div class="container vert-50 min-height-300">
+  <div class="max-width-600 margin-0-auto text-center">
+    <div class="well white-background box-shadow">
+      <div class="max-width-300 full-width margin-0-auto">
+        <h1 ng-bind="mainMessage"></h1>
+        <a ng-if="btnMessage && btnSref" ui-sref="{{ btnSref }}" class="btn btn-lg btn-primary btn-block vert-20" ng-bind="btnMessage"></a>
+      </div>
+    </div>
+    <h4 class="vert-50 margin-bottom-0 text-muted font-weight-200" ng-bind="subMessage"></h4>
+  </div>
+</div>

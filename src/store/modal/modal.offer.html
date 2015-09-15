@@ -1,0 +1,26 @@
+<div class="position-absolute" style="top: 5px; right: 10px;">
+  <button type="button" class="close" ng-click="$close()">&times;</button>
+</div>
+<div class="inline-block full-width text-center pad-10">
+  <img src="https://res.cloudinary.com/eeosk/image/upload/v1435959580/storefront_logo/vma1wwm3lxwdb3gciczp.jpg" class="small-thumb img-circle margin-right-4">
+  <h2 class="inline-block vert-5 font-weight-200 vertical-align-middle">
+    Stylish Rustic
+  </h2>
+</div>
+<div class="position-relative min-height-300">
+  <img ng-src="http://res.cloudinary.com/eeosk/image/upload/c_fill,h_300,w_400/v1436216074/paris-stamped-ottoman_kgohn4.jpg" class="img-responsive full-width" />
+  <div class="position-absolute pad-20 text-center" style="top: 30px; left: 0; right: 0; background: rgba(255,255,255,0.8);">
+    <h3 class="font-weight-200">
+      Get exclusive offers & more
+      <br>
+      delivered straight to your inbox.
+    </h3>
+    <form class="form-inline vert-20" ng-submit="modal.subscribe()">
+      <div class="form-group">
+        <input ng-model="modal.email" type="email" class="form-control box-shadow vert-5" placeholder="Email address">
+        <button type="submit" class="btn btn-default box-shadow vert-5" ng-disabled="modal.submitting">Submit</button>
+      </div>
+      <div ng-show="modal.alert" ng-bind="modal.alert" class="font-weight-200"></div>
+    </form>
+  </div>
+</div>
