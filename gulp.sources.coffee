@@ -34,15 +34,15 @@ sources.checkoutVendorUnmin = []
 ### MODULE ###
 sources.appModule = [
   # Definitions
-  # './src/ee-shared/core/core.module.coffee'
-  # './src/ee-shared/core/constants.coffee'
-  # './src/ee-shared/core/filters.coffee'
-  # './src/ee-shared/core/config.coffee'
-  # './src/ee-shared/core/run.coffee'
+  './src/ee-shared/core/core.module.coffee'
+  './src/ee-shared/core/constants.coffee'
+  './src/ee-shared/core/filters.coffee'
+  './src/ee-shared/core/config.coffee'
+  './src/ee-shared/core/run.coffee'
   # Services
   # './src/ee-shared/core/svc.selections.coffee'
   # './src/ee-shared/core/svc.collections.coffee'
-  # './src/ee-shared/core/svc.modal.coffee'
+  './src/ee-shared/core/svc.modal.coffee'
 ]
 sources.checkoutModule = [
   # Definitions
