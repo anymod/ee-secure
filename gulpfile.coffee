@@ -31,26 +31,26 @@ htmlminOptions =
 ## html tasks
 
 gulp.task 'html-dev', () ->
-  gulp.src './src/store.ejs'
+  gulp.src './src/checkout.ejs'
     .pipe gp.plumber()
     .pipe gp.htmlReplace
       css: 'ee-shared/stylesheets/ee.css'
-      js: sources.storeJs(), { keepBlockTags: true }
+      js: sources.checkoutJs(), { keepBlockTags: true }
     .pipe gulp.dest './src'
 
 gulp.task 'html-prod', () ->
-  # gulp.src './src/store.html'
+  # gulp.src './src/checkout.html'
   #   .pipe gp.plumber()
   #   .pipe gp.htmlReplace
   #     css: 'ee-shared/stylesheets/ee.css'
-  #     js: 'ee.store.js'
+  #     js: 'ee.checkout.js'
   #   .pipe gp.htmlmin htmlminOptions
   #   .pipe gulp.dest distPath
-  gulp.src './src/store.ejs'
+  gulp.src './src/checkout.ejs'
     .pipe gp.plumber()
     .pipe gp.htmlReplace
       css: 'ee-shared/stylesheets/ee.css'
-      js: 'ee.store.js'
+      js: 'ee.checkout.js'
     .pipe gp.htmlmin htmlminOptions
     .pipe gulp.dest distPath
 
@@ -78,7 +78,7 @@ copyToSrcJs = (url) ->
     .pipe gulp.dest './src/js'
 
 gulp.task 'js-test',  () -> copyToSrcJs 'http://localhost:5555'
-# gulp.task 'js-dev',   () -> copyToSrcJs 'http://localhost:5000'
+# gulp.task 'js-dev',   () -> copyToSrcJs 'http://localhost:7000'
 
 copyToDist = (url) ->
   # inline templates; no need for ngAnnotate
@@ -89,31 +89,33 @@ copyToDist = (url) ->
       standalone: true
       root: 'ee-shared/components'
 
-  ## Store prod
-  storeVendorMin   = gulp.src sources.storeVendorMin
-  storeVendorUnmin = gulp.src sources.storeVendorUnmin
-  # store modules; replace and annotate
-  storeModules = gulp.src sources.storeModules()
+  ## Checkout prod
+  checkoutVendorMin   = gulp.src sources.checkoutVendorMin
+  checkoutVendorUnmin = gulp.src sources.checkoutVendorUnmin
+  # checkout modules; replace and annotate
+  checkoutModules = gulp.src sources.checkoutModules()
     .pipe gp.plumber()
-    .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for store.index.coffee $templateCache
+    .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for checkout.index.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
     # .pipe gp.replace "'demoseller' # username", "username" # allows testing at *.localhost
     .pipe gp.coffee()
     .pipe gp.ngAnnotate()
   # minified and uglify vendorUnmin, templates, and modules
-  storeCustomMin = streamqueue objectMode: true, storeVendorUnmin, appTemplates, storeModules
+  checkoutCustomMin = streamqueue objectMode: true, checkoutVendorUnmin, appTemplates, checkoutModules
     .pipe gp.uglify()
   # concat: vendorMin before jsMin because vendorMin has angular
-  streamqueue objectMode: true, storeVendorMin, storeCustomMin
-    .pipe gp.concat 'ee.store.js'
+  streamqueue objectMode: true, checkoutVendorMin, checkoutCustomMin
+    .pipe gp.concat 'ee.checkout.js'
     .pipe gp.replace /@@eeBackUrl/g, url
     .pipe gulp.dest distPath
 
+  console.log "HERE A"
 
-gulp.task 'js-dev',   () -> copyToDist 'http://localhost:5000'
+
+gulp.task 'js-dev',   () -> copyToDist 'http://localhost:7000'
 gulp.task 'js-prod',  () -> copyToDist 'https://api.eeosk.com'
 gulp.task 'js-stage', () ->
-  gulp.src distPath + '/ee.store.js'
+  gulp.src distPath + '/ee.checkout.js'
     .pipe gp.plumber()
     .pipe gp.replace /api\.eeosk\.com/g, 'ee-back-staging.herokuapp.com'
     .pipe gulp.dest distPath
@@ -129,10 +131,10 @@ gulp.task "copy-prod", () ->
     .pipe gp.changed distPath
     .pipe gulp.dest distPath + '/ee-shared'
 
-  gulp.src './src/store/**/*.html'
+  gulp.src './src/checkout/**/*.html'
     .pipe gp.plumber()
     .pipe gp.changed distPath
-    .pipe gulp.dest distPath + '/store'
+    .pipe gulp.dest distPath + '/checkout'
 
   gulp.src './src/ee-shared/fonts/*.*'
     .pipe gp.plumber()
@@ -179,15 +181,15 @@ gulp.task 'protractor-live', () ->
 
 # gulp.task 'server-dev', () ->
 #   gulp.src('./src').pipe gp.webserver(
-#     fallback: 'store.ejs' # for angular html5mode
+#     fallback: 'checkout.ejs' # for angular html5mode
 #     port: 4000
 #   )
 gulp.task 'server-prod', () ->
   spawn 'foreman', ['start'], stdio: 'inherit'
 
-gulp.task 'server-test-store', () ->
+gulp.task 'server-test-checkout', () ->
   gulp.src('./src').pipe gp.webserver(
-    fallback: 'store.ejs' # for angular html5mode
+    fallback: 'checkout.ejs' # for angular html5mode
     port: 4444
   )
 
@@ -204,9 +206,9 @@ gulp.task 'watch-test', () ->
     .pipe gp.watch { emit: 'one', name: 'test' }, ['protractor-test']
 
 gulp.task 'watch-dev', () ->
-  gulp.watch './src/**/*.coffee', (obj) -> copyToDist 'http://localhost:5000'
-  # gulp.watch './src/**/constants.coffee', (obj) -> copyConstantToSrcJs 'http://localhost:5000'
-  # gulp.watch './src/store.html', (obj) -> copyDevHtml()
+  gulp.watch './src/**/*.coffee', (obj) -> copyToDist 'http://localhost:7000'
+  # gulp.watch './src/**/constants.coffee', (obj) -> copyConstantToSrcJs 'http://localhost:7000'
+  # gulp.watch './src/checkout.html', (obj) -> copyDevHtml()
 
   # gulp.src './src/**/*.coffee'
   #   .pipe gp.watch { emit: 'one', name: 'js' }, ['js-dev']
@@ -219,7 +221,7 @@ gulp.task 'watch-prod', () ->
   #   .pipe gp.watch { emit: 'one', name: 'js' }, ['js-prod']
   # gulp.src ['./src/**/*.html', './src/**/*.ejs']
   #   .pipe gp.watch { emit: 'one', name: 'html' }, ['html-prod']
-  # gulp.src ['./src/ee-shared/**/*.*', './src/store/**/*.html']
+  # gulp.src ['./src/ee-shared/**/*.*', './src/checkout/**/*.html']
   #   .pipe gp.watch { emit: 'one', name: 'test' }, ['copy-prod']
 
 # ===========================

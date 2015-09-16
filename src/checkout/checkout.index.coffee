@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module 'eeStore', [
+angular.module 'eeCheckout', [
   # vendor
   'ui.router'
   'ui.bootstrap'

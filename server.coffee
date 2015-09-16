@@ -2,10 +2,10 @@ switch process.env.NODE_ENV
   when 'production'
     require 'newrelic'
   when 'test'
-    process.env.PORT = 4444
+    process.env.PORT = 7777
   else
     process.env.NODE_ENV = 'development'
-    process.env.PORT = 4000
+    process.env.PORT = 7000
 
 express       = require 'express'
 morgan        = require 'morgan'
@@ -50,7 +50,7 @@ app.get '/', (req, res, next) ->
     bootstrap.storeProducts = rows || []
     bootstrap.count         = count
     bootstrap.stringified   = helpers.stringify bootstrap
-    res.render 'store.ejs', { bootstrap: bootstrap }
+    res.render 'checkout.ejs', { bootstrap: bootstrap }
   .catch (err) ->
     # TODO add better error pages
     console.error 'error in HOME', err
@@ -62,7 +62,7 @@ app.get ['/about'], (req, res, next) ->
   helpers.defineStorefront host, bootstrap
   .then () ->
     bootstrap.stringified = helpers.stringify bootstrap
-    res.render 'store.ejs', { bootstrap: bootstrap }
+    res.render 'checkout.ejs', { bootstrap: bootstrap }
   .catch (err) ->
     # TODO add better error pages
     console.error 'error in ABOUT', err
@@ -81,7 +81,7 @@ app.get '/collections/:id/:title', (req, res, next) ->
     bootstrap.title         = helpers.formCollectionPageTitle bootstrap.collection.title, bootstrap.title
     bootstrap.images        = helpers.makeMetaImages(_.pluck(bootstrap.storeProducts.slice(0,3), 'image'))
     bootstrap.stringified   = helpers.stringify bootstrap
-    res.render 'store.ejs', { bootstrap: bootstrap }
+    res.render 'checkout.ejs', { bootstrap: bootstrap }
   .catch (err) ->
     console.error 'error in COLLECTIONS', err
     res.send 'Not found'
@@ -100,7 +100,7 @@ app.get '/products/:id/:title', (req, res, next) ->
     bootstrap.images        = helpers.makeMetaImages([ bootstrap.storeProduct?.image ])
     bootstrap.description   = bootstrap.storeProduct.content
     bootstrap.stringified   = helpers.stringify bootstrap
-    res.render 'store.ejs', { bootstrap: bootstrap }
+    res.render 'checkout.ejs', { bootstrap: bootstrap }
   .catch (err) ->
     console.error 'error in STOREPRODUCTS', err
     res.send 'Not found'
@@ -116,15 +116,15 @@ app.get '/cart', (req, res, next) ->
       .then (data) -> bootstrap.cart.storeProducts = data
       .finally () ->
         bootstrap.stringified = helpers.stringify bootstrap
-        res.render 'store.ejs', { bootstrap: bootstrap }
+        res.render 'checkout.ejs', { bootstrap: bootstrap }
     else
       bootstrap.stringified = helpers.stringify bootstrap
-      res.render 'store.ejs', { bootstrap: bootstrap }
+      res.render 'checkout.ejs', { bootstrap: bootstrap }
 
 # LEGACY REDIRECTS
 app.get ['/selections/:id/:title', '/shop', '/shop/:title'], (req, res, next) ->
   res.redirect '/'
 
 app.listen process.env.PORT, ->
-  console.log 'Store app listening on port ' + process.env.PORT
+  console.log 'Checkout app listening on port ' + process.env.PORT
   return

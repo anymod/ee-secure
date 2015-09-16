@@ -11,6 +11,6 @@ ee-checkout
 
 env | ee-checkout
 :-------------|:------------------------
-test          | `http://localhost:6666`
-development   | `http://localhost:6000`
+test          | `http://localhost:7777`
+development   | `http://localhost:7000`
 production    | `https://checkout.eeosk.com`

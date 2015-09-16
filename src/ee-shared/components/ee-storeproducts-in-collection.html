@@ -1,0 +1,40 @@
+<div class="container" ng-hide="data.reading || data.storeProducts.length <= 0">
+
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="data.count > data.perPage"
+      total-items="data.count"
+      items-per-page="data.perPage"
+      ng-model="data.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="update()">
+    </pagination>
+  </div>
+
+  <!-- PRODUCTS -->
+  <h4 class="margin-0" ng-if="showTitle" ng-bind="data.collection.title | humanize"></h4>
+  <div class="full-width text-center vert-20 overflow-hidden">
+    <div ng-repeat="storeProduct in data.storeProducts" class="product-container text-left inline-block width-250 vertical-align-top">
+      <ee-storeproduct-for-storefront storeproduct="storeProduct"></ee-storeproduct-for-storefront>
+    </div>
+  </div>
+  <!-- /PRODUCTS -->
+
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="data.count > data.perPage"
+      total-items="data.count"
+      items-per-page="data.perPage"
+      ng-model="data.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="update()">
+    </pagination>
+  </div>
+
+</div>

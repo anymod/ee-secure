@@ -1,9 +1,0 @@
-<div class="margin-5">
-  <a class="selection" ui-sref="selectionView({ id: selection.id, slug: (selection.title | urlText) })">
-    <img ng-src="{{ selection.image | midsize }}" class="img-responsive full-width">
-    <h4 class="vert-5 text-dark-blue font-weight-200" ng-bind="selection.title" class="selection-title"></h4>
-    <h4 class="margin-2 text-dark-gray" ng-bind="selection.selling_price | centToDollar"></h4>
-  </a>
-  <div ng-if="selection.discontinued" class="badge">Discontinued</div>
-  <div ng-if="selection.out_of_stock" class="badge">Out of Stock</div>
-</div>

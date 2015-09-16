@@ -1,0 +1,64 @@
+<div ng-hide="collection.data.reading" class="container vert-20">
+
+  <div class="row">
+    <div class="col col-sm-3 col-md-2 col-lg-3 hidden-xs">
+      <h4 class="margin-5 font-weight-200">Collections</h4>
+      <hr>
+      <ee-collection-nav
+        collections="collection.ee.Collections.nav.alphabetical"
+        class="nav nav-pills nav-stacked nav-compact">
+      </ee-collection-nav>
+      <br>
+    </div>
+
+    <div class="col col-sm-9 col-md-10 col-lg-9 position-inherit">
+      <h4 class="margin-5 font-weight-200">{{ collection.data.collection.title }}</h4>
+      <hr>
+
+      <div ng-if="collection.data.storeProducts.length > 0" class="text-center">
+        <div class="margin-10">
+          <pagination ng-if="collection.data.count > collection.data.perPage"
+            total-items="collection.data.count"
+            items-per-page="collection.data.perPage"
+            ng-model="collection.data.page"
+            max-size="5"
+            class="pagination-sm margin-0 vertical-align-top"
+            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+            boundary-links="true"
+            rotate="false"
+            ng-change="collection.update()">
+          </pagination>
+        </div>
+
+        <div class="full-width text-center vert-20 overflow-hidden">
+          <div ng-repeat="storeProduct in collection.data.storeProducts" class="product-container text-left inline-block width-250 vertical-align-top">
+            <ee-storeproduct-for-storefront storeproduct="storeProduct"></ee-storeproduct-for-storefront>
+            <br>
+          </div>
+        </div>
+
+        <div class="pad-20 vert-20">
+          <pagination ng-if="collection.data.count > collection.data.perPage"
+            total-items="collection.data.count"
+            items-per-page="collection.data.perPage"
+            ng-model="collection.data.page"
+            max-size="5"
+            class="pagination-sm margin-0 vertical-align-top"
+            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+            boundary-links="true"
+            rotate="false"
+            ng-change="collection.update()">
+          </pagination>
+        </div>
+      </div>
+
+      <div ng-if="collection.data.storeProducts.length <= 0">
+        <h4 class="margin-5 font-weight-200">This collection is coming soon</h4>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<ee-loading loading="collection.data.reading"></ee-loading>

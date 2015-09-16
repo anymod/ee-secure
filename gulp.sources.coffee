@@ -6,20 +6,20 @@ toJs      = (arr) -> _.map arr, (str) -> str.replace('.coffee', '.js').replace('
 unmin     = (arr) ->
   _.map arr, (str) -> str.replace('dist/angulartics', 'src/angulartics').replace('.min.js', '.js')
 
-sources.storeJs = () ->
-  [].concat stripSrc(unmin(sources.storeVendorMin))
-    .concat stripSrc(sources.storeVendorUnmin)
+sources.checkoutJs = () ->
+  [].concat stripSrc(unmin(sources.checkoutVendorMin))
+    .concat stripSrc(sources.checkoutVendorUnmin)
     .concat toJs(sources.appModule)
-    .concat toJs(sources.storeModule)
-    .concat toJs(sources.storeDirective)
+    .concat toJs(sources.checkoutModule)
+    .concat toJs(sources.checkoutDirective)
 
-sources.storeModules = () ->
+sources.checkoutModules = () ->
   [].concat sources.appModule
-    .concat sources.storeModule
-    .concat sources.storeDirective
+    .concat sources.checkoutModule
+    .concat sources.checkoutDirective
 
 ### VENDOR ###
-sources.storeVendorMin = [
+sources.checkoutVendorMin = [
   './src/bower_components/angular/angular.min.js'
   # './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
@@ -29,7 +29,7 @@ sources.storeVendorMin = [
   './src/bower_components/angulartics/dist/angulartics.min.js'
   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
 ]
-sources.storeVendorUnmin = []
+sources.checkoutVendorUnmin = []
 
 ### MODULE ###
 sources.appModule = [
@@ -46,25 +46,25 @@ sources.appModule = [
 ]
 sources.checkoutModule = [
   # Definitions
-  # './src/store/store.index.coffee'
-  # './src/store/core/core.module.coffee'
-  # './src/store/core/run.coffee'
-  # './src/store/core/store.config.coffee'
-  # './src/store/core/core.route.coffee'
+  # './src/checkout/checkout.index.coffee'
+  # './src/checkout/core/core.module.coffee'
+  # './src/checkout/core/run.coffee'
+  # './src/checkout/core/checkout.config.coffee'
+  # './src/checkout/core/core.route.coffee'
   # Services
-  # './src/store/core/svc.back.coffee'
-  # './src/store/core/svc.cart.coffee'
-  # './src/store/core/svc.modal.coffee'
-  # Module - store
-  # './src/store/store.controller.coffee'
+  # './src/checkout/core/svc.back.coffee'
+  # './src/checkout/core/svc.cart.coffee'
+  # './src/checkout/core/svc.modal.coffee'
+  # Module - checkout
+  # './src/checkout/checkout.controller.coffee'
   # Module - collection
-  # './src/store/collection.controller.coffee'
-  # Module - storeproduct
-  # './src/store/storeproduct.controller.coffee'
+  # './src/checkout/collection.controller.coffee'
+  # Module - checkoutproduct
+  # './src/checkout/storeproduct.controller.coffee'
   # Module - cart
-  # './src/store/cart.controller.coffee'
+  # './src/checkout/cart.controller.coffee'
   # Module - modal
-  # './src/store/modal/modal.controller.coffee'
+  # './src/checkout/modal/modal.controller.coffee'
 ]
 
 ### DIRECTIVES ###

@@ -1,0 +1,14 @@
+<div>
+  <img ng-src="{{ mainImage | mainImg }}" class="full-width" name="mainImage">
+  <!-- images -->
+  <div ng-show="product.additional_images.length > 0" class="vert-5">
+    <img ng-src="{{ product.image | thumbnail }}"
+         class="inline-block width-62 gray-border hover-pointer margin-2"
+         ng-click="setMainImage(product.image)" />
+    <img ng-repeat="image in product.additional_images"
+         ng-src="{{ image | thumbnail }}"
+         class="inline-block width-62 gray-border hover-pointer margin-2"
+         ng-click="setMainImage(image)" />
+  </div>
+  <!-- /images -->
+</div>
