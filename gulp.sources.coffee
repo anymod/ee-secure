@@ -29,7 +29,9 @@ sources.checkoutVendorMin = [
   './src/bower_components/angulartics/dist/angulartics.min.js'
   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
 ]
-sources.checkoutVendorUnmin = []
+sources.checkoutVendorUnmin = [
+  './src/bower_components/stripe-angular/stripe-angular.js'
+]
 
 ### MODULE ###
 sources.appModule = [

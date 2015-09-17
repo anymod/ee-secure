@@ -8,11 +8,11 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
       url: '/checkout'
       views:
         header:
-          controller: 'checkoutCtrl as checkout'
+          # controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.header.html'
-        # top:
-        #   controller: 'checkoutCtrl as checkout'
-        #   templateUrl: 'ee-shared/checkout/checkout.carousel.html'
+        top:
+          controller: 'checkoutCtrl as checkout'
+          templateUrl: 'checkout/checkout.form.html'
       data:
         pageTitle:        'Checkout'
         padTop:           '51px'

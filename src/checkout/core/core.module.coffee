@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module 'checkout.core', []
+angular.module 'checkout.core', ['stripe']

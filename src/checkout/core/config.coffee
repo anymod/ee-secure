@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
+angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
   $locationProvider.html5Mode true
 
   ## Configure CORS
@@ -12,5 +12,7 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
   # $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest"
 
   $urlRouterProvider.otherwise '/'
+
+  Stripe.setPublishableKey('pk_test_6TGDcu0pCA5zH6JkqLVeVHUZ')
 
   return
