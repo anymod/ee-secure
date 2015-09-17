@@ -17,6 +17,7 @@ angular.module 'eeCheckout', [
 
   # custom
   'ee-storefront-header'
+
   # 'ee-collection-nav'
   # 'ee-storeproduct-for-storefront'
   # 'ee-storeproduct-card'

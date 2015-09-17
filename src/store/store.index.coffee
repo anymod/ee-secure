@@ -5,7 +5,6 @@ angular.module 'eeStore', [
   'ui.router'
   'ui.bootstrap'
   'ngCookies'
-  # 'ngSanitize'
   'angulartics'
   'angulartics.google.analytics'
 

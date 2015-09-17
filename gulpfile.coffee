@@ -109,7 +109,7 @@ copyToDist = (url) ->
     .pipe gp.replace /@@eeBackUrl/g, url
     .pipe gulp.dest distPath
 
-  console.log "HERE A"
+  return
 
 
 gulp.task 'js-dev',   () -> copyToDist 'http://localhost:7000'

@@ -21,7 +21,7 @@ sources.checkoutModules = () ->
 ### VENDOR ###
 sources.checkoutVendorMin = [
   './src/bower_components/angular/angular.min.js'
-  # './src/bower_components/angular-sanitize/angular-sanitize.min.js'
+  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
@@ -37,30 +37,27 @@ sources.appModule = [
   './src/ee-shared/core/core.module.coffee'
   './src/ee-shared/core/constants.coffee'
   './src/ee-shared/core/filters.coffee'
-  './src/ee-shared/core/config.coffee'
+  # './src/ee-shared/core/config.coffee'
   './src/ee-shared/core/run.coffee'
   # Services
-  # './src/ee-shared/core/svc.selections.coffee'
-  # './src/ee-shared/core/svc.collections.coffee'
   './src/ee-shared/core/svc.modal.coffee'
 ]
 sources.checkoutModule = [
   # Definitions
-  # './src/checkout/checkout.index.coffee'
-  # './src/checkout/core/core.module.coffee'
-  # './src/checkout/core/run.coffee'
+  './src/checkout/core/config.coffee'
+  './src/checkout/checkout.index.coffee'
+  './src/checkout/core/core.module.coffee'
+  './src/checkout/core/run.coffee'
   # './src/checkout/core/checkout.config.coffee'
-  # './src/checkout/core/core.route.coffee'
+  './src/checkout/core/core.route.coffee'
   # Services
   # './src/checkout/core/svc.back.coffee'
   # './src/checkout/core/svc.cart.coffee'
   # './src/checkout/core/svc.modal.coffee'
   # Module - checkout
-  # './src/checkout/checkout.controller.coffee'
+  './src/checkout/checkout.controller.coffee'
   # Module - collection
   # './src/checkout/collection.controller.coffee'
-  # Module - checkoutproduct
-  # './src/checkout/storeproduct.controller.coffee'
   # Module - cart
   # './src/checkout/cart.controller.coffee'
   # Module - modal
@@ -73,7 +70,7 @@ sources.checkoutDirective = [
   # './src/ee-shared/components/ee-storeproduct-for-storefront.coffee'
   # './src/ee-shared/components/ee-storeproduct-card.coffee'
   # './src/ee-shared/components/ee-collection-nav.coffee'
-  # './src/ee-shared/components/ee-storefront-header.coffee'
+  './src/ee-shared/components/ee-storefront-header.coffee'
   # './src/ee-shared/components/ee-scroll-to-top.coffee'
   # './src/ee-shared/components/ee-product-images.coffee'
 ]

@@ -16,7 +16,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'src/bower_components/angular/angular.min.js',
-      'src/bower_components/angular-sanitize/angular-sanitize.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'src/bower_components/angular-cookies/angular-cookies.min.js',
       'src/bower_components/angular-bootstrap/ui-bootstrap.min.js',

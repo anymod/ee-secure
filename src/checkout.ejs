@@ -29,6 +29,7 @@
 </head>
 
 <body id="body-top" style="padding-top: 74px;" ng-mouseleave="mouseleave()">
+  FOOBAR 4
   <% if (!!bootstrap.title) { %>
     <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;"><%= bootstrap.title %></h1>
   <% } %>
@@ -42,6 +43,7 @@
   <!-- Do not edit inside of build block; it is auto-generated -->
   <!-- build:js -->
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -51,9 +53,15 @@
   <script src="js/ee-shared/core/core.module.js"></script>
   <script src="js/ee-shared/core/constants.js"></script>
   <script src="js/ee-shared/core/filters.js"></script>
-  <script src="js/ee-shared/core/config.js"></script>
   <script src="js/ee-shared/core/run.js"></script>
   <script src="js/ee-shared/core/svc.modal.js"></script>
+  <script src="js/checkout/core/config.js"></script>
+  <script src="js/checkout/checkout.index.js"></script>
+  <script src="js/checkout/core/core.module.js"></script>
+  <script src="js/checkout/core/run.js"></script>
+  <script src="js/checkout/core/core.route.js"></script>
+  <script src="js/checkout/checkout.controller.js"></script>
+  <script src="js/ee-shared/components/ee-storefront-header.js"></script>
   <!-- endbuild -->
 
 </body>

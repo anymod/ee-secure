@@ -28,6 +28,7 @@ app.use serveStatic(path.join __dirname, 'dist')
 # HOME
 app.get '/', (req, res, next) ->
   bootstrap = { foo: 'bar' }
+  bootstrap.stringified = helpers.stringify bootstrap
   # res.render 'checkout.ejs', { bootstrap: bootstrap }
   res.send 'Works'
   # .catch (err) ->
@@ -37,8 +38,9 @@ app.get '/', (req, res, next) ->
 # COLLECTIONS
 app.get '/:token', (req, res, next) ->
   bootstrap = { foo: 'bar' }
-  res.send req.params.token
-  # res.render 'checkout.ejs', { bootstrap: bootstrap }
+  # res.send req.params.token
+  bootstrap.stringified = helpers.stringify bootstrap
+  res.render 'checkout.ejs', { bootstrap: bootstrap }
   # .catch (err) ->
   #   console.error 'error in COLLECTIONS', err
   #   res.send 'Not found'
