@@ -37,6 +37,7 @@ sources.appModule = [
   './src/ee-shared/core/core.module.coffee'
   './src/ee-shared/core/constants.coffee'
   './src/ee-shared/core/filters.coffee'
+  # './src/checkout/core/config.coffee'
   # './src/ee-shared/core/config.coffee'
   './src/ee-shared/core/run.coffee'
   # Services
@@ -44,15 +45,14 @@ sources.appModule = [
 ]
 sources.checkoutModule = [
   # Definitions
-  './src/checkout/core/config.coffee'
   './src/checkout/checkout.index.coffee'
   './src/checkout/core/core.module.coffee'
   './src/checkout/core/run.coffee'
-  # './src/checkout/core/checkout.config.coffee'
+  './src/checkout/core/config.coffee'
   './src/checkout/core/core.route.coffee'
   # Services
   # './src/checkout/core/svc.back.coffee'
-  # './src/checkout/core/svc.cart.coffee'
+  './src/checkout/core/svc.cart.coffee'
   # './src/checkout/core/svc.modal.coffee'
   # Module - checkout
   './src/checkout/checkout.controller.coffee'
@@ -66,13 +66,7 @@ sources.checkoutModule = [
 
 ### DIRECTIVES ###
 sources.checkoutDirective = [
-  # './src/ee-shared/components/ee-button-add-to-cart.coffee'
-  # './src/ee-shared/components/ee-storeproduct-for-storefront.coffee'
-  # './src/ee-shared/components/ee-storeproduct-card.coffee'
-  # './src/ee-shared/components/ee-collection-nav.coffee'
   './src/ee-shared/components/ee-storefront-header.coffee'
-  # './src/ee-shared/components/ee-scroll-to-top.coffee'
-  # './src/ee-shared/components/ee-product-images.coffee'
 ]
 
 module.exports = sources

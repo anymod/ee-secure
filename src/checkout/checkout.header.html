@@ -1,6 +1,21 @@
 <!-- STORE navbar -->
 <ee-storefront-header
   class="navbar-fixed-top"
-  meta="checkout.data.storefront_meta">
+  meta="storefront.data.storefront_meta">
 </ee-storefront-header>
 <!-- /STORE navbar -->
+
+<br><br><br><br>
+
+Stripe:
+<form action="/charge" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js"
+    class="stripe-button"
+    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+    data-image="/square-image.png"
+    data-name="Demo Site"
+    data-description="2 widgets ($20.00)"
+    data-amount="2000">
+  </script>
+</form>

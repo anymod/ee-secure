@@ -5,7 +5,7 @@ angular.module 'eeCheckout', [
   'ui.router'
   'ui.bootstrap'
   'ngCookies'
-  # 'ngSanitize'
+  'ngSanitize'
   'angulartics'
   'angulartics.google.analytics'
 
@@ -17,10 +17,5 @@ angular.module 'eeCheckout', [
 
   # custom
   'ee-storefront-header'
-
-  # 'ee-collection-nav'
-  # 'ee-storeproduct-for-storefront'
-  # 'ee-storeproduct-card'
-  # 'ee-product-images'
   # 'ee.templates' # commented out during build step for inline templates
 ]
