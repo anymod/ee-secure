@@ -13,15 +13,15 @@ angular.module('eeCheckout').controller 'checkoutCtrl', (stripe) ->
     .then (token) ->
       checkout.result.token = token
       card = angular.copy checkout.card
-      # payment.card = void 0
+      # checkout.card = void 0
       card.token = token.id
       console.log 'card', card
-      # return $http.post('https://yourserver.com/payments', payment);
+      # return $http.post('https://yourserver.com/payments', checkout);
     .then (payment) ->
       checkout.result.payment = payment
       console.log 'successfully submitted payment for $', payment
     .catch (err) ->
-      checkout.result.error = error
+      checkout.result.error = err
       if err.type and /^Stripe/.test(err.type)
         console.log 'Stripe error: ', err.message
       else

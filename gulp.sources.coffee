@@ -70,6 +70,7 @@ sources.checkoutModule = [
 ### DIRECTIVES ###
 sources.checkoutDirective = [
   './src/ee-shared/components/ee-storefront-header.coffee'
+  './src/ee-shared/components/ee-exp-combined.coffee'
 ]
 
 module.exports = sources
