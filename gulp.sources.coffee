@@ -30,7 +30,8 @@ sources.checkoutVendorMin = [
   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
 ]
 sources.checkoutVendorUnmin = [
-  './src/bower_components/stripe-angular/stripe-angular.js'
+  './src/bower_components/angular-stripe/release/angular-stripe.js'
+  './src/bower_components/angular-credit-cards/release/angular-credit-cards.js'
 ]
 
 ### MODULE ###
