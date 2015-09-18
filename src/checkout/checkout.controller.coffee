@@ -5,20 +5,23 @@ angular.module('eeCheckout').controller 'checkoutCtrl', (stripe) ->
   checkout = this
 
   checkout.card = {}
+  checkout.result = false
 
   checkout.charge = () ->
-    console.log 'here', checkout.card, stripe
+    checkout.result = {}
     stripe.card.createToken checkout.card
     .then (token) ->
-      console.log 'token created for card ending in ', token.card.last4
+      checkout.result.token = token
       card = angular.copy checkout.card
       # payment.card = void 0
       card.token = token.id
       console.log 'card', card
       # return $http.post('https://yourserver.com/payments', payment);
     .then (payment) ->
-      console.log 'successfully submitted payment for $', payment.amount
+      checkout.result.payment = payment
+      console.log 'successfully submitted payment for $', payment
     .catch (err) ->
+      checkout.result.error = error
       if err.type and /^Stripe/.test(err.type)
         console.log 'Stripe error: ', err.message
       else
