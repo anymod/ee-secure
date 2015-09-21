@@ -1,6 +1,10 @@
 <div class="container vert-20">
 
-  <div class="well white-background max-width-300 box-shadow margin-0-auto text-left">
+  <div class="max-width-300 margin-0-auto">
+    <a href class="btn btn-link pad-left-0 font-weight-200"><i class="fa fa-fw fa-long-arrow-left"></i>&nbsp;back to cart</a>
+  </div>
+
+  <div class="well white-background box-shadow margin-0-auto text-left" style="max-width: 320px;">
     <form name="ccForm" class="form-horizontal" ng-submit="checkout.charge()" novalidate>
 
       <!-- CHECKOUT email -->
@@ -16,9 +20,98 @@
       </div>
       <!-- /CHECKOUT email -->
 
-      <!-- CHECKOUT card number -->
+      <!-- CHECKOUT ShipTo -->
+      <div class="form-group vert-20 margin-top-0">
+        <div class="col-sm-12 vert-5 margin-top-0">
+          <h5 class="margin-0">Ship To</h5>
+        </div>
+        <div class="col-sm-12 checkout-group">
+          <div class="input-group input-group-plain">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw text-muted"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.shipTo.name"
+              placeholder="Name" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 70%;">
+            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.shipTo.address_1"
+              placeholder="Street Address" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 30%;">
+            <input type="text" class="form-control" style="padding-left: 8px;"
+              ng-model="checkout.shipTo.address_2"
+              placeholder="Apt Unit" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 70%;">
+            <span class="input-group-addon"><i class="fa fa-fw"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.shipTo.city"
+              placeholder="City" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 30%;">
+            <input type="text" class="form-control" style="padding-left: 8px;"
+              ng-model="checkout.shipTo.postal_code"
+              placeholder="Zip Code" />
+          </div>
+          <div class="input-group input-group-plain">
+            <span class="input-group-addon"><i class="fa fa-fw"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.shipTo.country"
+              placeholder="USA" />
+          </div>
+        </div>
+      </div>
+      <!-- /CHECKOUT ShipTo -->
+
+      <!-- CHECKOUT BillTo -->
+      <div class="form-group vert-20 margin-top-0">
+        <div class="col-sm-12 vert-5 margin-top-0">
+          <h5 class="margin-0">Bill To</h5>
+        </div>
+        <div class="col-sm-12 checkout-group">
+          <div class="input-group input-group-plain">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw text-muted"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.billTo.name"
+              placeholder="Name" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 70%;">
+            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.billTo.address_1"
+              placeholder="Street Address" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 30%;">
+            <input type="text" class="form-control" style="padding-left: 8px;"
+              ng-model="checkout.billTo.address_2"
+              placeholder="Apt Unit" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 70%;">
+            <span class="input-group-addon"><i class="fa fa-fw"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.billTo.city"
+              placeholder="City" />
+          </div>
+          <div class="input-group input-group-plain pull-left" style="width: 30%;">
+            <input type="text" class="form-control" style="padding-left: 8px;"
+              ng-model="checkout.billTo.postal_code"
+              placeholder="Zip Code" />
+          </div>
+          <div class="input-group input-group-plain">
+            <span class="input-group-addon"><i class="fa fa-fw"></i></span>
+            <input type="text" class="form-control"
+              ng-model="checkout.billTo.country"
+              placeholder="USA" />
+          </div>
+        </div>
+      </div>
+      <!-- /CHECKOUT BillTo -->
+
+
+      <!-- CHECKOUT Card -->
       <div class="form-group vert-5">
-        <div class="col-sm-12">
+        <div class="col-sm-12 checkout-group">
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-credit-card fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
@@ -28,23 +121,15 @@
               placeholder="Card Number"
               name="ccNumber" />
           </div>
-        </div>
-      </div>
-      <!-- /CHECKOUT card number -->
-      <!-- CHECKOUT Expiration & CVC -->
-      <div class="form-group vert-5">
-        <div class="col-xs-6">
-          <div class="input-group input-group-plain">
-            <span class="input-group-addon"><i class="fa fa-calendar fa-fw text-muted"></i></span>
+          <div class="input-group input-group-plain pull-left" style="width: 50%;">
+            <span class="input-group-addon" style="border-bottom-left-radius: 5px;"><i class="fa fa-calendar fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
               ng-model="checkout.card.exp"
               ee-exp-combined
               placeholder="MM / YY" />
           </div>
-        </div>
-        <div class="col-xs-6">
-          <div class="input-group input-group-plain">
-            <span class="input-group-addon"><i class="fa fa-lock fa-fw text-muted"></i></span>
+          <div class="input-group input-group-plain pull-left" style="width: 50%;">
+            <span class="input-group-addon" style="border-bottom-left-radius: 0; border-left: none;"><i class="fa fa-lock fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
               ng-model="checkout.card.cvc"
               cc-cvc cc-type="ccForm.ccNumber.$ccType"
@@ -53,7 +138,8 @@
             </div>
         </div>
       </div>
-      <!-- /CHECKOUT Expiration & CVC -->
+      <!-- /CHECKOUT Card -->
+
       <!-- CHECKOUT Submit -->
       <div class="form-group vert-20 margin-bottom-0">
         <div class="col-sm-12">

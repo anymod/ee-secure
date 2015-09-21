@@ -36,11 +36,13 @@ app.get '/', (req, res, next) ->
   #   res.send 'Not found'
 
 # COLLECTIONS
-app.get '/:token', (req, res, next) ->
-  bootstrap = { foo: 'bar' }
+app.get '/checkout/:token', (req, res, next) ->
+  { bootstrap, host, path } = helpers.setup req
+  helpers.defineUserById 1, bootstrap
+  .then () ->
+    bootstrap.stringified = helpers.stringify bootstrap
+    res.render 'checkout.ejs', { bootstrap: bootstrap }
   # res.send req.params.token
-  bootstrap.stringified = helpers.stringify bootstrap
-  res.render 'checkout.ejs', { bootstrap: bootstrap }
   # .catch (err) ->
   #   console.error 'error in COLLECTIONS', err
   #   res.send 'Not found'

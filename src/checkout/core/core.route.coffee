@@ -5,10 +5,10 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
   $stateProvider
 
     .state 'checkout',
-      url: '/checkout'
+      url: '/checkout/:token'
       views:
         header:
-          # controller: 'checkoutCtrl as checkout'
+          controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.header.html'
         top:
           controller: 'checkoutCtrl as checkout'

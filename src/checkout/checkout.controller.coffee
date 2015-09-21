@@ -1,11 +1,13 @@
 'use strict'
 
-angular.module('eeCheckout').controller 'checkoutCtrl', (stripe) ->
+angular.module('eeCheckout').controller 'checkoutCtrl', (eeBootstrap, stripe) ->
 
   checkout = this
 
   checkout.card = {}
   checkout.result = false
+
+  checkout.meta = eeBootstrap.storefront_meta
 
   checkout.charge = () ->
     checkout.result = {}

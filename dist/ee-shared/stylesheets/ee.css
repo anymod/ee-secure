@@ -9318,6 +9318,22 @@ img.media-object {
 .input-group-plain .form-control:focus {
   border-color: #CCC;
 }
+.checkout-group .input-group:first-child .input-group-addon,
+.checkout-group .input-group:first-child input.form-control {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.checkout-group .input-group:not(:first-child):not(:last-child) .input-group-addon,
+.checkout-group .input-group:not(:first-child):not(:last-child) input.form-control {
+  border-radius: 0;
+  border-top: none;
+}
+.checkout-group .input-group:last-child .input-group-addon,
+.checkout-group .input-group:last-child input.form-control {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 .icon-bar {
   background-color: #f5f5f5;
 }

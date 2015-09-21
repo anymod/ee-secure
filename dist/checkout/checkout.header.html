@@ -1,6 +1,22 @@
-<!-- STORE navbar -->
-<ee-storefront-header
-  class="navbar-fixed-top"
-  meta="storefront.data.storefront_meta">
-</ee-storefront-header>
-<!-- /STORE navbar -->
+<!-- CHECKOUT navbar -->
+<div class="navbar-fixed-top ee-storefront-header">
+  <div class="position-relative box-shadow">
+
+    <nav id="navtop"
+         class="navbar store-navbar navbar-default navbar-rgba-colors border-none box-shadow margin-0 round-0"
+         ng-style="{ 'background-color': checkout.meta.home.topBarBackgroundColor }">
+
+      <div class="container text-center">
+        <div ui-sref="storefront"
+           class="store-title inline-block hover-pointer font-weight-200 margin-0"
+           ng-style="{ color: checkout.meta.home.topBarColor }">
+          <img ng-if="checkout.meta.logo" ng-src="{{ checkout.meta.logo }}" class="small-thumb img-circle margin-right-4" />
+          <div class="inline-block height-50" style="padding: 5px 0; font-size: 28px; vertical-align: middle;">{{ checkout.meta.home.name || 'Checkout' }}</div>
+        </div>
+      </div><!-- /.container -->
+
+    </nav>
+
+  </div>
+</div>
+<!-- /CHECKOUT navbar -->
