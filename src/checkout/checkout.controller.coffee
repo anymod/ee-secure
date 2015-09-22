@@ -7,6 +7,7 @@ angular.module('eeCheckout').controller 'checkoutCtrl', (eeBootstrap, stripe) ->
   checkout.card = {}
   checkout.result = false
 
+  checkout.cloneAddress = true
   checkout.meta = eeBootstrap.storefront_meta
 
   checkout.charge = () ->

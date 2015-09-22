@@ -7,6 +7,7 @@ constants = require './server.constants'
 f = {}
 
 f.userById = (id) -> sequelize.query 'SELECT id, username, storefront_meta, domain FROM "Users" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
+f.cartByUUID = (uuid) ->  sequelize.query 'SELECT id, uuid, seller_id, quantity_array, cumulative_price, purchased, domain FROM "Carts" WHERE uuid = ?', { type: sequelize.QueryTypes.SELECT, replacements: [uuid] }
 
 # f.storeByUsername = (username) -> sequelize.query 'SELECT id, username, storefront_meta, collections FROM "Users" WHERE username = ?', { type: sequelize.QueryTypes.SELECT, replacements: [username] }
 # f.storeByDomain   = (host) -> sequelize.query 'SELECT id, username, storefront_meta, collections FROM "Users" WHERE domain = ?', { type: sequelize.QueryTypes.SELECT, replacements: [host] }

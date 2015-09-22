@@ -20,9 +20,20 @@
       </div>
       <!-- /CHECKOUT email -->
 
+      <!-- CHECKOUT same ShipTo BillTo -->
+      <div class="form-group margin-bottom-0">
+        <div class="col-sm-12 vert-5 margin-top-0">
+          <label class="hover-pointer" style="font-weight:normal;">
+            <input type="checkbox" class="" ng-model="checkout.cloneAddress" />
+            Same billing & shipping info
+          </label>
+        </div>
+      </div>
+      <!-- /CHECKOUT same ShipTo BillTo -->
+
       <!-- CHECKOUT ShipTo -->
       <div class="form-group vert-20 margin-top-0">
-        <div class="col-sm-12 vert-5 margin-top-0">
+        <div class="col-sm-12 vert-5 margin-top-0" ng-hide="checkout.cloneAddress">
           <h5 class="margin-0">Ship To</h5>
         </div>
         <div class="col-sm-12 checkout-group">
@@ -65,7 +76,7 @@
       <!-- /CHECKOUT ShipTo -->
 
       <!-- CHECKOUT BillTo -->
-      <div class="form-group vert-20 margin-top-0">
+      <div class="form-group vert-20 margin-top-0" ng-hide="checkout.cloneAddress">
         <div class="col-sm-12 vert-5 margin-top-0">
           <h5 class="margin-0">Bill To</h5>
         </div>

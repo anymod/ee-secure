@@ -8,14 +8,18 @@ h = {}
 h.setup = (req) ->
   {
     bootstrap:
-      token: req.params.token
+      uuid: req.params.uuid
     host: req.headers.host
     path: url.parse(req.url).pathname
   }
 
-h.defineUserById = (id, bootstrap) ->
-  finders.userById id
-  .then (data) -> h.assignBootstrap bootstrap, data[0]
+h.defineCheckoutByUUID = (uuid, bootstrap) ->
+  finders.cartByUUID uuid
+  .then (data) ->
+    bootstrap.cart = data[0]
+    finders.userById data[0].seller_id
+  .then (data) ->
+    h.assignBootstrap bootstrap, data[0]
 
 # h.collectionNames = (collections) ->
 #   collections ||= {}

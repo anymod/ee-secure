@@ -36,9 +36,9 @@ app.get '/', (req, res, next) ->
   #   res.send 'Not found'
 
 # COLLECTIONS
-app.get '/checkout/:token', (req, res, next) ->
+app.get '/checkout/:uuid', (req, res, next) ->
   { bootstrap, host, path } = helpers.setup req
-  helpers.defineUserById 1, bootstrap
+  helpers.defineCheckoutByUUID req.params.uuid, bootstrap
   .then () ->
     bootstrap.stringified = helpers.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }
