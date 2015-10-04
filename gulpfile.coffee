@@ -10,6 +10,7 @@ runSequence = require 'run-sequence'
 protractor  = require('gulp-protractor').protractor
 
 sources     = require './gulp.sources'
+stripe_keys = require './config/stripe/stripe.keys.coffee'
 
 # ==========================
 # task options
@@ -60,7 +61,7 @@ gulp.task 'html-prod', () ->
 # ==========================
 # js tasks
 
-copyToSrcJs = (url) ->
+copyToSrcJs = (url, stripe_key) ->
 
   gulp.src ['./src/**/!(constants.coffee)*.coffee'] # ** glob forces dest to same subdir
     .pipe gp.plumber()
@@ -71,16 +72,14 @@ copyToSrcJs = (url) ->
 
   gulp.src ['./src/**/constants.coffee'] # ** glob forces dest to same subdir
     .pipe gp.replace /@@eeBackUrl/g, url
+    .pipe gp.replace /@@eeStripeKey/g, stripe_key
     .pipe gp.plumber()
     .pipe gp.sourcemaps.init()
     .pipe gp.coffee()
     .pipe gp.sourcemaps.write './'
     .pipe gulp.dest './src/js'
 
-gulp.task 'js-test',  () -> copyToSrcJs 'http://localhost:5555'
-# gulp.task 'js-dev',   () -> copyToSrcJs 'http://localhost:7000'
-
-copyToDist = (url) ->
+copyToDist = (url, stripe_key) ->
   # inline templates; no need for ngAnnotate
   appTemplates = gulp.src './src/ee-shared/components/ee-*.html'
     .pipe gp.htmlmin htmlminOptions
@@ -107,18 +106,15 @@ copyToDist = (url) ->
   streamqueue objectMode: true, checkoutVendorMin, checkoutCustomMin
     .pipe gp.concat 'ee.checkout.js'
     .pipe gp.replace /@@eeBackUrl/g, url
+    .pipe gp.replace /@@eeStripeKey/g, stripe_key
     .pipe gulp.dest distPath
 
   return
 
-
-gulp.task 'js-dev',   () -> copyToDist 'http://localhost:7000'
-gulp.task 'js-prod',  () -> copyToDist 'https://api.eeosk.com'
-gulp.task 'js-stage', () ->
-  gulp.src distPath + '/ee.checkout.js'
-    .pipe gp.plumber()
-    .pipe gp.replace /api\.eeosk\.com/g, 'ee-back-staging.herokuapp.com'
-    .pipe gulp.dest distPath
+gulp.task 'js-test',  () -> copyToSrcJs 'http://localhost:5555', stripe_keys.test_pk
+gulp.task 'js-dev',   () -> copyToDist  'http://localhost:5000', stripe_keys.test_pk
+gulp.task 'js-prod',  () -> copyToDist  'https://api.eeosk.com', stripe_keys.live_pk
+gulp.task 'js-stage', () -> copyToDist  'https://ee-back-staging.herokuapp.com', stripe_keys.test_pk
 
 # ==========================
 # other tasks
@@ -227,13 +223,6 @@ gulp.task 'watch-prod', () ->
 # ===========================
 # runners
 
-
-
-
 gulp.task 'dev', (cb) -> runSequence 'js-dev', 'html-dev', 'copy-prod', 'server-prod', 'watch-dev', cb
 gulp.task 'prod', (cb) -> runSequence 'js-prod', 'html-dev', 'html-prod', 'copy-prod', 'server-prod', 'watch-prod', cb
-gulp.task 'stage', (cb) -> runSequence 'js-prod', 'html-dev', 'html-prod', 'copy-prod', 'js-stage', cb
-
-# gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
-# gulp.task 'dev', ['js-dev', 'html-dev', 'copy-prod', 'watch-dev', 'server-prod'], () -> return
-# gulp.task 'prod', ['js-prod', 'html-dev', 'html-prod', 'copy-prod', 'watch-prod', 'server-prod'], () -> return
+gulp.task 'stage', (cb) -> runSequence 'js-stage', 'html-dev', 'html-prod', 'copy-prod', cb

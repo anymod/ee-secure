@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, stripeProvider) ->
+angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, stripeProvider, eeStripeKey) ->
   $locationProvider.html5Mode true
 
   ## Configure CORS
@@ -13,6 +13,6 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
 
   $urlRouterProvider.otherwise '/'
 
-  stripeProvider.setPublishableKey 'pk_test_6TGDcu0pCA5zH6JkqLVeVHUZ'
+  stripeProvider.setPublishableKey eeStripeKey
 
   return

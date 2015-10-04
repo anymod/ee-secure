@@ -22,6 +22,6 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
   link: (scope, ele, attrs) ->
     scope.ee          = eeDefiner.exports
     scope.state       = $state.current.name
-    scope.feedback    = () -> eeModal.fns.open 'feedback'
+    # scope.feedback    = () -> eeModal.fns.open 'feedback'
     scope.historyBack = () -> $window?.history?.back()
     return

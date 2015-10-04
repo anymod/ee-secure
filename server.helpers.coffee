@@ -17,15 +17,19 @@ h.defineCheckoutByUUID = (uuid, bootstrap) ->
   finders.cartByUUID uuid
   .then (data) ->
     bootstrap.cart = data[0]
+    h.assignPaths bootstrap, h.constructRoot(bootstrap.cart.domain)
     finders.userById data[0].seller_id
   .then (data) ->
     h.assignBootstrap bootstrap, data[0]
 
-# h.collectionNames = (collections) ->
-#   collections ||= {}
-#   names = ['featured']
-#   names.push name for name in Object.keys(collections)
-#   _.uniq names
+h.addCartTotals = (cart) ->
+  cart.shipping_total = 0
+  cart.taxes_total    = 0
+  cart.grand_total    = 0
+  addTotals = (quantity_elem) ->
+    cart.shipping_total += quantity_elem.shipping_price * quantity_elem.quantity
+    cart.grand_total    += quantity_elem.quantity * (quantity_elem.selling_price + quantity_elem.shipping_price)
+  addTotals quantity_elem for quantity_elem in cart.quantity_array
 
 h.assignBootstrap = (bootstrap, attrs) ->
   bootstrap.id                = attrs.id
@@ -34,6 +38,15 @@ h.assignBootstrap = (bootstrap, attrs) ->
   bootstrap.title             = attrs.storefront_meta?.home?.name
   bootstrap.site_name         = attrs.storefront_meta?.home?.name
   bootstrap
+
+h.assignPaths = (bootstrap, root) ->
+  bootstrap.root_path = root
+  bootstrap.cart_path = root + '/cart'
+
+h.constructRoot = (domain) ->
+  return unless domain
+  parsed = url.parse(domain)
+  '' + parsed.protocol + '//' + parsed.host
 
 h.stringify = (obj) ->
   JSON.stringify(obj)

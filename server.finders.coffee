@@ -9,6 +9,20 @@ f = {}
 f.userById = (id) -> sequelize.query 'SELECT id, username, storefront_meta, domain FROM "Users" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
 f.cartByUUID = (uuid) ->  sequelize.query 'SELECT id, uuid, seller_id, quantity_array, cumulative_price, purchased, domain FROM "Carts" WHERE uuid = ?', { type: sequelize.QueryTypes.SELECT, replacements: [uuid] }
 
+# f.detailsByCart = (cart) ->
+#   if !cart or !cart.seller_id or !cart.quantity_array or cart.quantity_array.length < 1 then return new Promise (resolve, reject) -> resolve []
+#   scope = {}
+#   id_string = _.pluck(cart.quantity_array, 'id').join(',')
+#   sequelize.query 'SELECT id, product_id, title, selling_price, regular_price FROM "StoreProducts" WHERE id in (' + id_string + ') AND seller_id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [cart.seller_id] }
+#   .then (data) ->
+#     scope.storeProducts = data
+#     id_string = _.pluck(data, 'product_id').join(',')
+#     sequelize.query 'SELECT id, shipping_price FROM "Products" WHERE id in (' + id_string + ')', { type: sequelize.QueryTypes.SELECT }
+#   .then (data) ->
+#     scope.products = data
+#     scope
+
+
 # f.storeByUsername = (username) -> sequelize.query 'SELECT id, username, storefront_meta, collections FROM "Users" WHERE username = ?', { type: sequelize.QueryTypes.SELECT, replacements: [username] }
 # f.storeByDomain   = (host) -> sequelize.query 'SELECT id, username, storefront_meta, collections FROM "Users" WHERE domain = ?', { type: sequelize.QueryTypes.SELECT, replacements: [host] }
 #

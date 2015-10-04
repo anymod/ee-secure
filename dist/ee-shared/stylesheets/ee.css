@@ -9016,7 +9016,7 @@ html {
   border-bottom-right-radius: 5px !important;
 }
 .border-none {
-  border: none;
+  border: none !important;
 }
 .no-side-border {
   border-left: none;

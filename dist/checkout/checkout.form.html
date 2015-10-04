@@ -1,7 +1,9 @@
 <div class="container vert-20">
 
   <div class="max-width-300 margin-0-auto">
-    <a href class="btn btn-link pad-left-0 font-weight-200"><i class="fa fa-fw fa-long-arrow-left"></i>&nbsp;back to cart</a>
+    <a href="{{ checkout.ee.cart_path }}" class="btn btn-link pad-left-0 font-weight-200">
+      <i class="fa fa-fw fa-long-arrow-left"></i>&nbsp;back to cart
+    </a>
   </div>
 
   <div class="well white-background box-shadow margin-0-auto text-left" style="max-width: 320px;">
@@ -151,10 +153,35 @@
       </div>
       <!-- /CHECKOUT Card -->
 
+      <!-- CHECKOUT Order Details -->
+      <table class="table vert-20 margin-bottom-0">
+        <tr ng-repeat="product in checkout.ee.cart.quantity_array">
+          <td class="border-none pad-0"><small ng-bind="product.title"></small></td>
+          <td class="border-none pad-0"><small class="text-muted" style="padding: 0 10px;">x{{ product.quantity }}</small></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="(product.selling_price * product.quantity) | centToDollar"></small></td>
+        </tr>
+        <tr>
+          <td class="border-none pad-0"><small>Taxes</small></td>
+          <td class="border-none pad-0"></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="checkout.ee.cart.taxes_total | centToDollar"></small></td>
+        </tr>
+        <tr>
+          <td class="border-none pad-0"><small>Shipping</small></td>
+          <td class="border-none pad-0"></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="checkout.ee.cart.shipping_total | centToDollar"></small></td>
+        </tr>
+        <tr>
+          <td style="padding: 3px 0 0;"><small>Total</small></td>
+          <td style="padding: 3px 0 0;"></td>
+          <td style="padding: 3px 0 0;" class="text-right"><small ng-bind="checkout.ee.cart.grand_total | centToDollar"></small></td>
+        </tr>
+      </table>
+      <!-- /CHECKOUT Order Details -->
+
       <!-- CHECKOUT Submit -->
       <div class="form-group vert-20 margin-bottom-0">
         <div class="col-sm-12">
-          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="ccForm.$invalid || ccForm.$error.ccExp">Send</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="ccForm.$invalid || ccForm.$error.ccExp">Pay {{ checkout.ee.cart.grand_total | centToDollar }}</button>
         </div>
       </div>
       <!-- /CHECKOUT Submit -->
@@ -162,6 +189,16 @@
   </div>
 
   <pre ng-show="checkout.result" ng-bind="checkout.result | json" class="vert-20"></pre>
+
+  <div class="max-width-300 margin-0-auto text-center">
+    <div class="vert-10 full-width text-center">
+      <img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-visa.png" alt="Visa">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-mastercard.png" alt="Mastercard">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-amex.png" alt="American Express">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-discover.png" alt="Discover">
+      <br>
+      <a href="https://stripe.com/help/security" target="_blank">
+        <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_110/v1443754393/stripe_badge.png" class="vert-50 margin-bottom-0"/>
+      </a>
+    </div>
+  </div>
 
 </div>
 

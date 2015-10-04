@@ -30,7 +30,7 @@ app.get '/', (req, res, next) ->
   bootstrap = { foo: 'bar' }
   bootstrap.stringified = helpers.stringify bootstrap
   # res.render 'checkout.ejs', { bootstrap: bootstrap }
-  res.send 'Works'
+  res.send 'Hi!'
   # .catch (err) ->
   #   console.error 'error in HOME', err
   #   res.send 'Not found'
@@ -39,6 +39,7 @@ app.get '/', (req, res, next) ->
 app.get '/checkout/:uuid', (req, res, next) ->
   { bootstrap, host, path } = helpers.setup req
   helpers.defineCheckoutByUUID req.params.uuid, bootstrap
+  .then () -> helpers.addCartTotals bootstrap.cart
   .then () ->
     bootstrap.stringified = helpers.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }
