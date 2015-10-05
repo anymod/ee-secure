@@ -54,7 +54,7 @@ sources.checkoutModule = [
   './src/checkout/core/config.coffee'
   './src/checkout/core/core.route.coffee'
   # Services
-  # './src/checkout/core/svc.back.coffee'
+  './src/checkout/core/svc.back.coffee'
   './src/checkout/core/svc.cart.coffee'
   # './src/checkout/core/svc.modal.coffee'
   # Module - checkout

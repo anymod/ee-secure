@@ -5,7 +5,7 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
   $stateProvider
 
     .state 'checkout',
-      url: '/checkout/:token'
+      url: '/checkout/:uuid'
       views:
         header:
           controller: 'checkoutCtrl as checkout'

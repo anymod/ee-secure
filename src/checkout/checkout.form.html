@@ -22,7 +22,7 @@
       </div>
       <!-- /CHECKOUT email -->
 
-      <!-- CHECKOUT same ShipTo BillTo -->
+      <!-- CHECKOUT same shipping billing -->
       <div class="form-group margin-bottom-0">
         <div class="col-sm-12 vert-5 margin-top-0">
           <label class="hover-pointer" style="font-weight:normal;">
@@ -31,9 +31,9 @@
           </label>
         </div>
       </div>
-      <!-- /CHECKOUT same ShipTo BillTo -->
+      <!-- /CHECKOUT same shipping billing -->
 
-      <!-- CHECKOUT ShipTo -->
+      <!-- CHECKOUT shipping -->
       <div class="form-group vert-20 margin-top-0">
         <div class="col-sm-12 vert-5 margin-top-0" ng-hide="checkout.cloneAddress">
           <h5 class="margin-0">Ship To</h5>
@@ -42,42 +42,42 @@
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-user fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.shipTo.name"
+              ng-model="checkout.shipping.name"
               placeholder="Name" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.shipTo.address_1"
+              ng-model="checkout.shipping.address_line1"
               placeholder="Street Address" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
-              ng-model="checkout.shipTo.address_2"
+              ng-model="checkout.shipping.address_line2"
               placeholder="Apt Unit" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.shipTo.city"
+              ng-model="checkout.shipping.address_city"
               placeholder="City" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
-              ng-model="checkout.shipTo.postal_code"
+              ng-model="checkout.shipping.address_zip"
               placeholder="Zip Code" />
           </div>
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.shipTo.country"
-              placeholder="USA" />
+              ng-model="checkout.shipping.address_country"
+              placeholder="USA" disabled/>
           </div>
         </div>
       </div>
-      <!-- /CHECKOUT ShipTo -->
+      <!-- /CHECKOUT shipping -->
 
-      <!-- CHECKOUT BillTo -->
+      <!-- CHECKOUT billing -->
       <div class="form-group vert-20 margin-top-0" ng-hide="checkout.cloneAddress">
         <div class="col-sm-12 vert-5 margin-top-0">
           <h5 class="margin-0">Bill To</h5>
@@ -86,40 +86,40 @@
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-user fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.billTo.name"
+              ng-model="checkout.card.name"
               placeholder="Name" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.billTo.address_1"
+              ng-model="checkout.card.address_line1"
               placeholder="Street Address" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
-              ng-model="checkout.billTo.address_2"
+              ng-model="checkout.card.address_line2"
               placeholder="Apt Unit" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.billTo.city"
+              ng-model="checkout.cart.address_city"
               placeholder="City" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
-              ng-model="checkout.billTo.postal_code"
+              ng-model="checkout.card.address_zip"
               placeholder="Zip Code" />
           </div>
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.billTo.country"
+              ng-model="checkout.card.address_country"
               placeholder="USA" />
           </div>
         </div>
       </div>
-      <!-- /CHECKOUT BillTo -->
+      <!-- /CHECKOUT billing -->
 
 
       <!-- CHECKOUT Card -->
