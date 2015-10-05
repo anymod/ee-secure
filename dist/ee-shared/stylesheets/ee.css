@@ -9334,6 +9334,9 @@ img.media-object {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.input-group-addon[disabled] {
+  background-color: #eeeeee;
+}
 .icon-bar {
   background-color: #f5f5f5;
 }

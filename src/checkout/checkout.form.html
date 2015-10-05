@@ -15,7 +15,7 @@
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
-              ng-model="checkout.card.email"
+              ng-model="checkout.email"
               placeholder="Email" />
           </div>
         </div>
@@ -68,10 +68,10 @@
               placeholder="Zip Code" />
           </div>
           <div class="input-group input-group-plain">
-            <span class="input-group-addon"><i class="fa fa-fw"></i></span>
+            <span class="input-group-addon" disabled><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
               ng-model="checkout.shipping.address_country"
-              placeholder="USA" disabled/>
+              placeholder="Country" disabled/>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
               ng-model="checkout.card.address_country"
-              placeholder="USA" />
+              placeholder="Country" />
           </div>
         </div>
       </div>

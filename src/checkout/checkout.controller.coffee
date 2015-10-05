@@ -14,6 +14,10 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($stateParams, stripe, e
   checkout.cloneAddress = true
 
   checkout.shipping =
+    name: 'Foobar Baz Jr'
+    address_line1: ('' + Math.random()).slice(-3) + ' Main Street'
+    address_city: 'Menlo Park'
+    address_zip: '94040'
     address_country: 'USA'
 
   checkout.ee   = eeBootstrap
@@ -33,7 +37,7 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($stateParams, stripe, e
     stripe.card.createToken checkout.card
     .then (token) ->
       console.log 'token', checkout.cart_uuid, token, checkout.shipping
-      eeBack.orderPOST checkout.cart_uuid, token, checkout.shipping
+      eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
     .then (order) ->
       checkout.result.order = order
       console.log 'successfully submitted order', order
