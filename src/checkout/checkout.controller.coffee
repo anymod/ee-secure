@@ -55,10 +55,10 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
     formCheckoutCard()
     if validateForm()
       checkout.processing = true
-      checkout.result = {}
       stripe.card.createToken checkout.card
       .then (token) -> eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
-      .then (order) -> checkout.result.order = order
+      .then (order) ->
+        $state.go 'success', { identifier: order.identifier }
       .catch (err) -> checkout.alert = if err and err.message then err.message else 'Problem sending payment'
       .finally () -> checkout.processing = false
 
