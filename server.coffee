@@ -35,7 +35,7 @@ app.get '/', (req, res, next) ->
   #   console.error 'error in HOME', err
   #   res.send 'Not found'
 
-# COLLECTIONS
+# CHECKOUT
 app.get '/checkout/:uuid', (req, res, next) ->
   { bootstrap, host, path } = helpers.setup req
   helpers.defineCheckoutByUUID req.params.uuid, bootstrap
@@ -43,10 +43,20 @@ app.get '/checkout/:uuid', (req, res, next) ->
   .then () ->
     bootstrap.stringified = helpers.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }
-  # res.send req.params.token
-  # .catch (err) ->
-  #   console.error 'error in COLLECTIONS', err
-  #   res.send 'Not found'
+  .catch (err) ->
+    console.error 'error in CHECKOUT', err
+    res.send 'Not found'
+
+# SUCCESS
+app.get '/success/:identifier', (req, res, next) ->
+  { bootstrap, host, path } = helpers.setup req
+  helpers.defineSuccessByIdentifier req.params.identifier, bootstrap
+  .then () ->
+    bootstrap.stringified = helpers.stringify bootstrap
+    res.render 'checkout.ejs', { bootstrap: bootstrap }
+  .catch (err) ->
+    console.error 'error in SUCCESS', err
+    res.send 'Not found'
 
 app.listen process.env.PORT, ->
   console.log 'Checkout app listening on port ' + process.env.PORT

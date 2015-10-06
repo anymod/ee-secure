@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('eeCheckout').controller 'checkoutCtrl', ($stateParams, stripe, eeBootstrap, eeStripeKey, eeBack) ->
+angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, stripe, eeBootstrap, eeBack) ->
 
   checkout = this
 
@@ -31,21 +31,35 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($stateParams, stripe, e
     if checkout.cloneAddress
       (checkout.card[attr] = checkout.shipping[attr]) for attr in ['name', 'address_line1', 'address_line2', 'address_city', 'address_state', 'address_zip', 'address_country']
 
+  setAlert = (message) -> checkout.alert = message
+
+  validateForm = () ->
+    setAlert null
+    if !checkout.email then setAlert                    'Please enter an email';               return false
+    if !checkout.shipping.name then setAlert            'Please enter a name in Ship To';      return false
+    if !checkout.shipping.address_line1 then setAlert   'Please enter a shipping address';     return false
+    if !checkout.shipping.address_city then setAlert    'Please enter a shipping city';        return false
+    if !checkout.shipping.address_zip then setAlert     'Please enter a shipping zip code';    return false
+    if !checkout.shipping.address_country then setAlert 'Please enter a shipping country';     return false
+    if !checkout.card.name then setAlert                'Please enter a name in Bill To';      return false
+    if !checkout.card.address_line1 then setAlert       'Please enter a billing address';      return false
+    if !checkout.card.address_city then setAlert        'Please enter a billing city';         return false
+    if !checkout.card.address_zip then setAlert         'Please enter a billing zip code';     return false
+    if !checkout.card.address_country then setAlert     'Please enter a billing country';      return false
+    if !checkout.card.number then setAlert              'Please enter a card number';          return false
+    if !checkout.card.exp then setAlert                 'Please enter a card expiration date'; return false
+    if !checkout.card.cvc then setAlert                 'Please enter a card CVC';             return false
+    !checkout.alert
+
   checkout.charge = () ->
-    checkout.result = {}
     formCheckoutCard()
-    stripe.card.createToken checkout.card
-    .then (token) ->
-      console.log 'token', checkout.cart_uuid, token, checkout.shipping
-      eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
-    .then (order) ->
-      checkout.result.order = order
-      console.log 'successfully submitted order', order
-    .catch (err) ->
-      checkout.result.error = err
-      if err and err.type and /^Stripe/.test(err.type)
-        console.log 'Stripe error: ', err.message
-      else
-        console.log 'Other error occurred, possibly with your API', err.message
+    if validateForm()
+      checkout.processing = true
+      checkout.result = {}
+      stripe.card.createToken checkout.card
+      .then (token) -> eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
+      .then (order) -> checkout.result.order = order
+      .catch (err) -> checkout.alert = if err and err.message then err.message else 'Problem sending payment'
+      .finally () -> checkout.processing = false
 
   return

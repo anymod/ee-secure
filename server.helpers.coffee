@@ -22,6 +22,17 @@ h.defineCheckoutByUUID = (uuid, bootstrap) ->
   .then (data) ->
     h.assignBootstrap bootstrap, data[0]
 
+h.defineSuccessByIdentifier = (identifier, bootstrap) ->
+  finders.orderByIdentifier identifier
+  .then (data) ->
+    order = data[0]
+    h.assignPaths bootstrap, h.constructRoot(order.domain)
+    bootstrap.identifier = identifier
+    console.log bootstrap
+    finders.userById data[0].seller_id
+  .then (data) ->
+    h.assignBootstrap bootstrap, data[0]
+
 h.addCartTotals = (cart) ->
   cart.shipping_total = 0
   cart.taxes_total    = 0
