@@ -62,9 +62,11 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
       checkout.processing = true
       stripe.card.createToken checkout.card
       .then (token) -> eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
-      .then (order) ->
-        $state.go 'order', { order_uuid: order.uuid }
-      .catch (err) -> checkout.alert = if err and err.message then err.message else 'Problem sending payment'
+      .then (order) -> $state.go 'order', { order_uuid: order.uuid }
+      .catch (err) ->
+        checkout.alert = if err and err.message then err.message else 'Problem sending payment'
+        if typeof checkout.alert is 'object' then checkout.alert = 'Problem sending payment'
+        if checkout.alert is 'transition prevented' then checkout.alert = null
       .finally () -> checkout.processing = false
 
   return
