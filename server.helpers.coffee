@@ -22,13 +22,19 @@ h.defineCheckoutByUUID = (uuid, bootstrap) ->
   .then (data) ->
     h.assignBootstrap bootstrap, data[0]
 
-h.defineSuccessByIdentifier = (identifier, bootstrap) ->
-  finders.orderByIdentifier identifier
+h.defineOrderByUUID = (uuid, bootstrap) ->
+  finders.orderByUUID uuid
   .then (data) ->
     order = data[0]
     h.assignPaths bootstrap, h.constructRoot(order.domain)
-    bootstrap.identifier = identifier
-    console.log bootstrap
+    bootstrap.order =
+      identifier:   order.identifier
+      domain:       order.domain
+      created_at:   order.created_at
+      charged_at:   order.charged_at
+      shipped_at:   order.shipped_at
+    isInitial = (order.created_at - 0) > (Date.now() - 120000) # 2 minutes
+    if isInitial then bootstrap.order.email = order.email
     finders.userById data[0].seller_id
   .then (data) ->
     h.assignBootstrap bootstrap, data[0]

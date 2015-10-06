@@ -8,8 +8,7 @@ f = {}
 
 f.userById = (id) -> sequelize.query 'SELECT id, username, storefront_meta, domain FROM "Users" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
 f.cartByUUID = (uuid) ->  sequelize.query 'SELECT id, uuid, seller_id, quantity_array, cumulative_price, purchased, domain FROM "Carts" WHERE uuid = ?', { type: sequelize.QueryTypes.SELECT, replacements: [uuid] }
-
-f.orderByIdentifier = (identifier) -> sequelize.query 'SELECT id, seller_id, domain FROM "Orders" WHERE identifier = ?', { type: sequelize.QueryTypes.SELECT, replacements: [identifier] }
+f.orderByUUID = (uuid) -> sequelize.query 'SELECT id, seller_id, identifier, domain, email, created_at, charged_at, shipped_at FROM "Orders" WHERE uuid = ?', { type: sequelize.QueryTypes.SELECT, replacements: [uuid] }
 
 # f.detailsByCart = (cart) ->
 #   if !cart or !cart.seller_id or !cart.quantity_array or cart.quantity_array.length < 1 then return new Promise (resolve, reject) -> resolve []

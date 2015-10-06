@@ -4,7 +4,8 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
 
   checkout = this
 
-  checkout.cart_uuid = $stateParams.uuid
+  checkout.cart_uuid  = $stateParams.cart_uuid
+  checkout.order_uuid = $stateParams.order_uuid
 
   checkout.card = # {}
    number: '4242424242424242'
@@ -33,23 +34,27 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
 
   setAlert = (message) -> checkout.alert = message
 
+  validationMessage = () ->
+    if !checkout.email                    then return 'Please enter an email'
+    if !checkout.shipping.name            then return 'Please enter a name in Ship To'
+    if !checkout.shipping.address_line1   then return 'Please enter a shipping address'
+    if !checkout.shipping.address_city    then return 'Please enter a shipping city'
+    if !checkout.shipping.address_zip     then return 'Please enter a shipping zip code'
+    if !checkout.shipping.address_country then return 'Please enter a shipping country'
+    if !checkout.card.name                then return 'Please enter a name in Bill To'
+    if !checkout.card.address_line1       then return 'Please enter a billing address'
+    if !checkout.card.address_city        then return 'Please enter a billing city'
+    if !checkout.card.address_zip         then return 'Please enter a billing zip code'
+    if !checkout.card.address_country     then return 'Please enter a billing country'
+    if !checkout.card.number              then return 'Please enter a card number'
+    if !checkout.card.exp                 then return 'Please enter a card expiration date'
+    if !checkout.card.cvc                 then return 'Please enter a card CVC'
+    null
+
   validateForm = () ->
-    setAlert null
-    if !checkout.email then setAlert                    'Please enter an email';               return false
-    if !checkout.shipping.name then setAlert            'Please enter a name in Ship To';      return false
-    if !checkout.shipping.address_line1 then setAlert   'Please enter a shipping address';     return false
-    if !checkout.shipping.address_city then setAlert    'Please enter a shipping city';        return false
-    if !checkout.shipping.address_zip then setAlert     'Please enter a shipping zip code';    return false
-    if !checkout.shipping.address_country then setAlert 'Please enter a shipping country';     return false
-    if !checkout.card.name then setAlert                'Please enter a name in Bill To';      return false
-    if !checkout.card.address_line1 then setAlert       'Please enter a billing address';      return false
-    if !checkout.card.address_city then setAlert        'Please enter a billing city';         return false
-    if !checkout.card.address_zip then setAlert         'Please enter a billing zip code';     return false
-    if !checkout.card.address_country then setAlert     'Please enter a billing country';      return false
-    if !checkout.card.number then setAlert              'Please enter a card number';          return false
-    if !checkout.card.exp then setAlert                 'Please enter a card expiration date'; return false
-    if !checkout.card.cvc then setAlert                 'Please enter a card CVC';             return false
-    !checkout.alert
+    message = validationMessage()
+    setAlert message
+    !message
 
   checkout.charge = () ->
     formCheckoutCard()
@@ -58,7 +63,7 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
       stripe.card.createToken checkout.card
       .then (token) -> eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
       .then (order) ->
-        $state.go 'success', { identifier: order.identifier }
+        $state.go 'order', { order_uuid: order.uuid }
       .catch (err) -> checkout.alert = if err and err.message then err.message else 'Problem sending payment'
       .finally () -> checkout.processing = false
 

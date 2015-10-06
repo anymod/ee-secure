@@ -1,0 +1,48 @@
+<div class="container vert-20">
+
+  <div class="max-width-300 margin-0-auto">
+    <a href="{{ checkout.ee.root_path }}" class="btn btn-link pad-left-0 font-weight-200">
+      <i class="fa fa-fw fa-long-arrow-left"></i>&nbsp;back to store
+    </a>
+  </div>
+
+  <div ng-if="checkout.ee.order.email" class="well white-background box-shadow margin-0-auto text-center" style="max-width: 320px;">
+    <h2 class="text-success margin-top-0">Success!</h2>
+    You will receive a confirmation email at
+    <h4 class="margin-top-0" ng-bind="checkout.ee.order.email"></h4>
+  </div>
+
+  <br>
+
+  <div class="well white-background box-shadow margin-0-auto text-center" style="max-width: 320px;">
+    <div class="vert-20">
+      <strong>Your order number is</strong>
+      <h2 ng-bind="checkout.ee.order.identifier" class="margin-0"></h2>
+    </div>
+    <div class="vert-20 full-width inline-block text-left">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge" ng-bind="checkout.ee.order.created_at | date : 'dd - MMM'"></span>
+          <i class="fa fa-fw fa-check text-success"></i>&nbsp;&nbsp;Order received
+        </li>
+        <li class="list-group-item">
+          <span class="badge">
+            <span ng-if="checkout.ee.order.charged_at" ng-bind="checkout.ee.order.charged_at | date : 'dd - MMM'"></span>
+            <span ng-if="!checkout.ee.order.charged_at">pending</span>
+          </span>
+          <span ng-if="checkout.ee.order.charged_at"><i class="fa fa-fw fa-check text-success"></i>&nbsp;&nbsp;Paid</span>
+          <span ng-if="!checkout.ee.order.charged_at"><i class="fa fa-fw fa-ellipsis-h text-info"></i>&nbsp;&nbsp;Payment pending</span>
+        </li>
+        <li class="list-group-item">
+          <span class="badge">
+            <span ng-if="checkout.ee.order.shipped_at" ng-bind="checkout.ee.order.shipped_at | date : 'dd - MMM'"></span>
+            <span ng-if="!checkout.ee.order.shipped_at">pending</span>
+          </span>
+          <span ng-if="checkout.ee.order.shipped_at"><i class="fa fa-fw fa-check text-success"></i>&nbsp;&nbsp;Order shipped</span>
+          <span ng-if="!checkout.ee.order.shipped_at"><i class="fa fa-fw fa-ellipsis-h text-info"></i>&nbsp;&nbsp;Shipment pending</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

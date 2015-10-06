@@ -36,9 +36,9 @@ app.get '/', (req, res, next) ->
   #   res.send 'Not found'
 
 # CHECKOUT
-app.get '/checkout/:uuid', (req, res, next) ->
+app.get '/checkout/:cart_uuid', (req, res, next) ->
   { bootstrap, host, path } = helpers.setup req
-  helpers.defineCheckoutByUUID req.params.uuid, bootstrap
+  helpers.defineCheckoutByUUID req.params.cart_uuid, bootstrap
   .then () -> helpers.addCartTotals bootstrap.cart
   .then () ->
     bootstrap.stringified = helpers.stringify bootstrap
@@ -48,9 +48,9 @@ app.get '/checkout/:uuid', (req, res, next) ->
     res.send 'Not found'
 
 # SUCCESS
-app.get '/success/:identifier', (req, res, next) ->
+app.get '/order/:order_uuid', (req, res, next) ->
   { bootstrap, host, path } = helpers.setup req
-  helpers.defineSuccessByIdentifier req.params.identifier, bootstrap
+  helpers.defineOrderByUUID req.params.order_uuid, bootstrap
   .then () ->
     bootstrap.stringified = helpers.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }
