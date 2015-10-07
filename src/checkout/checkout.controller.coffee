@@ -67,6 +67,7 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
       .catch (err) ->
         checkout.alert = if err and err.message then err.message else 'Problem sending payment'
         if typeof checkout.alert is 'object' then checkout.alert = 'Problem sending payment'
+        if err and err.message and err.message.message then checkout.alert = err.message.message
         if checkout.alert is 'transition prevented' then checkout.alert = null
       .finally () -> checkout.processing = false
 

@@ -26,7 +26,7 @@ h.defineOrderByUUID = (uuid, bootstrap) ->
   finders.orderByUUID uuid
   .then (data) ->
     order = data[0]
-    h.assignPaths bootstrap, h.constructRoot(order.domain)
+    h.assignPaths bootstrap, ('http://' + order.domain)
     bootstrap.order =
       identifier:   order.identifier
       domain:       order.domain
