@@ -17,11 +17,27 @@ constants     = require './server.constants'
 finders       = require './server.finders'
 helpers       = require './server.helpers'
 
+forceSsl = (req, res, next) ->
+  if req.headers['x-forwarded-proto'] isnt 'https'
+    res.redirect [
+      'https://'
+      req.get('Host')
+      req.url
+    ].join('')
+  else
+    next()
+  return
+
 app = express()
 app.set 'view engine', 'ejs'
 app.set 'views', path.join __dirname, 'dist'
 
-if process.env.NODE_ENV is 'production' then app.use morgan 'common' else app.use morgan 'dev'
+if process.env.NODE_ENV is 'production'
+  # Force SSL redirect
+  app.use forceSsl
+  app.use morgan 'common'
+else
+  app.use morgan 'dev'
 
 app.use serveStatic(path.join __dirname, 'dist')
 
