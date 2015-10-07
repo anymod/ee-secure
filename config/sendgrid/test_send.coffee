@@ -12,6 +12,7 @@ sendOrderConfirmationEmail = (order) ->
 
     store_link          = if scope.user.domain then ('http://' + scope.user.domain) else ('https://' + scope.user.username + '.eeosk.com')
     store_name          = scope.user.storefront_meta.home?.name or scope.user.domain or (scope.user.username + '.eeosk.com')
+    store_image         = scope.user.storefront_meta.logo or 'http://icons.iconarchive.com/icons/icons8/windows-8/128/Finance-Purchase-Order-icon.png'
     product_id          = order.quantity_array[0].storeProduct_id
     product_title       = order.quantity_array[0].title
     short_product_title = if product_title.length < 27 then product_title else (product_title.substring(0,27) + '...')
@@ -24,13 +25,15 @@ sendOrderConfirmationEmail = (order) ->
       subject:  'Your ' + store_name + ' order of "' + short_product_title + '".'
     }
 
-    greetings = order.stripe_token?.card?.name ? 'Hello ' + order.stripe_token?.card?.name + ',' : 'Hello,'
+    greetings = if !order.stripe_token?.card?.name then 'Hello,' else ('Hello ' + order.stripe_token.card.name + ',')
+    console.log 'store_image', store_image
 
     email.html = 'Foobar ' + order.identifier
     email.text = 'Foobar ' + order.identifier
     email.addSubstitution '-greetings-',          greetings
     email.addSubstitution '-store_name-',         store_name
-    email.addSubstitution '-banner_html-',        '<a href="' + store_link + '" target="_blank"><img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Finance-Purchase-Order-icon.png"/ style="width: 40px; height: 40px;">&nbsp;' + store_name + '</a>'
+    email.addSubstitution '-store_link-',         store_link
+    email.addSubstitution '-store_image-',        store_image
     email.addSubstitution '-product_link_html-',  '<a href="' + store_link + '/products/' + product_id + '/" target="_blank">' + product_title + '</a>'
     email.addSubstitution '-order_link_html-',    '<a href="https://secure.eeosk.com/order/' + order.uuid + '" target="_blank">#' + order.identifier + '</a>'
     email.addSubstitution '-banner_color-',       scope.user.storefront_meta.home?.topBarColor
@@ -45,7 +48,7 @@ sendOrderConfirmationEmail = (order) ->
     sendgrid.sendAsync email
   .then (res) -> order  # must return order for proper promise chaining within sequelize
 
-sequelize.query 'SELECT id, seller_id, uuid, quantity_array from "Orders" WHERE seller_id = 1 ORDER BY id DESC LIMIT 1', { type: sequelize.QueryTypes.SELECT }
+sequelize.query 'SELECT id, seller_id, uuid, quantity_array, stripe_token from "Orders" WHERE seller_id = 1 ORDER BY id DESC LIMIT 1', { type: sequelize.QueryTypes.SELECT }
 .then (order) -> sendOrderConfirmationEmail order[0]
 .then (order) -> console.log 'FINISHED'
 .catch (err) -> console.error err
