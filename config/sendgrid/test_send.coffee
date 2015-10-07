@@ -21,12 +21,9 @@ sendOrderConfirmationEmail = (order) ->
     console.log 'user', user[0]
     scope.user  = user[0]
 
-    store_image         = 'http://icons.iconarchive.com/icons/icons8/windows-8/128/Finance-Purchase-Order-icon.png'
+    image_html          = '<img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Finance-Purchase-Order-icon.png"/ style="width: 40px; height: 40px;">'
     store_name          = scope.user.storefront_meta.home?.name or scope.user.domain or (scope.user.username + '.eeosk.com')
     short_product_title = order.quantity_array[0].title.substring(0,30)
-    order_link_html     = '<a href="https://secure.eeosk.com/order/' + order.uuid + '" target="_blank">#' + order.identifier + '</a>'
-    banner_color        = scope.user.storefront_meta.home?.topBarColor
-    banner_background   = scope.user.storefront_meta.home?.topBarBackgroundColor
 
     email = new sendgrid.Email {
       to:       'tyler@eeosk.com' # order.email
@@ -38,9 +35,11 @@ sendOrderConfirmationEmail = (order) ->
 
     email.html = 'Foobar ' + order.identifier
     email.text = 'Foobar ' + order.identifier
-    email.addSubstitution 'order', order_link_html
-    email.addSubstitution 'banner_color', banner_color
-    email.addSubstitution 'banner_background', banner_background
+    email.addSubstitution 'store_name',         store_name
+    email.addSubstitution 'image_html',         image_html
+    email.addSubstitution 'order_link_html',    '<a href="https://secure.eeosk.com/order/' + order.uuid + '" target="_blank">#' + order.identifier + '</a>'
+    email.addSubstitution 'banner_color',       scope.user.storefront_meta.home?.topBarColor
+    email.addSubstitution 'banner_background',  scope.user.storefront_meta.home?.topBarBackgroundColor
 
     email.setFilters
       templates:
