@@ -54,6 +54,7 @@ h.assignBootstrap = (bootstrap, attrs) ->
   bootstrap.storefront_meta   = attrs.storefront_meta
   bootstrap.title             = attrs.storefront_meta?.home?.name
   bootstrap.site_name         = attrs.storefront_meta?.home?.name
+  bootstrap.checkout_disabled = (attrs.proposition is 'foothill')
   bootstrap
 
 h.assignPaths = (bootstrap, root) ->

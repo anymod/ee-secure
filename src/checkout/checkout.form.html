@@ -7,6 +7,17 @@
   </div>
 
   <div class="well white-background box-shadow margin-0-auto text-left" style="max-width: 320px;">
+
+    <!-- block checkout form -->
+    <div ng-if="checkout.ee.checkout_disabled">
+      <img src="https://res.cloudinary.com/eeosk/image/upload/v1444231988/foothill_logo.jpg"/>
+      <div class="well white-background">
+        <p>This store is part of <a href="http://www.foothill.edu/schedule/outlines.php?act=1&rec_id=5879&Quarter=2015F" target="_blank">BUSI 59A</a>, a web marketing course taught by professor Laurence Lew.</p>
+        <p>The ability to purchase from this store has been disabled as part of the course. Thank you for shopping!</p>
+      </div>
+    </div>
+    <!-- /block checkout form -->
+
     <form name="ccForm" class="form-horizontal" ng-submit="checkout.charge()" novalidate>
 
       <!-- CHECKOUT email -->
@@ -126,13 +137,16 @@
       <div class="form-group vert-5">
         <div class="col-sm-12 checkout-group">
           <div class="input-group input-group-plain">
-            <span class="input-group-addon"><i class="fa fa-credit-card fa-fw text-muted"></i></span>
+            <span class="input-group-addon" ng-disabled="checkout.ee.checkout_disabled">
+              <i class="fa fa-credit-card fa-fw text-muted"></i>
+            </span>
             <input type="text" class="form-control"
               ng-model="checkout.card.number"
               ng-class="ccForm.ccNumber.$ccType"
               cc-number cc-format cc-type="cardType"
               placeholder="Card Number"
-              name="ccNumber" />
+              name="ccNumber"
+              ng-disabled="checkout.ee.checkout_disabled"/>
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 50%;">
             <span class="input-group-addon" style="border-bottom-left-radius: 5px;"><i class="fa fa-calendar fa-fw text-muted"></i></span>
