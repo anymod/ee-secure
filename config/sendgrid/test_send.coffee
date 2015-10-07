@@ -10,8 +10,9 @@ sendOrderConfirmationEmail = (order) ->
   .then (user) ->
     scope.user  = user[0]
 
-    image_html          = '<img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Finance-Purchase-Order-icon.png"/ style="width: 40px; height: 40px;">'
+    store_link          = if scope.user.domain then ('http://' + scope.user.domain) else ('https://' + scope.user.username + '.eeosk.com')
     store_name          = scope.user.storefront_meta.home?.name or scope.user.domain or (scope.user.username + '.eeosk.com')
+    product_id          = order.quantity_array[0].storeProduct_id
     product_title       = order.quantity_array[0].title
     short_product_title = if product_title.length < 27 then product_title else (product_title.substring(0,27) + '...')
 
@@ -29,8 +30,8 @@ sendOrderConfirmationEmail = (order) ->
     email.text = 'Foobar ' + order.identifier
     email.addSubstitution '-greetings-',          greetings
     email.addSubstitution '-store_name-',         store_name
-    email.addSubstitution '-image_html-',         image_html
-    email.addSubstitution '-product_html-',       product_html
+    email.addSubstitution '-banner_html-',        '<a href="' + store_link + '" target="_blank"><img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Finance-Purchase-Order-icon.png"/ style="width: 40px; height: 40px;">&nbsp;' + store_name + '</a>'
+    email.addSubstitution '-product_link_html-',  '<a href="' + store_link + '/products/' + product_id + '/" target="_blank">' + product_title + '</a>'
     email.addSubstitution '-order_link_html-',    '<a href="https://secure.eeosk.com/order/' + order.uuid + '" target="_blank">#' + order.identifier + '</a>'
     email.addSubstitution '-banner_color-',       scope.user.storefront_meta.home?.topBarColor
     email.addSubstitution '-banner_background-',  scope.user.storefront_meta.home?.topBarBackgroundColor
