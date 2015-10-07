@@ -32,7 +32,12 @@ sendOrderConfirmationEmail = (order) ->
     greetings = if !order.stripe_token?.card?.name then 'Hello,' else ('Hello ' + order.stripe_token.card.name + ',')
     console.log 'short_product_title', short_product_title
 
-    email.html = 'Foobar ' + order.identifier
+    order_details = '<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody>'
+    addLine = (col1, col2) -> order_details += '<tr><td valign="top">' + col1 + '</td><td valign="top">' + col2 + '</td></tr>'
+    addLine(pair.title, pair.quantity) for pair in order.quantity_array
+    order_details += '</tbody></table>'
+
+    email.html = order_details
     email.text = 'Foobar ' + order.identifier
     email.addSubstitution '-greetings-',          greetings
     email.addSubstitution '-store_name-',         store_name
@@ -50,7 +55,7 @@ sendOrderConfirmationEmail = (order) ->
           enabled: 1
           template_id: process.env.SENDGRID_ORDER_CONFIRMATION_TEMPLATE_ID
 
-    console.log email.smtpapi.header.sub
+    console.log order_details
 
     sendgrid.sendAsync email
   .then (res) -> order  # must return order for proper promise chaining within sequelize
