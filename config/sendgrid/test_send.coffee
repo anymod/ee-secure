@@ -60,7 +60,7 @@ sendOrderConfirmationEmail = (order) ->
     sendgrid.sendAsync email
   .then (res) -> order  # must return order for proper promise chaining within sequelize
 
-sequelize.query 'SELECT id, identifier, seller_id, uuid, quantity_array, stripe_token from "Orders" WHERE seller_id = 1 ORDER BY id DESC LIMIT 1', { type: sequelize.QueryTypes.SELECT }
+sequelize.query 'SELECT id, identifier, seller_id, uuid, quantity_array, stripe_token from "Orders" WHERE seller_id = 49 ORDER BY id DESC LIMIT 1', { type: sequelize.QueryTypes.SELECT }
 .then (order) -> sendOrderConfirmationEmail order[0]
 .then (order) -> console.log 'FINISHED'
 .catch (err) -> console.error err
