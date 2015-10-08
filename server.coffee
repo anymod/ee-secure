@@ -64,7 +64,7 @@ app.get '/checkout/:cart_uuid', (req, res, next) ->
     res.send 'Not found'
 
 # SUCCESS
-app.get '/order/:order_uuid', (req, res, next) ->
+app.get '/orders/:order_uuid', (req, res, next) ->
   { bootstrap, host, path } = helpers.setup req
   helpers.defineOrderByUUID req.params.order_uuid, bootstrap
   .then () ->

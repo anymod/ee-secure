@@ -18,7 +18,7 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
         padTop:           '51px'
 
     .state 'order',
-      url: '/order/:order_uuid'
+      url: '/orders/:order_uuid'
       views:
         header:
           controller: 'checkoutCtrl as checkout'
