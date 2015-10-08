@@ -46,10 +46,13 @@ sendOrderConfirmationEmail = (order) ->
     email.addSubstitution '-banner_color-',       scope.user.storefront_meta.home?.topBarColor
     email.addSubstitution '-banner_background-',  scope.user.storefront_meta.home?.topBarBackgroundColor
 
-    grand_total = '$' + (parseInt(order.grand_total) / 100).toFixed(2)
+    grand_total = '' + (parseInt(order.grand_total) / 100).toFixed(2)
     email.addSubstitution '-total_before_tax-',   grand_total
-    email.addSubstitution '-estimated_tax-',      '$0.00'
+    email.addSubstitution '-estimated_tax-',      '0.00'
     email.addSubstitution '-order_total-',        grand_total
+
+    email.addSubstitution '-address_name-',       order.customer_meta.shipping?.name
+    email.addSubstitution '-address_line1-',      order.customer_meta.shipping?.address_line1
 
     email.setFilters
       templates:
@@ -57,10 +60,12 @@ sendOrderConfirmationEmail = (order) ->
           enabled: 1
           template_id: process.env.SENDGRID_ORDER_CONFIRMATION_TEMPLATE_ID
 
+    console.log email.smtpapi.header
+
     sendgrid.sendAsync email
   .then (res) -> order  # must return order for proper promise chaining within sequelize
 
-sequelize.query 'SELECT id, identifier, seller_id, uuid, quantity_array, stripe_token from "Orders" WHERE seller_id = 49 ORDER BY id DESC LIMIT 1', { type: sequelize.QueryTypes.SELECT }
+sequelize.query 'SELECT id, identifier, seller_id, uuid, quantity_array, grand_total, stripe_token, customer_meta from "Orders" WHERE seller_id = 49 ORDER BY id DESC LIMIT 1', { type: sequelize.QueryTypes.SELECT }
 .then (order) -> sendOrderConfirmationEmail order[0]
 .then (order) -> console.log 'FINISHED'
 .catch (err) -> console.error err
