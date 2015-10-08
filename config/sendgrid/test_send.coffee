@@ -39,7 +39,7 @@ sendOrderConfirmationEmail = (order) ->
     email.addSubstitution '-store_name-',         store_name
     email.addSubstitution '-store_root-',         store_root
     email.addSubstitution '-store_image-',        store_image
-    email.addSubstitution '-product_link_html-',  '<a href="' + store_root + '/products/' + product_id + '/" target="_blank">' + short_product_title.replace(/more item/g, 'other item') + '</a>'
+    email.addSubstitution '-product_link_html-',  '<a href="' + store_root + '/products/' + product_id + '/" target="_blank">"' + short_product_title.replace(/more item/g, 'other item') + '"</a>'
     email.addSubstitution '-order_uuid-',         order.uuid
     email.addSubstitution '-order_identifier-',   order.identifier
     email.addSubstitution '-order_link_html-',    '<a href="https://secure.eeosk.com/order/' + order.uuid + '" target="_blank">#' + order.identifier + '</a>'
@@ -52,7 +52,7 @@ sendOrderConfirmationEmail = (order) ->
     email.addSubstitution '-order_total-',        grand_total
 
     email.addSubstitution '-address_name-',       order.customer_meta.shipping?.name
-    email.addSubstitution '-address_line1-',      order.customer_meta.shipping?.address_line1
+    email.addSubstitution '-address_line1-',      ('' + order.customer_meta.shipping?.address_line1).substring(0,15) + '...'
 
     email.setFilters
       templates:
