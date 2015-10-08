@@ -25,6 +25,7 @@ sendOrderConfirmationEmail = (order) ->
 
     email = new sendgrid.Email {
       to:       'tyler@eeosk.com' # order.email
+      cc:       'dan@eeosk.com'
       from:     'order-confirmation@eeosk.com'
       fromname: store_name
       replyto:  'support@eeosk.com'
