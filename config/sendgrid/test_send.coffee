@@ -26,15 +26,25 @@ sendOrderConfirmationEmail = (order) ->
     amazon_html = '<table style="width:100%;border-top:3px solid rgb(203,207,212);border-collapse:collapse">
       <tbody>
         <tr style="padding-bottom:1000px">
-          <td style="padding:11px 40px 20px 18px;font-size:14px;background-color:rgb(239,239,239);vertical-align:top;line-height:18px;font-family:Arial,sans-serif"> <p style="font:14px Arial,sans-serif;margin:1px 0 8px 0"> <span style="font-size:14px;color:rgb(102,102,102)">Estimated delivery date:</span> <br> <b> <font style="color:#009900"> Thursday, October 1, 2015 - <br> Tuesday, October 6, 2015 </font> </b> </p> <a href="https://www.amazon.com/gp/r.html?C=3T5MUR8F9569O&amp;K=A56SP24XXGNPM&amp;R=34VSJGD4DNJP2&amp;T=C&amp;U=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fcss%2Forder-details%3ForderId%3D105-2624056-0354647%26ref_%3Dpe_385040_30332200_TE_simp_on_sh&amp;A=9A755BYOI0LRMVR4TUQADJFATT8A&amp;H=NJZIRZSTWGNH3O0QJVRVIUJQAZSA&amp;ref_=pe_385040_30332200_TE_simp_on_sh" style="text-decoration:none;color:rgb(0,102,153);font:14px Arial,sans-serif" target="_blank"> <img alt="Your Orders" border="0" src="https://ci5.googleusercontent.com/proxy/KfTShBMmiT22TA_5FwDnQfqjVK9vJHwVH5sEz8IuY-ND--GTuMuGTf8r3weEOwkv4QUdHPOVx1QarN7kzslJ-r43eUvxR3sPB_E7fxt12pgKLdu5uKjzbXI5w0TGITTVQfK6Xg=s0-d-e1-ft#http://g-ecx.images-amazon.com/images/G/01/e-mail/img14/buttons/cta_manage.png" style="border:0"> </a> </td>
-          <td style="padding:11px 0px 20px 18px;font-size:14px;background-color:rgb(239,239,239);vertical-align:top;line-height:18px;font-family:Arial,sans-serif"> <p style="font:14px Arial,sans-serif;margin:1px 0 8px 0"> <span style="font-size:14px;color:rgb(102,102,102)">Ship to:</span> <br> <b> Nolan Warnock <br> 903 BURCHWOOD AVE... <br> </b> <br> </p> <font style="font:12px/13px Arial,sans-serif;color:rgb(51,51,51)"> Total Before Tax: $16.99<br> Estimated Tax: &nbsp;&nbsp;&nbsp;$0.00<br> </font> <p style="font:14px Arial,sans-serif;margin:1px 0 8px 0"> <b><span class="lG">Order</span> Total:</b> &nbsp;&nbsp;<b>$16.99</b> </p>
-            <table cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-              <tbody>
-                <tr style="padding-bottom:1000px">
-                  <td style="padding:0 0 0 0;font-size:14px;background-color:rgb(239,239,239);vertical-align:top;line-height:18px;font-family:Arial,sans-serif"> <img align="left" height="1" src="https://ci5.googleusercontent.com/proxy/476F1SLjZyyR4UXT5PYyl5HqxeNAWNE6VfOjkt2avSQsKt4h2ChGM6vqTAbb1uJp9N8tbnyaUEppGnboz5IwLCrTsweWAFaxLkcrMiRteySHT7FQuADZhJ673bx65mcoOFmTMjAa0vjrZRo=s0-d-e1-ft#http://g-ec2.images-amazon.com/images/G/01/x-locale/cs/te/MagicPixel._V319790361_.png" width="200"> </td>
-                </tr>
-              </tbody>
-            </table>
+          <td style="padding:11px 40px 20px 18px;font-size:14px;background-color:rgb(239,239,239);vertical-align:top;line-height:18px;font-family:Arial,sans-serif">
+            <a href="https://secure.eeosk.com/order/-order_uuid-" style="display:inline-block;padding:14px 32px;background:#40a397;border-radius:4px;font-weight:normal;letter-spacing:1px;font-size:20px;line-height:26px;color:white;text-decoration:none" target="_blank">View order status</a>
+          </td>
+          <td style="padding:11px 0px 20px 18px;font-size:14px;background-color:rgb(239,239,239);vertical-align:top;line-height:18px;font-family:Arial,sans-serif">
+            <p style="font:14px Arial,sans-serif;margin:1px 0 8px 0">
+              <span style="font-size:14px;color:rgb(102,102,102)">Ship to:</span>
+              <br>
+              <b> -address_name- <br> -address_line_1 <br> </b>
+              <br>
+            </p>
+            <font style="font:12px/13px Arial,sans-serif;color:rgb(51,51,51)">
+              Total Before Tax: $-total_before_tax-
+              <br>
+              Estimated Tax: &nbsp;&nbsp;&nbsp;$-estimated_tax-
+              <br>
+            </font>
+            <p style="font:14px Arial,sans-serif;margin:1px 0 8px 0">
+              <b><span class="lG">Order</span> Total:</b> &nbsp;&nbsp;<b>$-order_total-</b>
+            </p>
           </td>
         </tr>
       </tbody>
@@ -49,7 +59,7 @@ sendOrderConfirmationEmail = (order) ->
     }
 
     greetings = if !order.stripe_token?.card?.name then 'Hello,' else ('Hello ' + order.stripe_token.card.name + ',')
-    console.log 'short_product_title', short_product_title
+    # console.log 'short_product_title', short_product_title
 
     order_details = '<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody>'
     addLine = (col1, col2) -> order_details += '<tr><td valign="top">' + col1 + '</td><td valign="top">' + col2 + '</td></tr>'
@@ -74,7 +84,7 @@ sendOrderConfirmationEmail = (order) ->
           enabled: 1
           template_id: process.env.SENDGRID_ORDER_CONFIRMATION_TEMPLATE_ID
 
-    console.log order_details
+    # console.log order_details
 
     sendgrid.sendAsync email
   .then (res) -> order  # must return order for proper promise chaining within sequelize
