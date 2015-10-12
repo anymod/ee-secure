@@ -1,13 +1,5 @@
 'use strict'
 
-# angular.module('app.core').filter 'eeShopCategories', () ->
-#   (products, category) ->
-#     if !products or !category or category is 'All' then return products
-#     filtered = []
-#     for product in products
-#       if product.category is category then filtered.push product
-#     return filtered
-
 angular.module('app.core').filter 'centToDollar', ($filter) ->
   (cents) ->
     currencyFilter = $filter('currency')
@@ -17,6 +9,12 @@ angular.module('app.core').filter 'percentage', ($filter) ->
   # Usage: | percentage:2
   (input, decimals) ->
     $filter('number')(input * 100, decimals) + '%'
+
+angular.module('app.core').filter 'truncate', ($filter) ->
+  # Usage: | truncate:20
+  (input, n) ->
+    return '' unless input
+    if input.length <= (n-3) then input else input.substring(0, n-3) + '...'
 
 resizeCloudinaryImageTo = (url, w, h) ->
   if !!url and url.indexOf("image/upload") > -1
@@ -76,6 +74,61 @@ angular.module('app.core').filter 'in_carousel', () ->
     filtered = []
     (if collections[i].in_carousel and filtered.length < 10 then filtered.push(collections[i])) for i in [0..(collections.length-1)]
     filtered
+
+angular.module('app.core').filter 'timeago', () ->
+  ## Adapted from https://gist.github.com/rodyhaddad/5896883
+  # time: the time
+  # local: compared to what time? default: now
+  # raw: wheter you want in a format of "5 minutes ago", or "5 minutes"
+  (time, local, raw) ->
+    if !time then return 'never'
+    if !local then local = Date.now()
+
+    if angular.isDate time
+      time = time.getTime()
+    else if typeof time is 'string'
+      time = new Date(time).getTime()
+
+    if angular.isDate local
+      local = local.getTime()
+    else if typeof local is 'string'
+      local = new Date(local).getTime()
+
+    if typeof time isnt 'number' or typeof local isnt 'number' then return
+
+    offset = Math.abs((local - time) / 1000)
+    span = []
+    MINUTE = 60
+    HOUR = 3600
+    DAY = 86400
+    WEEK = 604800
+    MONTH = 2629744
+    YEAR = 31556926
+    DECADE = 315569260
+
+    if offset <= MINUTE
+      span = [ '', '< 1 min' ]
+    else if (offset < (MINUTE * 60))
+      span = [ Math.round(Math.abs(offset / MINUTE)), 'min' ]
+    else if (offset < (HOUR * 24))
+      span = [ Math.round(Math.abs(offset / HOUR)), 'hr' ]
+    else if (offset < (DAY * 7))
+      span = [ Math.round(Math.abs(offset / DAY)), 'day' ]
+    else if (offset < (WEEK * 52))
+      span = [ Math.round(Math.abs(offset / WEEK)), 'week' ]
+    else if (offset < (YEAR * 10))
+      span = [ Math.round(Math.abs(offset / YEAR)), 'year' ]
+    else if (offset < (DECADE * 100))
+      span = [ Math.round(Math.abs(offset / DECADE)), 'decade' ]
+    else
+      span = [ '', 'a long time' ];
+
+    if (span[0] is 0 or span[0] > 1) then span[1] += 's'
+    span = span.join(' ')
+
+    if raw is true then return span
+    if time <= local then (span + ' ago') else ('in ' + span)
+
 
 
 # angular.module('app.core').filter 'dashify', () ->

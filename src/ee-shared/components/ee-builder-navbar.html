@@ -12,6 +12,7 @@
   fixed:          when true fix navbar to top of page
   collectionNav:  when true show the sub-navbar for collections
   editNav:        when true show the sub-navbar for edit
+  orderNav:       when true show the sub-navbar for orders
 //-->
 
 <nav class="navbar ee-builder-navbar round-0" id="navbar-top" ng-class="{ 'navbar-transparent': transparent, 'box-shadow': !transparent, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
@@ -115,5 +116,15 @@
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a>
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a>
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.seo">SEO<br><small>Settings</small></a>
+  </div>
+</nav>
+
+<nav ng-if="orderNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+  <div class="max-width-600 margin-0-auto pad-2 position-relative">
+    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="orders">Your<br><small>Orders</small></a>
+    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a> -->
+    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a> -->
+    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a> -->
+    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.seo">SEO<br><small>Settings</small></a> -->
   </div>
 </nav>
