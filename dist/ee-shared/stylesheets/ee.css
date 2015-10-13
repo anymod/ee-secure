@@ -9214,19 +9214,24 @@ img.loading {
 .full-screen.true {
   height: 100%;
 }
+.template-row,
 .product-row {
   border-top: 1px solid #eeeeee;
 }
+.template-row:hover,
 .product-row:hover {
   background: #eceff1;
 }
+.template-well,
 .product-well {
   width: 180px;
 }
 @media (max-width: 767px) {
+  .template-well,
   .product-well {
     width: 139px;
   }
+  .template-preview-thumb,
   .product-preview-thumb img {
     float: left;
   }
@@ -9654,10 +9659,14 @@ nav {
   ee-collection-add-card img.max-width-300 {
     max-width: 100% !important;
   }
+  ee-collection-editor-card .templates-row,
+  ee-collection-add-card .templates-row,
   ee-collection-editor-card .products-row,
   ee-collection-add-card .products-row {
     text-align: center;
   }
+  ee-collection-editor-card .template-well,
+  ee-collection-add-card .template-well,
   ee-collection-editor-card .product-well,
   ee-collection-add-card .product-well {
     width: 135px;

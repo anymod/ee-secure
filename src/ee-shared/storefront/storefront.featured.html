@@ -17,7 +17,7 @@
   </div>
 
   <div class="full-width text-center vert-20 overflow-hidden">
-    <div ng-repeat="storeProduct in storefront.ee.StoreProducts.storeProducts" class="product-container text-left inline-block width-250 vertical-align-top">
+    <div ng-repeat="storeProduct in storefront.ee.StoreProducts.storeProducts" class="template-container text-left inline-block width-250 vertical-align-top">
       <ee-storeproduct-for-storefront storeproduct="storeProduct"></ee-storeproduct-for-storefront>
       <br>
     </div>
@@ -46,7 +46,7 @@
     <div class="col col-sm-9 col-md-10 col-lg-9 position-inherit">
       <h4 class="margin-0">{{ $state.params.title || 'Featured' | humanize }}</h4>
       <div ng-hide="storefront.data.loading" class="full-width text-center vert-20 overflow-hidden">
-        <div ng-repeat="storeProduct in storefront.data.storeProducts" class="product-container text-left inline-block width-250 vertical-align-top">
+        <div ng-repeat="storeProduct in storefront.data.storeProducts" class="template-container text-left inline-block width-250 vertical-align-top">
           <ee-storeproduct-for-storefront storeproduct="storeProduct"></ee-storeproduct-for-storefront>
           <br>
         </div>

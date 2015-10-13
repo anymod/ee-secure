@@ -5,7 +5,7 @@
   back:           when true show back button instead of logo
   signin:         when true show sign in button
   storefront:     when true show buttons on storefront page
-  product:        when true show buttons on product page
+  template:       when true show buttons on template page
   storeproduct:   when true show buttons on storeproduct page
   collections:    when true show buttons for collections navigation
   transparent:    when true show transparent background with white logo and no box-shadow
@@ -57,10 +57,10 @@
         <i class="fa fa-fw fa-long-arrow-left"></i>
       </a> <!-- /back -->
 
-      <!-- product: back to products instead of logo -->
-      <a ng-if="product" ui-sref="products" class="btn btn-default pull-left">
+      <!-- template: back to templates instead of logo -->
+      <a ng-if="template" ui-sref="templates" class="btn btn-default pull-left">
         <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /product -->
+      </a> <!-- /template -->
 
       <!-- /LOGO -->
 
@@ -105,7 +105,7 @@
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="storeproducts">Your<br><small>Products</small></a>
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="featured">Your<br><small>Featured</small></a>
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Add<br><small>Products</small></a>
+    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="templates">Add<br><small>Products</small></a>
   </div>
 </nav>
 

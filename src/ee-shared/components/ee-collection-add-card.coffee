@@ -11,10 +11,10 @@ module.directive "eeCollectionAddCard", ($state, $window, eeCollections) ->
 
     scope.save_status = 'Save'
     scope.saved       = true
-    scope.products    = []
+    scope.templates   = []
 
-    scope.getProducts = () ->
-      return if scope.products.length > 0
+    scope.getTemplates = () ->
+      return if scope.templates.length > 0
       eeCollections.fns.readPublicCollection scope.collection, scope.page
 
     scope.cloneCollection = () ->

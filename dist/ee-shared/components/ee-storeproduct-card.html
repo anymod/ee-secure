@@ -8,8 +8,8 @@
       <div class="col col-sm-6">
         <div class="pad-10">
           <h1 ng-bind="storeProduct.title" class="vert-10 margin-top-0 font-weight-200"></h1>
-          <h4 ng-if="product.msrp && storeProduct.selling_price && product.msrp > storeProduct.selling_price" class="vert-10">
-            <span class="text-muted"><s>{{ product.msrp | centToDollar }}</s></span>
+          <h4 ng-if="template.msrp && storeProduct.selling_price && template.msrp > storeProduct.selling_price" class="vert-10">
+            <span class="text-muted"><s>{{ template.msrp | centToDollar }}</s></span>
             <span class="text-danger">&nbsp;{{ msrpDiscount | percentage:0 }} Off</span>
           </h4>
           <h3 class="vert-15 margin-top-0" ng-bind="storeProduct.selling_price | centToDollar"></h3>
@@ -24,41 +24,41 @@
     <div ng-show="showDetails" class="row vert-20">
       <div class="col col-sm-12">
         <table class="table table-condensed table-striped table-bordered white-background">
-          <tr ng-if="product.content_meta.item_name">
+          <tr ng-if="template.content_meta.item_name">
             <td>Item</td>
-            <td ng-bind="product.content_meta.item_name"></td>
+            <td ng-bind="template.content_meta.item_name"></td>
           </tr>
-          <tr ng-if="product.shipping_price">
+          <tr ng-if="template.shipping_price">
             <td>Shipping Cost</td>
-            <td ng-bind="product.shipping_price | centToDollar"></td>
+            <td ng-bind="template.shipping_price | centToDollar"></td>
           </tr>
-          <tr ng-if="product.content_meta.brand_name">
+          <tr ng-if="template.content_meta.brand_name">
             <td>Brand Name</td>
-            <td ng-bind="product.content_meta.brand_name"</td>
+            <td ng-bind="template.content_meta.brand_name"</td>
           </tr>
-          <tr ng-if="product.content_meta.manufacturer">
+          <tr ng-if="template.content_meta.manufacturer">
             <td>Manufacturer</td>
-            <td ng-bind="product.content_meta.manufacturer"></td>
+            <td ng-bind="template.content_meta.manufacturer"></td>
           </tr>
-          <tr ng-if="product.content_meta.condition">
+          <tr ng-if="template.content_meta.condition">
             <td>Condition</td>
-            <td ng-bind="product.content_meta.condition"></td>
+            <td ng-bind="template.content_meta.condition"></td>
           </tr>
-          <tr ng-if="product.content_meta.warranty">
+          <tr ng-if="template.content_meta.warranty">
             <td>Warranty</td>
-            <td ng-bind="product.content_meta.warranty"></td>
+            <td ng-bind="template.content_meta.warranty"></td>
           </tr>
           <tr>
             <td>Supply Description</td>
             <td>
-              {{ product.title }}
+              {{ template.title }}
               <br>
-              {{ product.content }}
+              {{ template.content }}
             </td>
           </tr>
-          <tr ng-if="product.content_meta.details">
+          <tr ng-if="template.content_meta.details">
             <td>Details</td>
-            <td ng-bind-html="product.content_meta.details | unboldHtml"></td>
+            <td ng-bind-html="template.content_meta.details | unboldHtml"></td>
           </tr>
         </table>
       </div>

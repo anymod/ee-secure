@@ -6,7 +6,7 @@ db_name = 'unset'
 if process.env.DATABASE_URL
   sequelize = new Sequelize process.env.DATABASE_URL
 else
-  db_name = if process.env.NODE_ENV is 'test' then 'ee_db_test' else 'ee_db_development'
+  db_name = if process.env.NODE_ENV is 'test' then 'ee_db_test' else 'ee_development'
   sequelize = new Sequelize db_name, 'tyler', null, {
     host: 'localhost',
     port: 5432,

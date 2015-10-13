@@ -13,9 +13,9 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       size:           'lg'
       backdropClass:  _backdropClass
       windowClass:    'full-modal'
-    addProduct:
-      templateUrl:    'builder/products/products.add.modal.html'
-      controller:     'productsCtrl as products'
+    addTemplate:
+      templateUrl:    'builder/templates/templates.add.modal.html'
+      controller:     'templatesCtrl as templates'
       backdropClass:  _backdropClass
     feedback:
       templateUrl:    'builder/contact/contact.modal.feedback.html'

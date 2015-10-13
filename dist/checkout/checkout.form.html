@@ -169,10 +169,10 @@
 
       <!-- CHECKOUT Order Details -->
       <table class="table vert-20 margin-bottom-0">
-        <tr ng-repeat="product in checkout.ee.cart.quantity_array">
-          <td class="border-none pad-0"><small ng-bind="product.title"></small></td>
-          <td class="border-none pad-0"><small class="text-muted" style="padding: 0 10px;">x{{ product.quantity }}</small></td>
-          <td class="border-none pad-0 text-right"><small ng-bind="(product.selling_price * product.quantity) | centToDollar"></small></td>
+        <tr ng-repeat="pair in checkout.ee.cart.quantity_array">
+          <td class="border-none pad-0"><small ng-bind="pair.title"></small></td>
+          <td class="border-none pad-0"><small class="text-muted" style="padding: 0 10px;">x{{ pair.quantity }}</small></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="(pair.selling_price * pair.quantity) | centToDollar"></small></td>
         </tr>
         <tr>
           <td class="border-none pad-0"><small>Taxes</small></td>

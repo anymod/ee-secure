@@ -2,7 +2,7 @@
 
   <!-- COMPACT -->
   <div class="row">
-    <div class="col col-sm-8" ng-click="getProducts()">
+    <div class="col col-sm-8" ng-click="getTemplates()">
       <div class="media">
         <div class="media-left hover-pointer">
           <a href>
@@ -14,7 +14,7 @@
             <a href>{{ collection.title || 'Untitled' }}</a>
           </h4>
           <h3 class="media-heading margin-top-0 font-weight-200 hover-pointer" ng-bind="collection.headline"></h3>
-          <div class="btn btn-default vert-5" ng-disabled="collection.reading || collection.products">View products</div>
+          <div class="btn btn-default vert-5" ng-disabled="collection.reading || collection.templates">View products</div>
         </div>
       </div>
     </div>
@@ -25,26 +25,26 @@
   </div>
   <!-- COMPACT -->
 
-  <div class="row vert-10 products-row" ng-if="collection.products || collection.reading">
-    <div ng-show="collection.products" class="pad-10">
+  <div class="row vert-10 templates-row" ng-if="collection.templates || collection.reading">
+    <div ng-show="collection.templates" class="pad-10">
       <h3 class="font-weight-200 margin-0 text-info">Products in {{ collection.title }}</h3>
       <div class="text-muted">You can add & edit products when you add this collection to your store.</div>
     </div>
-    <div ng-repeat="product in collection.products" class="well product-well text-center inline-block pad-5 margin-2 white-background box-shadow">
+    <div ng-repeat="template in collection.templates" class="well template-well text-center inline-block pad-5 margin-2 white-background box-shadow">
       <div>
         <div class="pad-10 text-left">
-          <img ng-src="{{ product.image | small }}" class="full-width gray-border">
+          <img ng-src="{{ template.image | small }}" class="full-width gray-border">
           <div>
-            <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+            <p ng-bind="template.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
             <div class="vert-10">
-              <h4 class="inline-block vert-0" ng-bind="product.regular_price | centToDollar"></h4>
-              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrp">&nbsp;<s>{{ product.msrp | centToDollar }}</s></h5>
+              <h4 class="inline-block vert-0" ng-bind="template.regular_price | centToDollar"></h4>
+              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="template.msrp">&nbsp;<s>{{ template.msrp | centToDollar }}</s></h5>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div ng-show="collection.products" class="pad-20 max-width-600 margin-0-auto">
+    <div ng-show="collection.templates" class="pad-20 max-width-600 margin-0-auto">
       <div ng-if="collection.added" class="btn btn-success btn-lg btn-block" ng-click="removeFromStore()" ng-disabled="save_status == 'Adding'"><i class="fa fa-check"></i>&nbsp;&nbsp;Added</div>
       <div ng-if="!collection.added" class="btn btn-default btn-lg btn-block" ng-click="cloneCollection()" ng-disabled="save_status == 'Adding'">
         Add <span class="hidden-xs">the collection '{{ collection.title }}' </span>to your store

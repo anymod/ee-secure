@@ -12,7 +12,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
     storefront: '@'
     storeproduct: '@'
     collections: '@'
-    product: '@'
+    template: '@'
     collectionId: '@'
     transparent: '@'
     fixed: '@'

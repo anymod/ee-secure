@@ -7,7 +7,7 @@ module.directive "eeStoreproductCard", ($rootScope, $state, $cookies, eeBack) ->
   restrict: 'E'
   scope:
     storeProduct: '='
-    product:      '='
+    template:     '='
     disabled:     '='
     price:        '='
   link: (scope, ele, attrs) ->
