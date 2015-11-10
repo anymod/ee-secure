@@ -1,0 +1,22 @@
+<div class="vert-2">
+  <div class="inline-block" style="max-width: 140px;">
+    <div class="input-group input-group-sm">
+      <span class="input-group-addon white-background"><i class="fa fa-dollar"></i></span>
+      <input type="text" ng-model="dollars" class="form-control inline-block text-right">
+      <span class="input-group-addon white-background no-side-border" style="padding: 5px;">.</span>
+      <input type="text" ng-model="cents" class="form-control inline-block" style="width: 40px;">
+    </div>
+  </div>
+  <div class="inline-block vertical-align-top pad-5" ng-if="msrp && msrp > price">
+    <s class="text-muted" ng-if="sku.msrp" ng-bind="sku.msrp | centToDollar"></s>
+    <small class="text-danger" ng-if="discount">{{ discount | percentage:0 }} Off</small>
+  </div>
+  <p class="vertical-align-top" style="line-height: 8px;">
+    <small ng-hide="margin > max_margin || margin < min_margin" class="text-muted">
+      You earn&nbsp;<strong ng-bind="earnings | centToDollar"></strong>&nbsp;each sale ({{ margin * 100 | number:1 }}%&nbsp;margin)
+    </small>
+    <small ng-show="margin > max_margin || margin < min_margin" class="text-info">
+      Price is out of range
+    </small>
+  </p>
+</div>

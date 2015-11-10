@@ -1,0 +1,18 @@
+<div ng-hide="product.removed"
+    ng-class="{ 'opacity-05': product.updating }"
+    class="well product-well text-center inline-block vertical-align-bottom pad-5 margin-2 white-background box-shadow">
+  <div class="pad-10 text-left">
+    <img ng-src="{{ product.image | small }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="productsFns.addProductModal(product)">
+    <div>
+      <p ng-bind-html="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+      <div class="vert-10">
+        <h4 class="inline-block vert-0" ng-bind="product.prices | priceRange"></h4>
+        <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrps">&nbsp;<s>{{ product.msrps | priceRange }}</s></h5>
+      </div>
+    </div>
+  </div>
+  <ee-product-builder-buttons product="product" collection="collection" btn-class="btn-group-sm"></ee-product-builder-buttons>
+  <div class="btn btn-sm btn-link" ng-click="productsFns.search(product.title); scrollTo('body-top');" ng-hide="collection">
+    more like this
+  </div>
+</div>

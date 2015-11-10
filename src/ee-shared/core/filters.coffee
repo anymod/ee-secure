@@ -2,8 +2,15 @@
 
 angular.module('app.core').filter 'centToDollar', ($filter) ->
   (cents) ->
-    currencyFilter = $filter('currency')
-    currencyFilter Math.floor(cents)/100
+    $filter('currency')(Math.floor(cents)/100)
+
+angular.module('app.core').filter 'priceRange', ($filter) ->
+  (msrps) ->
+    if !msrps or typeof(msrps) isnt 'object' or msrps.length is 0 then return ''
+    if msrps.length is 1 then return $filter('centToDollar')(msrps[0])
+    min = Math.min.apply(Math, msrps)
+    max = Math.max.apply(Math, msrps)
+    '' + $filter('centToDollar')(min) + ' - ' + $filter('centToDollar')(max)
 
 angular.module('app.core').filter 'percentage', ($filter) ->
   # Usage: | percentage:2
@@ -128,7 +135,6 @@ angular.module('app.core').filter 'timeago', () ->
 
     if raw is true then return span
     if time <= local then (span + ' ago') else ('in ' + span)
-
 
 
 # angular.module('app.core').filter 'dashify', () ->

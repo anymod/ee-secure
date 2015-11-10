@@ -7,7 +7,7 @@ angular.module('ee-button-add-to-cart').directive "eeButtonAddToCart", (eeCart) 
   restrict: 'E'
   replace: true
   scope:
-    storeproduct: '='
+    product: '='
   link: (scope, element, attrs) ->
-    scope.addStoreProduct = (storeproduct) -> eeCart.addStoreProduct storeproduct
+    scope.addProduct = (product) -> eeCart.addProduct product
     return

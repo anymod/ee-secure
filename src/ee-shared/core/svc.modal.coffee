@@ -60,3 +60,13 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
         backdropClass:  _backdropClass
         controller: ($scope) -> $scope.collections = collections
       })
+
+    openProductModal: (product, data) ->
+      _modals.collections = $modal.open({
+        templateUrl:    'builder/products/product.modal.html'
+        controller:     'productModalCtrl as modal'
+        backdropClass:  _backdropClass
+        resolve:
+          product: () -> product
+          data: () -> data
+      })

@@ -4,13 +4,11 @@
   home:           when true show home button instead of logo
   back:           when true show back button instead of logo
   signin:         when true show sign in button
-  storefront:     when true show buttons on storefront page
-  template:       when true show buttons on template page
-  storeproduct:   when true show buttons on storeproduct page
-  collections:    when true show buttons for collections navigation
   transparent:    when true show transparent background with white logo and no box-shadow
   fixed:          when true fix navbar to top of page
-  collectionNav:  when true show the sub-navbar for collections
+  storefront:     when true show buttons on storefront page
+  product:        when true show buttons on product page
+  productsNav:    when true show the sub-navbar for products & collections
   editNav:        when true show the sub-navbar for edit
   orderNav:       when true show the sub-navbar for orders
 //-->
@@ -35,7 +33,7 @@
           </div>
           <ul class="dropdown-menu" style="top: 37px; left: -5px;">
             <li class="visible-xs"><a href="https://{{ ee.User.user.username }}.eeosk.com" target="_blank"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-external-link"></i>&nbsp;&nbsp;Live</h4></a></li>
-            <li class="visible-xs bg-info"><a ui-sref="collections"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-cubes"></i>&nbsp;&nbsp;Collections</h4></a></li>
+            <li class="visible-xs bg-info"><a ui-sref="products"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-cubes"></i>&nbsp;&nbsp;Products</h4></a></li>
             <!-- <li class="visible-xs bg-primary"><a ui-sref="promotions"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-bullhorn"></i>&nbsp;&nbsp;Promotions</h4></a></li> -->
             <li class="visible-xs bg-success"><a ui-sref="edit"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;Edit Store</h4></a></li>
             <!-- <li><a href ng-click="feedback()"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-comment-o"></i>&nbsp;&nbsp;Feedback</h4></a></li> -->
@@ -57,10 +55,10 @@
         <i class="fa fa-fw fa-long-arrow-left"></i>
       </a> <!-- /back -->
 
-      <!-- template: back to templates instead of logo -->
-      <a ng-if="template" ui-sref="templates" class="btn btn-default pull-left">
+      <!-- product: back to products instead of logo -->
+      <a ng-if="product" ui-sref="products" class="btn btn-default pull-left">
         <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /template -->
+      </a> <!-- /product -->
 
       <!-- /LOGO -->
 
@@ -78,7 +76,7 @@
       <!-- storefront: buttons on storefront page -->
       <div ng-if="storefront" class="storefront-buttons hidden-xs">
         <div class="position-fixed text-center">
-          <a ui-sref="collections" class="btn btn-info">Collections</a>&nbsp;
+          <a ui-sref="products" class="btn btn-info">Products</a>&nbsp;
           <!-- <a ui-sref="promotions" class="btn btn-primary">Promotions</a>&nbsp; -->
           <a ui-sref="edit" class="btn btn-success">Edit Store</a>
         </div>
@@ -99,13 +97,13 @@
   </div>
 </nav>
 
-<nav ng-if="collectionNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+<nav ng-if="productsNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
+    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
+    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a>
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="storeproducts">Your<br><small>Products</small></a>
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="featured">Your<br><small>Featured</small></a>
+    <!-- <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Add<br><small>Products</small></a> -->
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="templates">Add<br><small>Products</small></a>
   </div>
 </nav>
 
