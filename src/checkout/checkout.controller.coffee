@@ -7,19 +7,19 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
   checkout.cart_uuid  = $stateParams.cart_uuid
   checkout.order_uuid = $stateParams.order_uuid
 
-  checkout.card =
-    number: '4242424242424242'
-    exp: '09 / 19'
-    cvc: '123'
+  checkout.card = {}
+    # number: '4242424242424242'
+    # exp: '09 / 19'
+    # cvc: '123'
   checkout.result = false
   checkout.cloneAddress = true
 
   checkout.shipping =
     address_country: 'USA'
-    name: 'Foobar Baz Jr'
-    address_line1: ('' + Math.random()).slice(-3) + ' Main Street'
-    address_city: 'Menlo Park'
-    address_zip: '94040'
+    # name: 'Foobar Baz Jr'
+    # address_line1: ('' + Math.random()).slice(-3) + ' Main Street'
+    # address_city: 'Menlo Park'
+    # address_zip: '94040'
 
   checkout.ee   = eeBootstrap
   checkout.meta = eeBootstrap.storefront_meta
