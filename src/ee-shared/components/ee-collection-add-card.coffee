@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-collection-add-card', []
 
-module.directive "eeCollectionAddCard", ($state, $window, eeCollections) ->
+module.directive "eeCollectionAddCard", (eeCollections) ->
   templateUrl: 'ee-shared/components/ee-collection-add-card.html'
   restrict: 'E'
   scope:
@@ -11,18 +11,21 @@ module.directive "eeCollectionAddCard", ($state, $window, eeCollections) ->
 
     scope.save_status = 'Save'
     scope.saved       = true
-    scope.templates   = []
+    scope.collection          ||= {}
+    scope.collection.products ||= []
 
-    scope.getTemplates = () ->
-      return if scope.templates.length > 0
+    scope.getProducts = () ->
+      return if scope.collection.products.length > 0
       eeCollections.fns.readPublicCollection scope.collection, scope.page
 
     scope.cloneCollection = () ->
       scope.save_status = 'Adding'
       eeCollections.fns.cloneCollection scope.collection
       .then () ->
-        scope.save_status       = 'Added'
-        scope.collection.added  = true
+        scope.save_status         = 'Added'
+        scope.collection.added    = true
+        scope.collection.products = []
+        $("body").animate({scrollTop: ele.offset().top - 200}, 500) # TODO implement without jQuery (esp once cloudinary is jQuery-free)
       .catch (err) -> scope.save_status = 'Problem saving'
 
     return
