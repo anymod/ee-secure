@@ -1,0 +1,81 @@
+<!-- PRODUCT CARD -->
+<div class="well white-background max-width-900 box-shadow margin-0-auto text-left">
+  <div class="container-fluid vert-10">
+    <div class="row">
+      <div class="col col-sm-6 max-height-600">
+        <ee-product-images product="product"></ee-product-images>
+      </div>
+      <div class="col col-sm-6">
+        <div class="pad-10">
+          <h1 ng-bind="product.title" class="margin-0 font-weight-200"></h1>
+          <h4 ng-if="currentSku.msrp && currentSku.price && currentSku.msrp > currentSku.price" class="vert-10">
+            <span class="text-muted"><s>{{ currentSku.msrp | centToDollar }}</s></span>
+            <span class="text-danger">&nbsp;{{ msrpDiscount | percentage:0 }} Off</span>
+          </h4>
+          <h3 class="vert-15 margin-top-0" ng-bind="currentSku.price | centToDollar"></h3>
+          <div ng-if="skus.length > 1" class="btn-group" dropdown>
+            <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+              Select <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="sku in skus">
+                <a href ng-click="setCurrentSku(sku)" ng-bind="sku.selection_text"></a>
+              </li>
+            </ul>
+          </div>
+          <h4 ng-bind="currentSku.selection_text" class="font-weight-200"></h4>
+          <div class="vert-10 margin-bottom-0">
+            <div class="btn btn-lg btn-block" ng-disabled="disabled || adding" ng-class="disabled ? 'btn-default' : 'btn-primary'" ng-if="!product.out_of_stock && !product.discontinued" ng-click="addToCart(currentSku)">{{ addingText || 'Add to cart' }}</div>
+            <div class="btn btn-info btn-lg btn-block disabled" ng-if="product.out_of_stock" disabled>Out of Stock</div>
+            <div class="btn btn-info btn-lg btn-block disabled" ng-if="product.discontinued" disabled>Discontinued</div>
+          </div>
+          <h4 ng-bind="product.content" class="vert-20 font-weight-200" style="white-space: pre-line;"></h4>
+        </div>
+      </div>
+    </div>
+    <!-- <pre>{{ product | json }}</pre> -->
+    <!-- <pre>{{ currentSku | json }}</pre> -->
+    <!-- <div class="row vert-20">
+      <div class="col col-sm-12">
+        <table class="table table-condensed table-striped table-bordered white-background">
+          <tr ng-if="template.content_meta.item_name">
+            <td>Item</td>
+            <td ng-bind="template.content_meta.item_name"></td>
+          </tr>
+          <tr ng-if="template.shipping_price">
+            <td>Shipping Cost</td>
+            <td ng-bind="template.shipping_price | centToDollar"></td>
+          </tr>
+          <tr ng-if="template.content_meta.brand_name">
+            <td>Brand Name</td>
+            <td ng-bind="template.content_meta.brand_name"</td>
+          </tr>
+          <tr ng-if="template.content_meta.manufacturer">
+            <td>Manufacturer</td>
+            <td ng-bind="template.content_meta.manufacturer"></td>
+          </tr>
+          <tr ng-if="template.content_meta.condition">
+            <td>Condition</td>
+            <td ng-bind="template.content_meta.condition"></td>
+          </tr>
+          <tr ng-if="template.content_meta.warranty">
+            <td>Warranty</td>
+            <td ng-bind="template.content_meta.warranty"></td>
+          </tr>
+          <tr>
+            <td>Supply Description</td>
+            <td>
+              {{ template.title }}
+              <br>
+              {{ template.content }}
+            </td>
+          </tr>
+          <tr ng-if="template.content_meta.details">
+            <td>Details</td>
+            <td ng-bind-html="template.content_meta.details | unboldHtml"></td>
+          </tr>
+        </table>
+      </div>
+    </div> -->
+  </div>
+</div> <!-- /PRODUCT CARD -->

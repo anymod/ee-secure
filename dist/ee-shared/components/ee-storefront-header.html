@@ -21,7 +21,7 @@
            class="store-title inline-block hover-pointer font-weight-200 margin-0"
            ng-style="{ color: meta.home.topBarColor }">
           <img ng-if="meta.logo" ng-src="{{ meta.logo }}" class="small-thumb img-circle margin-right-4" />
-          <div class="inline-block height-50" style="height: 50px; padding: 5px 0; font-size: 28px; vertical-align: middle;">{{ meta.home.name }}</div>
+          <div class="inline-block height-50" style="height: 50px; padding: 5px 0; font-size: 28px; vertical-align: middle;" ng-bind="meta.home.name"></div>
         </div>
       </div>
 
@@ -72,7 +72,7 @@
             </div>
           </li>
 
-          <!-- TODO implement search on storefront storeproducts -->
+          <!-- TODO implement search on storefront products -->
           <!-- <li><a ui-sref="storefront" ng-style="{ color: meta.home.topBarColor }"><i class="fa fa-search"></i></a></li> -->
 
           <li class="dropdown" dropdown>

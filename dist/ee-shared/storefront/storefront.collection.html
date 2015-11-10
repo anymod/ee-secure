@@ -15,7 +15,7 @@
       <h4 class="margin-5 font-weight-200">{{ collection.data.collection.title }}</h4>
       <hr>
 
-      <div ng-if="collection.data.storeProducts.length > 0" class="text-center">
+      <div ng-if="collection.data.products.length > 0" class="text-center">
         <div class="margin-10">
           <pagination ng-if="collection.data.count > collection.data.perPage"
             total-items="collection.data.count"
@@ -31,8 +31,8 @@
         </div>
 
         <div class="full-width text-center vert-20 overflow-hidden">
-          <div ng-repeat="storeProduct in collection.data.storeProducts" class="template-container text-left inline-block width-250 vertical-align-top">
-            <ee-storeproduct-for-storefront storeproduct="storeProduct"></ee-storeproduct-for-storefront>
+          <div ng-repeat="product in collection.data.products" class="text-left inline-block width-250 vertical-align-top">
+            <ee-product-for-store product="product"></ee-product-for-store>
             <br>
           </div>
         </div>
@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div ng-if="collection.data.storeProducts.length <= 0">
+      <div ng-if="collection.data.products.length <= 0">
         <h4 class="margin-5 font-weight-200">This collection is coming soon</h4>
       </div>
 

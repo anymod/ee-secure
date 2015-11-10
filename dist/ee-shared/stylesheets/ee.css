@@ -8816,6 +8816,12 @@ html {
 .vertical-align-middle {
   vertical-align: middle;
 }
+.vertical-align-bottom {
+  vertical-align: bottom;
+}
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
 .subheader-spacer {
   height: 43px;
 }
@@ -9058,11 +9064,14 @@ html {
 .max-width-900 {
   max-width: 900px;
 }
+.max-height-0 {
+  max-height: 0px;
+}
 .max-height-80 {
   max-height: 80px;
 }
-.max-height-0 {
-  max-height: 0px;
+.max-height-200 {
+  max-height: 200px;
 }
 .max-height-2400 {
   max-height: 2400px;
@@ -9229,7 +9238,7 @@ img.loading {
 @media (max-width: 767px) {
   .template-well,
   .product-well {
-    width: 139px;
+    width: 143px;
   }
   .template-preview-thumb,
   .product-preview-thumb img {
@@ -9310,10 +9319,6 @@ img.media-object {
 }
 .nav-compact li > a {
   padding: 1px 5px;
-}
-.input-group .btn:last-child {
-  border-radius: 0 3px 3px 0;
-  text-align: left;
 }
 .input-group-plain .input-group-addon {
   background: none;
@@ -9636,11 +9641,25 @@ nav {
 .storefront-carousel .right .well {
   text-align: left;
 }
-.storeproduct a.storeproduct-title {
+a.product {
+  text-decoration: none;
+}
+a.product .product-title {
   color: #0286c2;
 }
-.storeproduct a.storeproduct-title:hover {
+a.product:hover .product-title,
+a.product:focus .product-title {
   color: #03a9f4;
+  text-decoration: underline;
+}
+.product-container {
+  border: 1px solid #fcfcfc;
+}
+.product-container:hover,
+.product-container:focus {
+  background-color: white;
+  border: 1px solid #f6f6f6;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 @media (max-width: 600px) {
   ee-collection-editor-card .media-left,

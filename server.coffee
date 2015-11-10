@@ -14,8 +14,13 @@ serveStatic   = require 'serve-static'
 ejs           = require 'ejs'
 _             = require 'lodash'
 constants     = require './server.constants'
-finders       = require './server.finders'
-helpers       = require './server.helpers'
+utils         = require './models/utils'
+
+User          = require './models/user'
+Product       = require './models/product'
+Sku           = require './models/sku'
+Cart          = require './models/cart'
+Order         = require './models/order'
 
 forceSsl = (req, res, next) ->
   if req.headers['x-forwarded-proto'] isnt 'https'
@@ -44,7 +49,7 @@ app.use serveStatic(path.join __dirname, 'dist')
 # HOME
 app.get '/', (req, res, next) ->
   bootstrap = { foo: 'bar' }
-  bootstrap.stringified = helpers.stringify bootstrap
+  bootstrap.stringified = utils.stringify bootstrap
   # res.render 'checkout.ejs', { bootstrap: bootstrap }
   res.send 'Hi!'
   # .catch (err) ->
@@ -53,11 +58,11 @@ app.get '/', (req, res, next) ->
 
 # CHECKOUT
 app.get '/checkout/:cart_uuid', (req, res, next) ->
-  { bootstrap, host, path } = helpers.setup req
-  helpers.defineCheckoutByUUID req.params.cart_uuid, bootstrap
-  .then () -> helpers.addCartTotals bootstrap.cart
+  { bootstrap, host, path } = utils.setup req
+  Cart.defineCheckoutByUUID req.params.cart_uuid, bootstrap
+  .then () -> Cart.addTotals bootstrap.cart
   .then () ->
-    bootstrap.stringified = helpers.stringify bootstrap
+    bootstrap.stringified = utils.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }
   .catch (err) ->
     console.error 'error in CHECKOUT', err
@@ -65,10 +70,10 @@ app.get '/checkout/:cart_uuid', (req, res, next) ->
 
 # SUCCESS
 app.get '/orders/:order_uuid', (req, res, next) ->
-  { bootstrap, host, path } = helpers.setup req
-  helpers.defineOrderByUUID req.params.order_uuid, bootstrap
+  { bootstrap, host, path } = utils.setup req
+  Order.defineByUUID req.params.order_uuid, bootstrap
   .then () ->
-    bootstrap.stringified = helpers.stringify bootstrap
+    bootstrap.stringified = utils.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }
   .catch (err) ->
     console.error 'error in SUCCESS', err

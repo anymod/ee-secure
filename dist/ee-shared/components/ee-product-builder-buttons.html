@@ -1,0 +1,8 @@
+<div class="btn btn-group pad-0" ng-class="btnClass">
+  <div class="btn btn-default font-weight-200" ng-click="customizationFns.toggleFeatured(product)" ng-class="{ 'btn-info': product.featured }">
+    Feat<span class="hidden-xs">ure<span ng-if="product.featured">d</span></span>
+  </div>
+  <div class="btn btn-default font-weight-200" ng-click="productsFns.addProductModal(product, { type: 'edit' })">Edit</div>
+  <div class="btn btn-default font-weight-200" ng-click="productsFns.addProductModal(product, { type: 'add' })" ng-if="!collection">Add</div>
+  <div class="btn btn-default font-weight-200" ng-click="collectionsFns.removeProduct(collection, product)" ng-if="collection"><i class="fa fa-fw fa-times"></i></div>
+</div>
