@@ -8,74 +8,151 @@
       <div class="col col-sm-6">
         <div class="pad-10">
           <h1 ng-bind="product.title" class="margin-0 font-weight-200"></h1>
+          <a href ui-sref="search({ q: product.title })" class="text-muted">
+            <small class="hover-pointer"><i class="fa fa-fw fa-search"></i>more like this</small>
+          </a>
+          <div>
+            <h4 ng-bind="currentSku.selection_text" class="inline-block font-weight-200"></h4>
+            <div ng-if="skus.length > 1" class="pull-right btn-group" dropdown>
+              <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li ng-repeat="sku in skus" ng-if="!sku.discontinued">
+                  <a href ng-click="setCurrentSku(sku)">
+                    <small ng-bind="sku.price | centToDollar" class="inline-block text-muted min-width-40"></small>
+                    <span ng-bind="sku.selection_text"></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <h4 ng-if="currentSku.msrp && currentSku.price && currentSku.msrp > currentSku.price" class="vert-10">
             <span class="text-muted"><s>{{ currentSku.msrp | centToDollar }}</s></span>
             <span class="text-danger">&nbsp;{{ msrpDiscount | percentage:0 }} Off</span>
           </h4>
           <h3 class="vert-15 margin-top-0" ng-bind="currentSku.price | centToDollar"></h3>
-          <div ng-if="skus.length > 1" class="btn-group" dropdown>
-            <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
-              Select <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li ng-repeat="sku in skus">
-                <a href ng-click="setCurrentSku(sku)" ng-bind="sku.selection_text"></a>
-              </li>
-            </ul>
-          </div>
-          <h4 ng-bind="currentSku.selection_text" class="font-weight-200"></h4>
-          <div class="vert-10 margin-bottom-0">
+          <div class="vert-10">
             <div class="btn btn-lg btn-block" ng-disabled="disabled || adding" ng-class="disabled ? 'btn-default' : 'btn-primary'" ng-if="!product.out_of_stock && !product.discontinued" ng-click="addToCart(currentSku)">{{ addingText || 'Add to cart' }}</div>
             <div class="btn btn-info btn-lg btn-block disabled" ng-if="product.out_of_stock" disabled>Out of Stock</div>
             <div class="btn btn-info btn-lg btn-block disabled" ng-if="product.discontinued" disabled>Discontinued</div>
+          </div>
+          <div ng-if="currentSku.length || currentSku.width || currentSku.height">
+            <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_30/v1447453155/ruler.png"/>
+            <span ng-if="currentSku.length">{{ currentSku.length }}"L </span>
+            <span ng-if="currentSku.length && currentSku.width"><i class="fa fa-fw fa-times text-muted"></i></span>
+            <span ng-if="currentSku.width">{{ currentSku.width }}"W </span>
+            <span ng-if="currentSku.width && currentSku.height"><i class="fa fa-fw fa-times text-muted"></i></span>
+            <span ng-if="currentSku.height">{{ currentSku.height }}"H </span>
           </div>
           <h4 ng-bind="product.content" class="vert-20 font-weight-200" style="white-space: pre-line;"></h4>
         </div>
       </div>
     </div>
-    <!-- <pre>{{ product | json }}</pre> -->
-    <!-- <pre>{{ currentSku | json }}</pre> -->
-    <!-- <div class="row vert-20">
-      <div class="col col-sm-12">
-        <table class="table table-condensed table-striped table-bordered white-background">
-          <tr ng-if="template.content_meta.item_name">
-            <td>Item</td>
-            <td ng-bind="template.content_meta.item_name"></td>
-          </tr>
-          <tr ng-if="template.shipping_price">
-            <td>Shipping Cost</td>
-            <td ng-bind="template.shipping_price | centToDollar"></td>
-          </tr>
-          <tr ng-if="template.content_meta.brand_name">
-            <td>Brand Name</td>
-            <td ng-bind="template.content_meta.brand_name"</td>
-          </tr>
-          <tr ng-if="template.content_meta.manufacturer">
-            <td>Manufacturer</td>
-            <td ng-bind="template.content_meta.manufacturer"></td>
-          </tr>
-          <tr ng-if="template.content_meta.condition">
-            <td>Condition</td>
-            <td ng-bind="template.content_meta.condition"></td>
-          </tr>
-          <tr ng-if="template.content_meta.warranty">
-            <td>Warranty</td>
-            <td ng-bind="template.content_meta.warranty"></td>
-          </tr>
-          <tr>
-            <td>Supply Description</td>
-            <td>
-              {{ template.title }}
-              <br>
-              {{ template.content }}
-            </td>
-          </tr>
-          <tr ng-if="template.content_meta.details">
-            <td>Details</td>
-            <td ng-bind-html="template.content_meta.details | unboldHtml"></td>
-          </tr>
-        </table>
+    <!-- Sku options -->
+    <table ng-if="product.skus.length > 1" class="table table-striped table-condensed table-hover">
+      <thead>
+        <tr>
+          <th colspan=6>
+            <div ng-bind="product.title" class="full-width"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="sku in product.skus"
+            ng-if="!sku.discontinued"
+            ng-class="{ success: sku.id == currentSku.id }"
+            ng-click="setCurrentSku(sku)"
+            class="hover-pointer">
+          <td>
+            <small ng-bind="sku.regular_price | centToDollar"></small>
+          </td>
+          <td>
+            <small ng-if="sku.msrp && sku.price && sku.msrp > sku.price" class="vert-10">
+              <span class="text-muted"><s>{{ sku.msrp | centToDollar }}</s></span>
+              <span class="text-danger">&nbsp;{{ (sku.msrp - sku.regular_price) / sku.msrp | percentage:0 }} Off</span>
+            </small>
+          </td>
+          <td><small ng-bind="sku.selection_text"></small></td>
+          <td class="text-right">
+            <div class="btn btn-default btn-xs" ng-click="addToCart(sku)" ng-disabled="disabled || adding">Add to cart</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- /Sku options -->
+
+    <!-- Details -->
+    <div class="vert-10">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href class="white-background" style="padding: 4px 10px">Details</a>
+        </li>
+      </ul>
+      <h4 ng-bind="product.title" class="vert-5 pad-5 font-weight-200"></h4>
+      <h5 ng-bind="currentSku.selection_text" class="vert-5 pad-5 font-weight-200"></h5>
+      <div class="row">
+        <div class="col col-sm-4">
+          <table class="table table-condensed margin-0">
+            <tr ng-if="currentSku.msrp && currentSku.msrp > currentSku.price">
+              <td>MSRP</td><td ng-bind="currentSku.msrp | centToDollar"></td>
+            </tr>
+            <tr ng-if="currentSku.price">
+              <td>Our price</td><td ng-bind="currentSku.price | centToDollar"></td>
+            </tr>
+            <tr ng-if="currentSku.shipping_price">
+              <td>Est. shipping</td><td ng-bind="currentSku.shipping_price | centToDollar"></td>
+            </tr>
+            <tr ng-if="currentSku.shipping_from">
+              <td>Country of origin</td><td ng-bind="currentSku.shipping_from"></td>
+            </tr>
+            <tr ng-if="false">
+              <td>Ship weight</td><td><span ng-bind="currentSku.meta.shipping_weight"></span> lbs</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col col-sm-4">
+          <table class="table table-condensed margin-0">
+            <tr ng-if="currentSku.brand_name">
+              <td>Brand</td><td ng-bind="currentSku.brand_name"></td>
+            </tr>
+            <tr ng-if="currentSku.manufacturer_name">
+              <td>Made by</td><td ng-bind="currentSku.manufacturer_name"></td>
+            </tr>
+            <tr ng-if="currentSku.meta.condition">
+              <td>Condition</td><td ng-bind="currentSku.meta.condition"></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col col-sm-4">
+          <table class="table table-condensed margin-0">
+            <tr ng-if="currentSku.style">
+              <td>Style</td><td ng-bind="currentSku.style"></td>
+            </tr>
+            <tr ng-if="currentSku.color">
+              <td>Color</td><td ng-bind="currentSku.color"></td>
+            </tr>
+            <tr ng-if="currentSku.material">
+              <td>Material</td><td ng-bind="currentSku.material"></td>
+            </tr>
+            <tr ng-if="currentSku.weight">
+              <td>Weight</td><td><span ng-bind="currentSku.weight"></span> lbs</td>
+            </tr>
+            <tr ng-if="currentSku.size">
+              <td>Size</td><td ng-bind="currentSku.size"></td>
+            </tr>
+          </table>
+        </div>
       </div>
-    </div> -->
+      <table class="table table-condensed margin-0">
+        <tr ng-if="currentSku.details">
+          <td>Additional details</td><td ng-bind="currentSku.details"></td>
+        </tr>
+        <tr ng-if="currentSku.meta.warranty">
+          <td>Warranty</td><td ng-bind="currentSku.meta.warranty"></td>
+        </tr>
+      </table>
+    </div>
+    <!-- /currentSku details -->
   </div>
 </div> <!-- /PRODUCT CARD -->

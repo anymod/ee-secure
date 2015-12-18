@@ -1,0 +1,12 @@
+<span ng-if="sref" class="position-relative inline-block" style="margin-right: 5px;">
+  <a ui-sref="{{ sref }}" class="no-underline">
+    <img ng-if="meta.logo" ng-src="{{ meta.logo }}" class="small-thumb img-circle margin-right-4" />
+    <span ng-if="!meta.logo" class="fa-stack fa-2x gray-border white-background" style="border-radius: 50%;">
+      <i class="fa fa-circle fa-stack-2x white-color"></i>
+      <i class="fa fa-home fa-stack-1x text-muted"></i>
+    </span>
+  </a>
+  <!-- blocker -->
+  <span ng-if="blocked" class="position-absolute" style="top: 0; left: 0; width: 55px; height: 55px;"></span>
+  <!-- /blocker -->
+</span>

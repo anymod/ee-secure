@@ -10,7 +10,7 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
   link: (scope, element, attrs) ->
     form = element
     cloudinary_transform = 'storefront_home'
-    if scope.attrTarget is 'logo'       then cloudinary_transform = 'storefront_logo'
+    if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_260x60'
     if scope.attrTarget is 'collection' then cloudinary_transform = 'banner'
 
     form
@@ -20,9 +20,8 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
         }
 
     assignAttr = (data) ->
-      if scope.attrTarget is 'body'       then scope.meta.home.carousel[0].imgUrl = data.result.secure_url
       if scope.attrTarget is 'about'      then scope.meta.about.imgUrl = data.result.secure_url
-      if scope.attrTarget is 'logo'       then scope.meta.logo = data.result.secure_url
+      if scope.attrTarget is 'logo'       then scope.meta.brand.image.logo = data.result.secure_url
       if scope.attrTarget is 'collection' then scope.meta.banner = data.result.secure_url
 
     resetProgress = () ->

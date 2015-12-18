@@ -22,7 +22,8 @@ angular.module('ee-save').directive "eeSave", ($state, eeDefiner, eeUser) ->
       eeUser.fns.updateUser()
       .then () ->
         scope.ee.unsaved = false
-        $state.go 'storefront'
+        setBtnText 'Saved'
+        # $state.go 'dashboard'
       .catch () ->
         scope.ee.unsaved = true
         setBtnText 'Error'

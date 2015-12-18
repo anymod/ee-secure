@@ -1,0 +1,34 @@
+<div ng-hide="collection.destroyed"
+    ng-class="{ 'opacity-05': collection.updating || collection.destroying }"
+    class="well collection-well text-center inline-block vertical-align-bottom pad-5 margin-2 white-background box-shadow">
+  <div class="pad-10 text-left" ng-click="editOrOpenModal()">
+    <img ng-src="{{ collection.banner | collectionThumbnail }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="productsFns.addProductModal(product)">
+    <div>
+      <h4 ng-bind="collection.headline" class="vert-2 font-weight-200"></h4>
+    </div>
+  </div>
+  <div>
+    <!-- Edit buttons -->
+    <div ng-if="!modal" class="btn btn-group btn-group-sm pad-0">
+      <div class="btn btn-default font-weight-200" ng-click="toggleCarousel()" ng-class="{ 'btn-info': collection.banner.indexOf('placehold.it') < 0 && collection.in_carousel }">
+        <span ng-if="collection.banner.indexOf('placehold.it') > -1">Add image</span>
+        <span ng-if="collection.banner.indexOf('placehold.it') < 0">
+          Feature<span ng-if="collection.in_carousel">d</span>
+        </span>
+      </div>
+      <a ui-sref="collection({ id: collection.id })" class="btn btn-default font-weight-200">Edit</a>
+      <div class="btn btn-default font-weight-200" ng-click="collectionsFns.destroyCollection(collection)"><i class="fa fa-fw fa-times"></i></div>
+    </div>
+    <!-- /Edit buttons -->
+    <!-- Add buttons -->
+    <div ng-if="modal" class="btn btn-group btn-group-sm pad-0">
+      <div class="btn btn-default" ng-click="editOrOpenModal()">View products</div>
+      <div class="btn" ng-click="collectionsFns.toggleAddToStore(collection)"
+        ng-class="collection.added ? 'btn-info' : 'btn-default'">
+        <span ng-if="!collection.added">Add to store</span>
+        <span ng-if="collection.added">In store&nbsp;<i class="fa fa-check"></i></span>
+      </div>
+    </div>
+    <!-- Add buttons -->
+  </div>
+</div>

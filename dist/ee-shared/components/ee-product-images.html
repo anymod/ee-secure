@@ -1,5 +1,14 @@
 <div>
-  <img ng-src="{{ mainImage | mainImg }}" class="full-width" name="mainImage">
+  <!-- TODO replace zoom.js -->
+  <div class="position-relative">
+    <img ng-src="{{ mainImage | mainImg }}"
+        class="full-width"
+        name="mainImage"
+        data-action="zoom">
+    <div class="position-absolute hidden-xs" style="bottom: 1px; left: 5px;">
+      <i class="fa fa-fw fa-search-plus"></i>&nbsp;<small>Click image to zoom</small>
+    </div>
+  </div>
   <!-- images -->
   <div ng-show="product.additional_images.length > 0" class="vert-5">
     <img ng-src="{{ product.image | thumbnail }}"

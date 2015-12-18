@@ -1,0 +1,201 @@
+<!-- Top supranav -->
+<div class="container supranav transition-200 margin-bottom-0"
+  ng-if="showSupranav && (meta.blog.url || meta.audience.social.facebook || meta.audience.social.pinterest || meta.audience.social.twitter || meta.audience.social.instagram)">
+  <div class="position-relative vert-5 text-right">
+    <!-- social -->
+    <a ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
+      ng-if="meta.audience.social[site]"
+      href="http://{{ site }}.com/{{ meta.audience.social[site] }}"
+      target="_blank"
+      class="no-underline">
+      <i class="fa fa-fw fa-lg fa-{{ site }} text-{{ site }}"></i>
+    </a>
+    <!-- /social -->
+    <!-- blog -->
+    <a ng-if="meta.blog.url" href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted" style="margin: 0 8px 0 3px;">blog</a>
+    <!-- /blog -->
+    <!-- help -->
+    <!-- <a href class="text-muted"></i>help</a> -->
+    <!-- /help -->
+  </div>
+</div>
+<!-- /Top supranav -->
+
+<!-- Main nav -->
+<div class="position-relative" style="z-index: 5;">
+  <!-- blocker -->
+  <div ng-show="blocked" class="navbar position-absolute" style="z-index: 2005; top: 0; left: 0; right: 0; height: 77px;"></div>
+  <!-- /blocker -->
+
+  <nav id="navtop"
+       class="navbar navbar-form store-navbar navbar-default white-background border-none margin-0 pad-0 round-0"
+       ng-hide="loading">
+
+    <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
+
+      <div class="row position-relative margin-bottom-0">
+        <!-- Logo -->
+        <div class="position-absolute" style="left: 0; top: 0; height: 74px; width: 300px; padding: 7px 10px 7px 0;">
+          <div ui-sref="storefront"
+             class="store-title inline-block hover-pointer font-weight-200 margin-0">
+            <ee-storefront-logo meta="meta" sref="storefront"></ee-storefront-logo>
+            <div ng-if="meta.name" class="title-text inline-block" ng-bind="meta.name"></div>
+          </div>
+        </div>
+        <!-- /Logo -->
+        <!-- Search -->
+        <div style="margin-left: 300px; float: left;">
+          <form class="form-group input-group" ng-submit="search()" style="margin-top: 7px;">
+            <input type="text" class="form-control full-width-important pad-20" placeholder="Search for products" ng-model="query" style="box-shadow: none;">
+            <span class="input-group-btn">
+              <button class="btn btn-default pad-10" type="submit">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
+            </span>
+          </form>
+        </div>
+        <!-- /Search -->
+        <!-- Cart -->
+        <div class="col col-sm-1 col-xs-3 text-right">
+          <div class="dropdown full-width vert-25" dropdown>
+            <a ng-if="isStore" ui-sref="cart" class="position-relative">
+              <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
+              <strong ng-if="quantityArray && quantityArray.length > 0" ng-bind="quantityArray.length"></strong>
+            </a>
+            <a ng-if="isBuilder" href class="dropdown-toggle" dropdown-toggle>
+              <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a href>This button takes<br>customers to their carts</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- /Cart -->
+      </div>
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div collapse="navCollapsed" class="collapse navbar-collapse" ng-if="false">
+        <ul class="nav navbar-nav">
+          <li ng-class="{ active: state == 'storefront' }"><a ui-sref="storefront" ng-click="navCollapsed = true">Home</a></li>
+          <li ng-if="collections.length > 0">
+            <a href ng-click="openCollectionsModal()">Collections</a>
+          </li>
+          <!-- <li ng-class="{ active: state == 'collection' }" class="dropdown" dropdown>
+            <a href class="dropdown-toggle" dropdown-toggle>
+              Shop <span class="caret"></span>
+            </a>
+            <ee-collection-nav ng-show="collections" collections="collections" class="dropdown-menu"></ee-collection-nav>
+          </li> -->
+
+          <li ng-show="!!meta.blog.url">
+            <a href="{{ meta.blog.url | addHttp }}" target="_blank">Blog</a>
+          </li>
+
+          <li ng-class="{ active: state == 'storefront-about' }"
+              ng-show="state == 'storefront-about' || meta.about.headline || meta.about.content">
+            <a ui-sref="storefront-about" ng-click="navCollapsed = true">
+              About
+            </a>
+          </li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+          <!-- audience: store -->
+          <li ng-if="meta.audience.social.facebook || meta.audience.social.pinterest || meta.audience.social.twitter || meta.audience.social.instagram || meta.audience.contact.email">
+            <div class="social-links light-background pad-10 round-20 text-center" style="margin: 17px 5px 16px;">
+              <a ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
+                ng-if="meta.audience.social[site]"
+                href="http://{{ site }}.com/{{ meta.audience.social[site] }}"
+                target="_blank" class="">
+                <i class="fa fa-fw fa-lg fa-{{ site }} text-{{ site }}"></i>
+              </a>
+              <a href="mailto:{{ meta.audience.contact.email }}"
+                target="_blank"
+                class="squeeze-5"
+                ng-if="meta.audience.contact.email">
+                <i class="fa fa-fw fa-lg fa-envelope text-muted"></i>
+              </a>
+            </div>
+          </li>
+
+          <!-- TODO implement search on storefront products -->
+          <!-- <li><a ui-sref="storefront"><i class="fa fa-search"></i></a></li> -->
+
+          <li class="dropdown" dropdown>
+            <a ng-if="isStore" ui-sref="cart" class="position-relative">
+              <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
+              <strong ng-if="quantityArray && quantityArray.length > 0">{{ quantityArray.length }}</strong>
+            </a>
+
+            <a ng-if="isBuilder" href class="dropdown-toggle" dropdown-toggle>
+              <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href>This button takes<br>customers to their carts</a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+</div>
+<!-- /Main nav -->
+
+<!-- Categories subnav -->
+<div class="position-relative" ng-ifz="showSubnav">
+  <nav class="navbar navbar-default margin-0 round-0 no-side-border"
+    ng-style="{ 'background-color': meta.brand.color.primary }">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="category in [{ id: 1, title: 'Home Accents'}, { id: 2, title: 'Artwork' }]">
+          <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
+            class="pad-left-0"
+            ng-bind="category.title"
+            ng-style="{ color: meta.brand.color.tertiary }">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<!-- /Categories subnav -->
+
+<!-- Search subnav -->
+<div ng-hide="blocked" class="position-relative visible-xs" style="z-index: 6;">
+  <form class="form-group input-group full-width margin-0" ng-submit="search()">
+    <input type="text" class="form-control full-width-important round-0" placeholder="Search" ng-model="query">
+    <span class="input-group-btn round-0">
+      <button class="btn btn-default round-0" type="submit"><i class="fa fa-fw fa-search"></i></button>
+    </span>
+  </form>
+</div>
+<!-- /Search subnav -->
+
+<!-- Scroll nav -->
+<div class="position-fixed full-width scrollnav transition-400">
+  <nav class="navbar navbar-form navbar-default navbar-rgba-colors border-none box-shadow-2 margin-0 round-0"
+       ng-hide="loading"
+       ng-style="{ 'background-color': meta.brand.color.primary }">
+    <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
+      <!-- Search -->
+      <div class="row margin-bottom-0">
+        <div class="col col-sm-7 col-sm-offset-4">
+          <form class="form-group input-group full-width vert-7" ng-submit="search()">
+            <input type="text" class="form-control full-width-important" placeholder="Search" ng-model="query">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit"><i class="fa fa-fw fa-search"></i></button>
+            </span>
+          </form>
+        </div>
+      </div>
+      <!-- /Search -->
+    </div>
+  </nav>
+</div>
+<!-- /Scroll nav -->

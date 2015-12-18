@@ -1,19 +1,19 @@
 <div ng-hide="collection.data.reading" class="container vert-20">
 
-  <div class="row">
-    <div class="col col-sm-3 col-md-2 col-lg-3 hidden-xs">
-      <h4 class="margin-5 font-weight-200">Collections</h4>
-      <hr>
-      <ee-collection-nav
-        collections="collection.ee.Collections.nav.alphabetical"
-        class="nav nav-pills nav-stacked nav-compact">
-      </ee-collection-nav>
-      <br>
-    </div>
+  <ol class="breadcrumb">
+    <li><a ui-sref="storefront">Home</a></li>
+    <li class="dropdown" dropdown>
+      <a href class="dropdown-toggle" dropdown-toggle>Collections <span class="caret"></span></a>
+      <ee-collection-nav collections="collection.ee.Collections.nav.alphabetical" class="dropdown-menu"></ee-collection-nav>
+    </li>
+    <li class="active" ng-bind="collection.data.collection.title"></li>
+  </ol>
 
-    <div class="col col-sm-9 col-md-10 col-lg-9 position-inherit">
-      <h4 class="margin-5 font-weight-200">{{ collection.data.collection.title }}</h4>
-      <hr>
+  <div class="row">
+
+    <h1 class="text-center font-weight-200" ng-bind="collection.data.collection.title"></h1>
+
+    <div class="col col-xs-12 position-inherit">
 
       <div ng-if="collection.data.products.length > 0" class="text-center">
         <div class="margin-10">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="full-width text-center vert-20 overflow-hidden">
-          <div ng-repeat="product in collection.data.products" class="text-left inline-block width-250 vertical-align-top">
+          <div ng-repeat="product in collection.data.products" class="text-left inline-block vertical-align-top">
             <ee-product-for-store product="product"></ee-product-for-store>
             <br>
           </div>

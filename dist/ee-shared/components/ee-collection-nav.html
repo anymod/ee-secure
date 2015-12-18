@@ -2,7 +2,10 @@
   <li ng-repeat="collection in collections"
       ng-class="{ active: collection.id == $state.params.id }"
       ng-if="collection.title && (!limit || $index < limit)">
-    <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })">{{ collection.title | humanize }}</a>
+    <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })"
+      class="text-muted"
+      ng-bind="collection.title | humanize">
+    </a>
   </li>
   <li ng-if="collections.length > limit">
     <a href ng-click="openCollectionsModal()">More collections</a>

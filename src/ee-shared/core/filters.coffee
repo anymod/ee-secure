@@ -23,6 +23,11 @@ angular.module('app.core').filter 'truncate', ($filter) ->
     return '' unless input
     if input.length <= (n-3) then input else input.substring(0, n-3) + '...'
 
+angular.module('app.core').filter 'removeHash', ($filter) ->
+  (input, n) ->
+    return '' unless input
+    input.replace(/#/g, '')
+
 resizeCloudinaryImageTo = (url, w, h) ->
   if !!url and url.indexOf("image/upload") > -1
     url.split("image/upload").join('image/upload/c_pad,w_' + w + ',h_' + h)
@@ -32,7 +37,7 @@ resizeCloudinaryImageTo = (url, w, h) ->
 angular.module('app.core').filter 'thumbnail',            () -> (url) -> resizeCloudinaryImageTo url, 80, 80
 angular.module('app.core').filter 'small',                () -> (url) -> resizeCloudinaryImageTo url, 120, 120
 angular.module('app.core').filter 'midsize',              () -> (url) -> resizeCloudinaryImageTo url, 250, 250
-angular.module('app.core').filter 'mainImg',              () -> (url) -> resizeCloudinaryImageTo url, 500, 500
+angular.module('app.core').filter 'mainImg',              () -> (url) -> resizeCloudinaryImageTo url, 600, 600
 angular.module('app.core').filter 'collectionThumbnail',  () -> (url) -> resizeCloudinaryImageTo url, 300, 177
 
 angular.module('app.core').filter 'scaledDownBackground', () ->

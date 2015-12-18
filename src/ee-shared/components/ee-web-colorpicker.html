@@ -1,0 +1,18 @@
+<div style="min-width: 354px;">
+  <div class="text-left max-width-300 vert-10 margin-top-0">
+    <div ng-click="setRank(1)" class="inline-block vertical-align-middle round-50-pct margin-5 margin-left-0 hover-pointer transition-200" style="width: 50px; height: 50px; border: 1px solid #AAA;" ng-style="{ 'background-color': dabPrimary, 'box-shadow': rank == 1 ? '0 0 0 2px hsl(0, 0%, 100%),0 0 0 4px hsl(0, 0%, 15%)' : 'none' }"></div>
+    <div ng-click="setRank(2)" class="inline-block vertical-align-middle round-50-pct margin-5 margin-left-0 hover-pointer transition-200" style="width: 50px; height: 50px; border: 1px solid #AAA;" ng-style="{ 'background-color': dabSecondary, 'box-shadow': rank == 2 ? '0 0 0 2px hsl(0, 0%, 100%),0 0 0 4px hsl(0, 0%, 15%)' : 'none' }"></div>
+    <div ng-click="setRank(3)" class="inline-block vertical-align-middle round-50-pct margin-5 margin-left-0 hover-pointer transition-200" style="width: 50px; height: 50px; border: 1px solid #AAA;" ng-style="{ 'background-color': dabTertiary, 'box-shadow': rank == 3 ? '0 0 0 2px hsl(0, 0%, 100%),0 0 0 4px hsl(0, 0%, 15%)' : 'none' }"></div>
+    <div class="btn btn-link" ng-hide="compress" ng-click="compress = true">close</div>
+  </div>
+  <div ng-repeat="row in rows" class="transition-200"
+    ng-style="{ 'margin': '0 ' + row.offset*27 +'px', height: compress ? '0' : '24px' }">
+    <div ng-repeat="color in row.colors" ng-click="selectColor(color)"
+      class="inline-block position-relative round-50-pct transition-400"
+      ng-class="{ 'hover-pointer': !compress }"
+      style="width: 27px; height: 27px;"
+      ng-style="{ 'box-shadow': color == selected ? '0 0 0 2px hsl(0, 0%, 100%),0 0 0 4px hsl(0, 0%, 15%)' : 'none', 'z-index': color == selected ? 3 : 2, 'background-color': color, opacity: compress ? 0 : 100 }">
+    </div>
+  </div>
+  <br>
+</div>

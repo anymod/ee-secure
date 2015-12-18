@@ -17,6 +17,7 @@ angular.module 'eeCheckout', [
 
   # custom
   'ee-storefront-header'
+  'ee-storefront-logo'
   'ee-exp-combined'
   # 'ee.templates' # commented out during build step for inline templates
 ]

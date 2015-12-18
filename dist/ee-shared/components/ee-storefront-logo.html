@@ -1,0 +1,6 @@
+<div class="position-relative">
+  <div ui-sref="storefront" class="store-title inline-block hover-pointer font-weight-200 margin-0">
+    <img ng-if="path" ng-src="https://res.cloudinary.com/eeosk/image/upload/{{ path }}" ng-style="{ 'max-height': (mobile ? '36px' : '60px') }">
+  </div>
+  <div ng-if="blocked" class="position-absolute top-left-bottom-right-0 hover-pointer" style="z-index: 2"></div>
+</div>

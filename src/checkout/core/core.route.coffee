@@ -7,28 +7,28 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
     .state 'checkout',
       url: '/checkout/:cart_uuid'
       views:
-        header:
+        top:
           controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.header.html'
-        top:
+        middle:
           controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.form.html'
       data:
         pageTitle:        'Checkout'
-        padTop:           '51px'
+        padTop:           '0'
 
     .state 'order',
       url: '/orders/:order_uuid'
       views:
-        header:
+        top:
           controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.header.html'
-        top:
+        middle:
           controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.order.html'
       data:
         pageTitle:        'Your order'
-        padTop:           '51px'
+        padTop:           '0'
 
   $urlRouterProvider.otherwise '/checkout'
   return

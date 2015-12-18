@@ -8,4 +8,7 @@ angular.module('ee-product-for-store').directive "eeProductForStore", () ->
   scope:
     product: '='
   link: (scope, ele, attr) ->
+
+    scope.searchSimilar = () -> scope.$emit 'search:query', scope.product?.title
+
     return

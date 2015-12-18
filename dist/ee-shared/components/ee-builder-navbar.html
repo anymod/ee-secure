@@ -1,103 +1,88 @@
 <!--
-  logo:           when true show logo
-  dropdown:       when true show dropdown instead of logo
-  home:           when true show home button instead of logo
-  back:           when true show back button instead of logo
+  dropdown:       when true show dropdown
+  search:         when true show search bar
+  live:           when true show 'View store' button
   signin:         when true show sign in button
   transparent:    when true show transparent background with white logo and no box-shadow
   fixed:          when true fix navbar to top of page
-  storefront:     when true show buttons on storefront page
-  product:        when true show buttons on product page
   productsNav:    when true show the sub-navbar for products & collections
   editNav:        when true show the sub-navbar for edit
   orderNav:       when true show the sub-navbar for orders
+  noShadow:       when true do not show box-shadow
 //-->
 
-<nav class="navbar ee-builder-navbar round-0" id="navbar-top" ng-class="{ 'navbar-transparent': transparent, 'box-shadow': !transparent, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
+<nav class="navbar ee-builder-navbar round-0" id="navbar-top"
+    ng-class="{ 'navbar-transparent': transparent, 'border-bottom-gray': !noShadow && !transparent && !productsNav && !editNav && !orderNav && !createNav, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
   <div class="container-fluid">
-    <div class="margin-7">
 
-      <!-- LOGO -->
-      <!-- normal logo -->
-      <a ng-if="logo" ui-sref="landing" id="logo" class="pull-left">
-        <img ng-show="transparent" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_150/v1432656685/eeosk_white.png" class="width-120"/>
-        <img ng-hide="transparent" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" class="width-120"/>
-      </a> <!-- /normal logo -->
-
-      <!-- dropdown: dropdown instead of logo -->
-      <div ng-if="dropdown" id="dropdown" class="pull-left">
-        <div class="inline-block position-relative" dropdown>
-          <div class="hover-pointer" dropdown-toggle>
-            <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" class="width-120"/>
-            <i class="caret"></i>
+    <div class="row vert-7">
+      <div class="col col-xs-2">
+        <a ui-sref="landing" id="logo">
+          <img ng-if="transparent" class="vert-5 width-120" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_150/v1432656685/eeosk_white.png"/>
+          <img ng-if="!transparent" class="vert-5 width-120 hidden-xs" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png"/>
+          <!-- http://res.cloudinary.com/eeosk/image/upload/v1450205397/eeosk_e_200x200.png -->
+          <img ng-if="!transparent" class="vert-5 visible-xs" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_40,h_40,r_50/v1450205397/eeosk_e_200x200.jpg"/>
+        </a>
+      </div>
+      <div class="col col-xs-10 col-sm-8">
+        <!-- dropdown -->
+        <div ng-if="dropdown" class="pull-left vert-10" dropdown>
+          <div class="dropdown-toggle hover-pointer vert-2" dropdown-toggle>
+            <i class="fa fa-lg fa-align-justify text-info"></i><i class="fa fa-lg fa-caret-down text-info" style="margin-left: 5px;"></i>
           </div>
-          <ul class="dropdown-menu" style="top: 37px; left: -5px;">
-            <li class="visible-xs"><a href="https://{{ ee.User.user.username }}.eeosk.com" target="_blank"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-external-link"></i>&nbsp;&nbsp;Live</h4></a></li>
-            <li class="visible-xs bg-info"><a ui-sref="products"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-cubes"></i>&nbsp;&nbsp;Products</h4></a></li>
-            <!-- <li class="visible-xs bg-primary"><a ui-sref="promotions"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-bullhorn"></i>&nbsp;&nbsp;Promotions</h4></a></li> -->
-            <li class="visible-xs bg-success"><a ui-sref="edit"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;Edit Store</h4></a></li>
-            <!-- <li><a href ng-click="feedback()"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-comment-o"></i>&nbsp;&nbsp;Feedback</h4></a></li> -->
+          <ul class="dropdown-menu" dropdown-menu>
+            <li><a ui-sref="products"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Products</h4></a></li>
+            <li><a ui-sref="edit"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;Edit Store</h4></a></li>
             <li><a ui-sref="orders"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
             <li><a ui-sref="account"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</h4></a></li>
             <li class="divider"></li>
             <li><a ui-sref="logout"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</h4></a></li>
           </ul>
         </div>
-      </div> <!-- /dropdown -->
-
-      <!-- home: home instead of logo -->
-      <a ng-if="home" ui-sref="storefront" id="home" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-home"></i>
-      </a> <!-- /home -->
-
-      <!-- back: back instead of logo -->
-      <a ng-if="back" ng-click="historyBack()" id="back" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /back -->
-
-      <!-- product: back to products instead of logo -->
-      <a ng-if="product" ui-sref="products" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /product -->
-
-      <!-- /LOGO -->
-
-      <!-- signin: sign in button -->
-      <div ng-if="signin" class="pull-right" role="form">
-        <a ui-sref="login"
-           class="btn btn-success"
-           analytics-on
-           analytics-category="user-management"
-           analytics-event="signin">
-          Sign in
-        </a>
-      </div> <!-- /signin -->
-
-      <!-- storefront: buttons on storefront page -->
-      <div ng-if="storefront" class="storefront-buttons hidden-xs">
-        <div class="position-fixed text-center">
-          <a ui-sref="products" class="btn btn-info">Products</a>&nbsp;
-          <!-- <a ui-sref="promotions" class="btn btn-primary">Promotions</a>&nbsp; -->
-          <a ui-sref="edit" class="btn btn-success">Edit Store</a>
+        <!-- /dropdown -->
+        <!-- search bar -->
+        <form ng-if="search" class="margin-0-auto" style="margin-left: 50px !important" ng-submit="runSearch()">
+          <div ng-class="{ 'input-group input-group-lg': ee.Products.search.inputs.searchLabel }">
+            <input type="text" ng-model="ee.Products.search.inputs.search" class="form-control input-lg" placeholder="Search products">
+            <span ng-if="ee.Products.search.inputs.searchLabel" class="input-group-btn">
+              <input type="submit" class="hidden"/>
+              <button type="button" class="btn btn-default"
+                  ng-if="ee.Products.search.inputs.searchLabel"
+                  ng-click="productsFns.clearSearch()">
+                <i class="fa fa-times text-muted"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <!-- /search bar -->
+      </div>
+      <div ng-if="signin" class="col col-xs-10">
+        <!-- signin: sign in button -->
+        <div class="vert-5 pull-right" role="form">
+          <a ui-sref="login"
+             class="btn btn-success"
+             analytics-on
+             analytics-category="user-management"
+             analytics-event="signin">
+            Sign in
+          </a>
         </div>
-        <a class="btn btn-link pull-right hidden-xs" href="https://{{ ee.User.user.username }}.eeosk.com" target="_blank">
-          Live&nbsp;<i class="fa fa-fw fa-external-link"></i>
-        </a>
-      </div> <!-- /storefront -->
-
-      <!-- save: show save button -->
-      <div ng-if="save">
-        <div class="position-fixed" style="top: 7px; left: 67px;">
-          <!-- <div ng-click="catalog()" class="btn btn-primary">Save</div> -->
-          <ee-save></ee-save>
-        </div>
-      </div> <!-- /save -->
-
+        <!-- /signin -->
+      </div>
+      <div ng-if="live && ee.User.user" class="col col-xs-2 hidden-xs">
+        <!-- live button -->
+        <ee-builder-live-button
+          class="pull-right"
+          user="ee.User.user"
+          hidden-xs="true">
+        </ee-builder-live-button>
+        <!-- /live button -->
+      </div>
     </div>
   </div>
 </nav>
 
-<nav ng-if="productsNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+<nav ng-if="productsNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
     <!-- <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
@@ -106,9 +91,9 @@
   </div>
 </nav>
 
-<nav ng-if="editNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+<nav ng-if="editNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.topbar">Top Bar<br><small>Navigation</small></a>
+    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="editdesign">Store<br><small>Design</small></a>
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a>
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a>
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a>
@@ -116,12 +101,8 @@
   </div>
 </nav>
 
-<nav ng-if="orderNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+<nav ng-if="orderNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="orders">Your<br><small>Orders</small></a>
-    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a> -->
-    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a> -->
-    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a> -->
-    <!-- <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.seo">SEO<br><small>Settings</small></a> -->
   </div>
 </nav>

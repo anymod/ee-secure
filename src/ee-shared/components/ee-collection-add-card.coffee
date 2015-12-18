@@ -18,14 +18,14 @@ module.directive "eeCollectionAddCard", (eeCollections) ->
       return if scope.collection.products.length > 0
       eeCollections.fns.readPublicCollection scope.collection, scope.page
 
-    scope.cloneCollection = () ->
-      scope.save_status = 'Adding'
-      eeCollections.fns.cloneCollection scope.collection
-      .then () ->
-        scope.save_status         = 'Added'
-        scope.collection.added    = true
-        scope.collection.products = []
-        $("body").animate({scrollTop: ele.offset().top - 200}, 500) # TODO implement without jQuery (esp once cloudinary is jQuery-free)
-      .catch (err) -> scope.save_status = 'Problem saving'
+    # scope.cloneCollection = () ->
+    #   scope.save_status = 'Adding'
+    #   eeCollections.fns.cloneCollection scope.collection
+    #   .then () ->
+    #     scope.save_status         = 'Added'
+    #     scope.collection.added    = true
+    #     scope.collection.products = []
+    #     $("body").animate({scrollTop: ele.offset().top - 200}, 500) # TODO implement without jQuery (esp once cloudinary is jQuery-free)
+    #   .catch (err) -> scope.save_status = 'Problem saving'
 
     return
