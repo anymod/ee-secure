@@ -12,6 +12,7 @@ morgan        = require 'morgan'
 path          = require 'path'
 serveStatic   = require 'serve-static'
 ejs           = require 'ejs'
+compression   = require 'compression'
 _             = require 'lodash'
 constants     = require './server.constants'
 utils         = require './models/utils'
@@ -34,6 +35,7 @@ forceSsl = (req, res, next) ->
   return
 
 app = express()
+app.use compression()
 app.set 'view engine', 'ejs'
 app.set 'views', path.join __dirname, 'dist'
 
