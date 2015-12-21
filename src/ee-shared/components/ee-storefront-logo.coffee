@@ -40,11 +40,19 @@ module.directive "eeStorefrontLogo", () ->
         p = 'c_limit,h_60,w_260/v1450227427/home_200x200.png'
         if scope.meta?.brand?.color?.primary then p = 'e_colorize,co_rgb:' + scope.meta.brand.color.primary.replace(/#/g,'') + ',' + p
         return scope.path = p
-      setImagePath()
+      # setImagePath()
       scope.path = setBackgroundPath() + '/' + setImagePath() + '/' + setTextPath() + '/v1450113176/260x60.png'
 
-    scope.$watch 'meta', (newVal, oldVal) ->
-      setPath()
+    wait = false
+    scope.$watch 'meta', (newVal, oldVal) =>
+      if !wait
+        wait = true
+        cb = =>
+          wait = false
+          setPath()
+          scope.$apply()
+        setTimeout cb, 200
+      # setPath()
     , true
 
     setPath()

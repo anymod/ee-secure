@@ -113,28 +113,59 @@
       </div>
     </nav>
     <div class="pad-20 pad-top-0">
-      <!-- categories -->
       <ul class="nav navbar-nav">
+        <!-- categories -->
         <li ng-repeat="category in categories">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
             class="text-muted"
             ng-bind="category.title">
           </a>
         </li>
-      </ul>
-      <!-- /categories -->
-      <!-- collections -->
-      <ul class="nav navbar-nav">
-        Collections
+        <!-- /categories -->
+        <li ng-if="collections.length > 0">
+          <hr class="vert-5">
+        </li>
+        <!-- collections -->
         <li ng-repeat="collection in collections">
           <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })"
             class="text-muted"
             ng-bind="collection.title">
           </a>
         </li>
+        <!-- /collections -->
+        <li ng-if="collections.length > 0">
+          <hr class="vert-5">
+        </li>
+        <!-- blog -->
+        <li ng-if="meta.blog.url">
+          <a href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted">Blog</a>
+        </li>
+        <!-- /blog -->
+        <li ng-if="meta.blog.url">
+          <hr class="vert-5">
+        </li>
+        <!-- social media -->
+        <li>
+          <div class="pad-10">
+            <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
+              ng-if="meta.audience.social[site]"
+              href="https://{{ site }}.com/{{ meta.audience.social[site] }}" target="_blank"
+              class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
+              <i class="fa fa-fw fa-2x fa-{{ site }} vertical-align-middle"></i>
+            </a>
+          </div>
+        </li>
+        <!-- /social media -->
       </ul>
-      <!-- /collections -->
     </div>
   </div>
 </div>
 <!-- /Mobile Sidenav -->
+
+<!-- scrollToTop -->
+<div ng-if="showScrollToTop" ee-scroll-to-top class="position-fixed round-50-pct text-center pad-2 transition-400"
+  style="right: 24px; width: 44px; height: 44px; z-index: 3020; opacity: 0.9;"
+  ng-style="{ 'background-color': meta.brand.color.secondary, bottom: showScrollButton ? '24px' : '-200px' }">
+  <i class="fa fa-3x fa-chevron-circle-up" ng-style="{ color: meta.brand.color.tertiary }"></i>
+</div>
+<!-- /scrollToTop -->
