@@ -2,12 +2,13 @@
 
 angular.module 'eeCheckout', [
   # vendor
+  'ngCookies'
+  'ngAnimate'
   'ui.router'
   'ui.bootstrap'
-  'ngCookies'
-  'ngSanitize'
-  'angulartics'
-  'angulartics.google.analytics'
+  # 'ngSanitize'
+  # 'angulartics'
+  # 'angulartics.google.analytics'
 
   # core
   'app.core'

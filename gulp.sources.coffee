@@ -21,13 +21,15 @@ sources.checkoutModules = () ->
 ### VENDOR ###
 sources.checkoutVendorMin = [
   './src/bower_components/angular/angular.min.js'
-  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
+  # './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
+  './src/bower_components/angular-animate/angular-animate.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
   './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
-  './src/bower_components/angulartics/dist/angulartics.min.js'
-  './src/bower_components/angulartics/dist/angulartics-ga.min.js'
+  # './src/bower_components/angulartics/dist/angulartics.min.js'
+  # './src/bower_components/angulartics/dist/angulartics-ga.min.js'
+  './src/bower_components/keen-js/dist/keen.min.js'
 ]
 sources.checkoutVendorUnmin = [
   './src/bower_components/angular-stripe/release/angular-stripe.js'

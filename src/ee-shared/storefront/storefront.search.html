@@ -1,7 +1,7 @@
 <div ng-if="search.ee.Products.products.length > 0" ng-hide="search.ee.Products.reading" class="container vert-20 text-center">
 
   <div class="margin-10">
-    <pagination ng-if="search.ee.Products.count > search.ee.Products.perPage"
+    <uib-pagination ng-if="search.ee.Products.count > search.ee.Products.perPage"
       total-items="search.ee.Products.count"
       items-per-page="search.ee.Products.perPage"
       ng-model="search.ee.Products.page"
@@ -11,7 +11,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="search.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
   <div class="full-width text-center vert-20 overflow-hidden">
@@ -22,7 +22,7 @@
   </div>
 
   <div class="pad-20 vert-20">
-    <pagination ng-if="search.ee.Products.count > search.ee.Products.perPage"
+    <uib-pagination ng-if="search.ee.Products.count > search.ee.Products.perPage"
       total-items="search.ee.Products.count"
       items-per-page="search.ee.Products.perPage"
       ng-model="search.ee.Products.page"
@@ -32,7 +32,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="search.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 </div>
 

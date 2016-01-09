@@ -15,7 +15,6 @@ angular.module('ee-scroll-to-top').directive "eeScrollToTop", ($location, $ancho
       stopY = 0
       startY = currentYPosition()
       distance = if stopY > startY then stopY - startY else startY - stopY
-      console.log 'distance', distance
       if distance < 100 then return window.scrollTo(0,0)
       speed = Math.round(distance / 100)
       if speed >= 20 then speed = 20

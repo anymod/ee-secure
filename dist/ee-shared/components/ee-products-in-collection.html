@@ -1,7 +1,7 @@
 <div class="container" ng-hide="data.reading || data.products.length <= 0">
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="data.count > data.perPage"
+    <uib-pagination ng-if="data.count > data.perPage"
       total-items="data.count"
       items-per-page="data.perPage"
       ng-model="data.page"
@@ -11,7 +11,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
   <!-- PRODUCTS -->
@@ -24,7 +24,7 @@
   <!-- /PRODUCTS -->
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="data.count > data.perPage"
+    <uib-pagination ng-if="data.count > data.perPage"
       total-items="data.count"
       items-per-page="data.perPage"
       ng-model="data.page"
@@ -34,7 +34,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
 </div>

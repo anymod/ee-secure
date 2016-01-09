@@ -19,6 +19,9 @@
           <li>
             <a ui-sref="storefront">Home</a>
           </li>
+          <li>
+            <a ui-sref="help">Help</a>
+          </li>
           <li ng-if="storefront.ee.User.user.storefront_meta.blog.url">
             <a href="{{ storefront.ee.User.user.storefront_meta.blog.url | addHttp }}" target="_blank">Blog</a>
           </li>

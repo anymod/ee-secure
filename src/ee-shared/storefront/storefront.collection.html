@@ -2,9 +2,9 @@
 
   <ol class="breadcrumb">
     <li><a ui-sref="storefront">Home</a></li>
-    <li class="dropdown" dropdown>
-      <a href class="dropdown-toggle" dropdown-toggle>Collections <span class="caret"></span></a>
-      <ee-collection-nav collections="collection.ee.Collections.nav.alphabetical" class="dropdown-menu"></ee-collection-nav>
+    <li class="dropdown" uib-dropdown>
+      <a href class="dropdown-toggle" uib-dropdown-toggle>Collections <span class="caret"></span></a>
+      <ee-collection-nav collections="collection.ee.Collections.nav.alphabetical" class="dropdown-menu" uib-dropdown-menu></ee-collection-nav>
     </li>
     <li class="active" ng-bind="collection.data.collection.title"></li>
   </ol>
@@ -17,7 +17,7 @@
 
       <div ng-if="collection.data.products.length > 0" class="text-center">
         <div class="margin-10">
-          <pagination ng-if="collection.data.count > collection.data.perPage"
+          <uib-pagination ng-if="collection.data.count > collection.data.perPage"
             total-items="collection.data.count"
             items-per-page="collection.data.perPage"
             ng-model="collection.data.page"
@@ -27,7 +27,7 @@
             boundary-links="true"
             rotate="false"
             ng-change="collection.update()">
-          </pagination>
+          </uib-pagination>
         </div>
 
         <div class="full-width text-center vert-20 overflow-hidden">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="pad-20 vert-20">
-          <pagination ng-if="collection.data.count > collection.data.perPage"
+          <uib-pagination ng-if="collection.data.count > collection.data.perPage"
             total-items="collection.data.count"
             items-per-page="collection.data.perPage"
             ng-model="collection.data.page"
@@ -48,7 +48,7 @@
             boundary-links="true"
             rotate="false"
             ng-change="collection.update()">
-          </pagination>
+          </uib-pagination>
         </div>
       </div>
 

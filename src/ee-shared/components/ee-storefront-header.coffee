@@ -19,14 +19,15 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart) ->
     scope.isStore     = $rootScope.isStore
     scope.isBuilder   = $rootScope.isBuilder
     scope.state       = $state.current.name
+    scope.id          = if scope.state is 'category' then parseInt($state.params.id) else null
     scope.cart        = eeCart.cart
     scope.showScrollButton = false
 
     scope.categories = [
+      { id: 4, title: 'Home Accents' }
+      { id: 3, title: 'Furniture' }
       { id: 1, title: 'Artwork' }
       { id: 2, title: 'Bed & Bath' }
-      { id: 3, title: 'Furniture' }
-      { id: 4, title: 'Home Accents' }
       { id: 5, title: 'Kitchen' }
       { id: 6, title: 'Outdoor' }
     ]
@@ -39,7 +40,6 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart) ->
     if scope.showScrollToTop
       trigger = 200
       angular.element($window).bind 'scroll', (e, a, b) ->
-        console.log 'offset', $window.pageYOffset
         if scope.showScrollButton and $window.pageYOffset < trigger
           scope.showScrollButton = false
           scope.$apply()

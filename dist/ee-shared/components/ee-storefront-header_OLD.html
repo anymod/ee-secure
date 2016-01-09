@@ -44,11 +44,11 @@
           <li ng-if="collections.length > 0">
             <a href ng-click="openCollectionsModal()" ng-style="{ color: meta.brand.color.tertiary }">Collections</a>
           </li>
-          <!-- <li ng-class="{ active: state == 'collection' }" class="dropdown" dropdown>
-            <a href class="dropdown-toggle" ng-style="{ color: meta.brand.color.tertiary }" dropdown-toggle>
+          <!-- <li ng-class="{ active: state == 'collection' }" class="dropdown" uib-dropdown>
+            <a href class="dropdown-toggle" ng-style="{ color: meta.brand.color.tertiary }" uib-dropdown-toggle>
               Shop <span class="caret"></span>
             </a>
-            <ee-collection-nav ng-show="collections" collections="collections" class="dropdown-menu"></ee-collection-nav>
+            <ee-collection-nav ng-show="collections" collections="collections" uib-dropdown-menu></ee-collection-nav>
           </li> -->
 
           <li ng-show="!!meta.blog.url">
@@ -87,16 +87,16 @@
           <!-- TODO implement search on storefront products -->
           <!-- <li><a ui-sref="storefront" ng-style="{ color: meta.brand.color.tertiary }"><i class="fa fa-search"></i></a></li> -->
 
-          <li class="dropdown" dropdown>
+          <li class="dropdown" uib-dropdown>
             <a ng-if="isStore" ui-sref="cart" class="position-relative" ng-style="{ color: meta.brand.color.tertiary }">
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
               <strong ng-if="quantityArray && quantityArray.length > 0">{{ quantityArray.length }}</strong>
             </a>
 
-            <a ng-if="isBuilder" href class="dropdown-toggle" ng-style="{ color: meta.brand.color.tertiary }" dropdown-toggle>
+            <a ng-if="isBuilder" href class="dropdown-toggle" ng-style="{ color: meta.brand.color.tertiary }" uib-dropdown-toggle>
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" uib-dropdown-menu>
               <li>
                 <a href>This button takes<br>customers to their carts</a>
               </li>

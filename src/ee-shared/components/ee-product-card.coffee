@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-product-card', []
 
-module.directive "eeProductCard", ($rootScope, $state, $cookies, eeBack) ->
+module.directive "eeProductCard", ($rootScope, $state, eeBack) ->
   templateUrl: 'ee-shared/components/ee-product-card.html'
   restrict: 'E'
   scope:

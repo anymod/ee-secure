@@ -13,11 +13,11 @@
           </a>
           <div>
             <h4 ng-bind="currentSku.selection_text" class="inline-block font-weight-200"></h4>
-            <div ng-if="skus.length > 1" class="pull-right btn-group" dropdown>
-              <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+            <div ng-if="skus.length > 1" class="pull-right btn-group" uib-dropdown>
+              <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
                 <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu dropdown-menu-right">
+              <ul class="dropdown-menu-right" uib-dropdown-menu>
                 <li ng-repeat="sku in skus" ng-if="!sku.discontinued">
                   <a href ng-click="setCurrentSku(sku)">
                     <small ng-bind="sku.price | centToDollar" class="inline-block text-muted min-width-40"></small>
@@ -65,12 +65,12 @@
             ng-click="setCurrentSku(sku)"
             class="hover-pointer">
           <td>
-            <small ng-bind="sku.regular_price | centToDollar"></small>
+            <small ng-bind="sku.price | centToDollar"></small>
           </td>
           <td>
             <small ng-if="sku.msrp && sku.price && sku.msrp > sku.price" class="vert-10">
               <span class="text-muted"><s>{{ sku.msrp | centToDollar }}</s></span>
-              <span class="text-danger">&nbsp;{{ (sku.msrp - sku.regular_price) / sku.msrp | percentage:0 }} Off</span>
+              <span class="text-danger">&nbsp;{{ (sku.msrp - sku.price) / sku.msrp | percentage:0 }} Off</span>
             </small>
           </td>
           <td><small ng-bind="sku.selection_text"></small></td>

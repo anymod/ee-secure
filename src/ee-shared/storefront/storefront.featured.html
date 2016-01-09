@@ -3,7 +3,7 @@
   <h4 class="margin-5 font-weight-200">Featured products</h4>
 
   <div class="margin-10">
-    <pagination ng-if="storefront.ee.Products.count > storefront.ee.Products.perPage"
+    <uib-pagination ng-if="storefront.ee.Products.count > storefront.ee.Products.perPage"
       total-items="storefront.ee.Products.count"
       items-per-page="storefront.ee.Products.perPage"
       ng-model="storefront.ee.Products.page"
@@ -13,7 +13,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="storefront.productsUpdate()">
-    </pagination>
+    </uib-pagination>
   </div>
 
   <div class="full-width text-center vert-20 overflow-hidden">
@@ -24,7 +24,7 @@
   </div>
 
   <div class="pad-20 vert-20">
-    <pagination ng-if="storefront.ee.Products.count > storefront.ee.Products.perPage"
+    <uib-pagination ng-if="storefront.ee.Products.count > storefront.ee.Products.perPage"
       total-items="storefront.ee.Products.count"
       items-per-page="storefront.ee.Products.perPage"
       ng-model="storefront.ee.Products.page"
@@ -34,7 +34,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="storefront.productsUpdate()">
-    </pagination>
+    </uib-pagination>
   </div>
 </div>
 

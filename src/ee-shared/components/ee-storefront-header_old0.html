@@ -55,15 +55,15 @@
         <!-- /Search -->
         <!-- Cart -->
         <div class="col col-sm-1 col-xs-3 text-right">
-          <div class="dropdown full-width vert-25" dropdown>
+          <div class="dropdown full-width vert-25" uib-dropdown>
             <a ng-if="isStore" ui-sref="cart" class="position-relative">
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
               <strong ng-if="quantityArray && quantityArray.length > 0" ng-bind="quantityArray.length"></strong>
             </a>
-            <a ng-if="isBuilder" href class="dropdown-toggle" dropdown-toggle>
+            <a ng-if="isBuilder" href class="dropdown-toggle" uib-dropdown-toggle>
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
               <li>
                 <a href>This button takes<br>customers to their carts</a>
               </li>
@@ -81,12 +81,6 @@
           <li ng-if="collections.length > 0">
             <a href ng-click="openCollectionsModal()">Collections</a>
           </li>
-          <!-- <li ng-class="{ active: state == 'collection' }" class="dropdown" dropdown>
-            <a href class="dropdown-toggle" dropdown-toggle>
-              Shop <span class="caret"></span>
-            </a>
-            <ee-collection-nav ng-show="collections" collections="collections" class="dropdown-menu"></ee-collection-nav>
-          </li> -->
 
           <li ng-show="!!meta.blog.url">
             <a href="{{ meta.blog.url | addHttp }}" target="_blank">Blog</a>
@@ -123,16 +117,16 @@
           <!-- TODO implement search on storefront products -->
           <!-- <li><a ui-sref="storefront"><i class="fa fa-search"></i></a></li> -->
 
-          <li class="dropdown" dropdown>
+          <li class="dropdown" uib-dropdown>
             <a ng-if="isStore" ui-sref="cart" class="position-relative">
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
               <strong ng-if="quantityArray && quantityArray.length > 0">{{ quantityArray.length }}</strong>
             </a>
 
-            <a ng-if="isBuilder" href class="dropdown-toggle" dropdown-toggle>
+            <a ng-if="isBuilder" href class="dropdown-toggle" uib-dropdown-toggle>
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" uib-dropdown-menu>
               <li>
                 <a href>This button takes<br>customers to their carts</a>
               </li>

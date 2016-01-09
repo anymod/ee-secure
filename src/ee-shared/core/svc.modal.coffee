@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeModal', ($modal) ->
+angular.module('app.core').factory 'eeModal', ($uibModal) ->
 
   ## SETUP
   _modals         = {}
@@ -41,7 +41,7 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
   ## PRIVATE FUNCTIONS
   _open = (name) ->
     if !name or !_config[name] then return
-    _modals[name] = $modal.open _config[name]
+    _modals[name] = $uibModal.open _config[name]
     return
 
   _close = (name) ->
@@ -55,14 +55,14 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
     close:  (name) -> _close name
 
     openCollectionsModal: (collections) ->
-      _modals.collections = $modal.open({
+      _modals.collections = $uibModal.open({
         templateUrl:    'ee-shared/storefront/storefront.collections.modal.html'
         backdropClass:  _backdropClass
         controller: ($scope) -> $scope.collections = collections
       })
 
     openCollectionProductsModal: (collection) ->
-      _modals.collections = $modal.open({
+      _modals.collections = $uibModal.open({
         templateUrl:    'builder/collections/collection.products.modal.html'
         controller:     'collectionProductsModalCtrl as modal'
         size:           'lg'
@@ -73,7 +73,7 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       })
 
     openProductModal: (product, data) ->
-      _modals.collections = $modal.open({
+      _modals.collections = $uibModal.open({
         templateUrl:    'builder/products/product.modal.html'
         controller:     'productModalCtrl as modal'
         backdropClass:  _backdropClass

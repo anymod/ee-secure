@@ -12,36 +12,20 @@
     </div>
     <div class="col col-md-10 col-sm-9">
       <div class="margin-0-auto" style="max-width: 800px;">  <!-- max-height: 470px; -->
-        <div carousel interval="5000" no-wrap="noWrapSlides">
-          <slide ng-repeat="collection in storefront.ee.Collections.nav.carousel" active="collection.active">
+        <uib-carousel interval="5000" no-wrap="false" no-transition="false">
+          <uib-slide ng-repeat="collection in storefront.ee.Collections.nav.carousel" active="collection.active">
             <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })">
               <img ng-src="{{ collection.banner }}" class="gray-border" style="margin:auto;">
               <div class="carousel-caption">
                 <h4>{{ collection.headline || collection.title }}</h4>
               </div>
             </a>
-          </slide>
-        </div>
+          </uib-slide>
+        </uib-carousel>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <ee-empty-message
-  ng-if="isBuilder && !storefront.ee.Collections.nav.reading && storefront.ee.Collections.nav.alphabetical.length <= 0"
-  main-message="Start your store"
-  btn-message="Add collections"
-  btn-sref="collectionsAdd"
-  sub-message="Get started by adding a few collections to your store!">
-</ee-empty-message>
-
-<ee-empty-message
-  ng-if="isBuilder && !storefront.ee.Collections.nav.reading && storefront.ee.Collections.nav.alphabetical.length > 0 && storefront.ee.Collections.nav.carousel.length <= 0"
-  main-message="Add to carousel"
-  btn-message="Your collections"
-  btn-sref="collections"
-  sub-message="Add collections to your carousel and they will show up here.">
-</ee-empty-message> -->
 
 <ee-empty-message
   ng-if="isStore && storefront.ee.Collections.nav.alphabetical.length <= 0 && storefront.ee.Products.storefront.products.length <= 0"
