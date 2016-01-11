@@ -4,7 +4,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
   templateUrl: 'ee-shared/components/ee-builder-navbar.html'
   restrict: 'E'
   scope:
-    dropdown: '@'
+    showDropdown: '@'
     search: '@'
     live: '@'
     signin: '@'

@@ -1,3 +1,7 @@
+'use_strict'
+
+$.cloudinary.config({ cloud_name: 'eeosk' })
+
 angular.module 'ee-cloudinaryUpload', []
 
 angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
@@ -8,20 +12,21 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
     meta: '='
     attrTarget: '='
   link: (scope, element, attrs) ->
+
     form = element
     cloudinary_transform = 'storefront_home'
     if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_260x60'
     if scope.attrTarget is 'collection' then cloudinary_transform = 'banner'
 
     form
-      .append $.cloudinary.unsigned_upload_tag cloudinary_transform, {
+      .append($.cloudinary.unsigned_upload_tag cloudinary_transform, {
           cloud_name: 'eeosk',
           tags: 'browser_uploads'
-        }
+        })
 
     assignAttr = (data) ->
       if scope.attrTarget is 'about'      then scope.meta.about.imgUrl = data.result.secure_url
-      if scope.attrTarget is 'logo'       then scope.meta.brand.image.logo = data.result.secure_url
+      if scope.attrTarget is 'logo'       then scope.meta.brand.image =  { logo: data.result.secure_url }
       if scope.attrTarget is 'collection' then scope.meta.banner = data.result.secure_url
 
     resetProgress = () ->

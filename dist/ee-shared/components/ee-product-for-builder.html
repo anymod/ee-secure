@@ -5,7 +5,7 @@
     <img ng-src="{{ product.image | small }}" ng-if="!hideButtons" class="full-width gray-border hover-success-border hover-pointer" ng-click="productsFns.addProductModal(product)">
     <img ng-src="{{ product.image | small }}" ng-if="hideButtons" class="full-width gray-border"/>
     <div>
-      <p ng-bind-html="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+      <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
       <div class="vert-10">
         <h4 class="inline-block vert-0" ng-bind="product.prices | priceRange"></h4>
         <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrps && product.msrps[0] > product.prices[0]">&nbsp;<s>{{ product.msrps | priceRange }}</s></h5>

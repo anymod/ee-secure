@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('checkout.core').run ($rootScope, $window, $cookies, eeModal, eeBootstrap) ->
+angular.module('checkout.core').run ($rootScope, $window) ->
   $rootScope.isStore = true
 
   $rootScope.forceReload = (path, query) ->

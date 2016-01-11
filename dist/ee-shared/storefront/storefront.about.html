@@ -1,17 +1,17 @@
 <div class="position-relative" ng-hide="storefront.data.loading">
-  <img ng-src="{{ storefront.ee.meta.about.imgUrl }}" class="img-responsive full-width">
+  <img ng-src="{{ storefront.ee.User.user.storefront_meta.about.imgUrl }}" class="img-responsive full-width">
   <div class="max-width-900 margin-0-auto pad-20">
 
     <h2 class="well white-background box-shadow font-weight-200" style="white-space: pre-line;"
-         ng-if="storefront.ee.meta.about.headline"
-         ng-bind="storefront.ee.meta.about.headline">
+      ng-if="storefront.ee.User.user.storefront_meta.about.headline"
+      ng-bind="storefront.ee.User.user.storefront_meta.about.headline">
     </h2>
 
     <br>
 
     <div class="well white-background box-shadow font-weight-200" style="white-space: pre-line;"
-         ng-if="storefront.ee.meta.about.content"
-         ng-bind="storefront.ee.meta.about.content">
+      ng-if="storefront.ee.User.user.storefront_meta.about.content"
+      ng-bind="storefront.ee.User.user.storefront_meta.about.content">
     </div>
   </div>
 </div>
