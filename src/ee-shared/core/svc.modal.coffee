@@ -54,11 +54,14 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
     open:   (name) -> _open name
     close:  (name) -> _close name
 
-    openCollectionsModal: (collections) ->
+    openCollectionsModal: (colls) ->
       _modals.collections = $uibModal.open({
         templateUrl:    'ee-shared/storefront/storefront.collections.modal.html'
         backdropClass:  _backdropClass
-        controller: ($scope) -> $scope.collections = collections
+        controllerAs:   'collections'
+        controller: () ->
+          collections = this
+          collections.collections = colls
       })
 
     openCollectionProductsModal: (collection) ->

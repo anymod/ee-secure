@@ -8650,6 +8650,16 @@ html {
   left: 0;
   right: 0;
 }
+.ee-store-subnav,
+.ee-builder-subnav {
+  max-height: 50px;
+  overflow: hidden;
+}
+.ee-store-subnav .store-subnav-btn:hover,
+.ee-store-subnav .store-subnav-btn:focus,
+.ee-store-subnav .store-subnav-btn.active {
+  padding-bottom: 8px;
+}
 .ee-builder-navbar {
   min-height: 60px;
 }
@@ -8668,25 +8678,20 @@ html {
 }
 .ee-builder-subnav {
   top: 60px !important;
-  max-height: 50px;
   z-index: 1020;
-  overflow: hidden;
   font-weight: bold;
 }
-.ee-builder-subnav .builder-subnav-btn-info,
-.ee-builder-subnav .builder-subnav-btn-success {
+.ee-builder-subnav .builder-subnav-btn {
   display: inline-block;
   width: 19%;
   line-height: 14px;
   color: #AFAFAF;
+  padding-bottom: 12px;
 }
-.ee-builder-subnav .builder-subnav-btn-info.active,
-.ee-builder-subnav .builder-subnav-btn-info:hover {
-  color: #6b5c84;
-}
-.ee-builder-subnav .builder-subnav-btn-success.active,
-.ee-builder-subnav .builder-subnav-btn-success:hover {
-  color: #40a397;
+.ee-builder-subnav .builder-subnav-btn:hover,
+.ee-builder-subnav .builder-subnav-btn:focus,
+.ee-builder-subnav .builder-subnav-btn.active {
+  padding-bottom: 5px;
 }
 .store-navbar {
   height: 90px;
@@ -9851,6 +9856,9 @@ img.zoom-img {
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
   cursor: default;
+}
+.keen-spinner {
+  z-index: 500 !important;
 }
 
 /*# sourceMappingURL=ee.css.map */

@@ -1,0 +1,23 @@
+<div>
+  <div class="full-width inline-block vert-2">
+    <a ui-sref="date({ id: user.id, year: m.year, month: m.num + 1, day: null })"
+      class="btn btn-sm btn-default pad-5" style="margin-right: 1px; width: 70px;"
+      ng-repeat="m in visibleMonths"
+      ng-bind="m.name"
+      ng-class="{ active: m.num == month, 'btn-primary': m.num == month && !day }">
+    </a>
+  </div>
+  <div class="full-width" style="overflow-x: scroll;">
+    <div ng-repeat="m in visibleMonths"
+      ng-if="m.num == month"
+      ng-style="{ width: '' + (dayWidth + 1) * m.days.length + 'px' }">
+      <a ui-sref="date({ id: user.id, year: year, month: month + 1, day: d })"
+        class="btn btn-sm pad-5 vert-5 margin-top-0" style="margin-right: 1px; width: 34px;"
+        ng-repeat="d in m.days"
+        ng-bind="d"
+        ng-class="d == day ? 'btn-primary' : 'btn-default'"
+        ng-style="{ width: '' + dayWidth + 'px' }">
+      </a>
+    </div>
+  </div>
+</div>

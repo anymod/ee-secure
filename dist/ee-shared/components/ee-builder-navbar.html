@@ -82,27 +82,33 @@
   </div>
 </nav>
 
-<nav ng-if="productsNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
+<nav ng-if="productsNav == 'true' && ee.User.user"
+  class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center"
+  ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
-    <!-- <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
-    <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
+    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
   </div>
 </nav>
 
-<nav ng-if="editNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
+<nav ng-if="editNav == 'true' && ee.User.user"
+  class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center"
+  ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="editdesign">Store<br><small>Design</small></a>
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a>
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a>
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a>
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.seo">SEO<br><small>Settings</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="editdesign">Store<br><small>Design</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="edit.seo">SEO<br><small>Settings</small></a>
   </div>
 </nav>
 
-<nav ng-if="orderNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
+<nav ng-if="orderNav == 'true' && ee.User.user"
+  class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center"
+  ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="orders">Your<br><small>Orders</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="orders">Your<br><small>Orders</small></a>
   </div>
 </nav>

@@ -21,9 +21,9 @@
           <div>
             <!-- Search -->
             <form class="form-group input-group margin-0" ng-submit="search()">
-              <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 18px 20px;">
+              <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="submit" style="padding: 8px 20px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
+                <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
               </span>
             </form>
             <!-- /Search -->
@@ -62,15 +62,28 @@
 </div>
 <!-- /Desktop nav -->
 
+<nav ng-if="productsNav == 'true' && ee.User.user"
+  class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center"
+  ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
+  <div class="max-width-600 margin-0-auto pad-2 position-relative">
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
+    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
+  </div>
+</nav>
+
 <!-- Desktop Subnav -->
-<nav class="navbar navbar-default round-0 margin-0 no-side-border hidden-xs"
+<nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs"
   ng-style="{ 'background-color': meta.brand.color.secondary }">
   <div class="container">
     <ul class="nav navbar-nav">
       <li ng-repeat="category in categories">
         <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
           ng-bind="category.title"
-          ng-style="{ color: meta.brand.color.tertiary, 'background-color': category.id == id ? 'rgba(255,255,255,0.05)' : '' }">
+          ng-style="{ color: meta.brand.color.tertiary, 'border-bottom': '5px solid ' + meta.brand.color.tertiary }"
+          ng-class="{ active: category.id == id }"
+          class="transition-200 store-subnav-btn">
         </a>
       </li>
     </ul>
