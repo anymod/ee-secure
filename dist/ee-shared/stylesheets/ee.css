@@ -8541,11 +8541,11 @@ body.modal-open {
   text-align: right;
 }
 .carousel-indicators li {
-  border: 1px solid #0286c2 !important;
+  border: 1px solid #777777 !important;
   background-color: #fcfcfc !important;
 }
 .carousel-indicators .active {
-  background-color: #0286c2 !important;
+  background-color: #777777 !important;
 }
 .carousel-caption {
   left: 0;
@@ -8574,6 +8574,19 @@ body.modal-open {
     margin-top: -8px;
     background: #474747;
   }
+}
+.pagination > li > a,
+.pagination > li > span {
+  color: #777777;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #777777;
+  border-color: #777777;
 }
 [ng\:cloak],
 [ng-cloak],
@@ -9175,6 +9188,9 @@ html {
 }
 .width-35 {
   width: 35px;
+}
+.width-40 {
+  width: 40px;
 }
 .width-45 {
   width: 45px;

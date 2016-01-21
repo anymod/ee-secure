@@ -15,7 +15,7 @@ module.directive "eeProductCard", ($rootScope, $state, eeBack) ->
     scope.addToCart = (sku) ->
       scope.adding = true
       scope.addingText = 'Adding'
-      $rootScope.$emit 'cart:add:sku', sku.id
+      $rootScope.$emit 'cart:add:sku', sku
 
     scope.setCurrentSku = (sku) ->
       scope.currentSku = sku

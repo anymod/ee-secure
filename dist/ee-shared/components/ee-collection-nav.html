@@ -1,7 +1,7 @@
 <ul>
   <li ng-repeat="collection in collections"
-      ng-class="{ active: collection.id == $state.params.id }"
-      ng-if="collection.title && (!limit || $index < limit)">
+      ng-if="collection.title && (!limit || $index < limit)"
+      ng-class="{ active: collection.id == $state.params.id }">
     <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })"
       class="text-muted"
       ng-bind="collection.title | humanize">

@@ -13,6 +13,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
     productsNav: '@'
     editNav: '@'
     orderNav: '@'
+    accountNav: '@'
     noShadow: '@'
   link: (scope, ele, attrs) ->
     scope.ee = eeDefiner.exports

@@ -1,9 +1,7 @@
-<div ng-if="storefront.ee.Products.storefront.products.length > 0" ng-hide="storefront.ee.Products.storefront.reading" class="container vert-20 margin-top-0 text-center">
-  <hr class="margin-top-0">
-  <h4 class="margin-5 font-weight-200">Featured products</h4>
+<div ng-if="storefront.ee.Products.products.length > 0" ng-hide="storefront.ee.Products.reading" class="container vert-20 margin-top-0 text-center">
 
-  <div class="margin-10">
-    <uib-pagination ng-if="storefront.ee.Products.count > storefront.ee.Products.perPage"
+  <div ng-if="storefront.ee.Products.count > storefront.ee.Products.perPage" class="margin-10">
+    <uib-pagination
       total-items="storefront.ee.Products.count"
       items-per-page="storefront.ee.Products.perPage"
       ng-model="storefront.ee.Products.page"
@@ -17,7 +15,7 @@
   </div>
 
   <div class="full-width text-center vert-20 overflow-hidden">
-    <div ng-repeat="product in storefront.ee.Products.storefront.products" class="text-left inline-block vertical-align-top">
+    <div ng-repeat="product in storefront.ee.Products.products" class="text-left inline-block vertical-align-top">
       <ee-product-for-store product="product"></ee-product-for-store>
       <br>
     </div>
@@ -38,4 +36,4 @@
   </div>
 </div>
 
-<ee-loading loading="storefront.ee.Products.storefront.reading"></ee-loading>
+<ee-loading loading="storefront.ee.Products.reading"></ee-loading>

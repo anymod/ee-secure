@@ -1,4 +1,4 @@
-<div id="store-footer-region" class="position-relative" ng-hide="storefront.ee.User.reading || storefront.ee.Collections.reading || storefront.ee.Products.storefront.reading">
+<div id="store-footer-region" class="position-relative" ng-hide="storefront.ee.User.reading || storefront.ee.Collections.reading || storefront.ee.Products.reading">
   <!-- blocker -->
   <div ng-show="storefront.ee.blocked" class="position-absolute top-left-bottom-right-0" style="z-index: 2005;"></div>
   <!-- /blocker -->
@@ -6,73 +6,75 @@
   <div class="section vert-20"></div>
   <div class="full-width pad-15 position-relative text-muted gray-background">
 
-    <div class="row">
-      <div class="col col-md-11 col-md-offset-1">
-        <h4 ng-bind="storefront.ee.User.user.storefront_meta.name"></h4>
-      </div>
-    </div> <!-- /row -->
+    <div class="container">
+      <div class="row">
+        <div class="col col-xs-12">
+          <h4 ng-bind="storefront.ee.User.user.storefront_meta.name"></h4>
+        </div>
+      </div> <!-- /row -->
 
-    <div class="row">
-      <div class="col col-sm-2 col-md-offset-1">
-        <ul class="nav nav-pills nav-stacked nav-compact">
-          <li class="disabled">Sections</li>
-          <li>
-            <a ui-sref="storefront">Home</a>
-          </li>
-          <li>
-            <a ui-sref="help">Help</a>
-          </li>
-          <li ng-if="storefront.ee.User.user.storefront_meta.blog.url">
-            <a href="{{ storefront.ee.User.user.storefront_meta.blog.url | addHttp }}" target="_blank">Blog</a>
-          </li>
-          <li ng-if="storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content">
-            <a ui-sref="storefront-about">About</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col col-sm-2" ng-if="storefront">
-        <ul class="nav nav-pills nav-stacked nav-compact">
-          <li class="disabled">Collections</li>
-          <ee-collection-nav
-            collections="storefront.ee.Collections.nav.alphabetical"
-            class="nav nav-pills nav-stacked nav-compact">
-          </ee-collection-nav>
-        </ul>
-      </div>
-      <div class="col col-sm-2" ng-if="storefront.ee.User.user.storefront_meta.audience.social.facebook || storefront.ee.User.user.storefront_meta.audience.social.pinterest || !!storefront.ee.User.user.storefront_meta.audience.social.twitter || !!storefront.ee.User.user.storefront_meta.audience.social.instagram || !!storefront.ee.User.user.storefront_meta.audience.contact.email">
-        <ul class="nav nav-pills nav-stacked nav-compact">
-          <li class="disabled">Connect</li>
-          <li ng-if="!!storefront.ee.User.user.storefront_meta.audience.contact.email">
-            <a href="mailto:{{ storefront.ee.User.user.storefront_meta.audience.contact.email }}" target="_blank">
-              Email us
-            </a>
-          </li>
-          <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
-              ng-if="!!storefront.ee.User.user.storefront_meta.audience.social[site]">
-            <a href="http://{{ site }}.com/{{ storefront.ee.User.user.storefront_meta.audience.social[site] }}" target="_blank">
-              <span ng-bind="site"></span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div> <!-- /row -->
+      <div class="row">
+        <div class="col col-sm-2">
+          <ul class="nav nav-pills nav-stacked nav-compact">
+            <li class="disabled">Sections</li>
+            <li>
+              <a ui-sref="storefront">Home</a>
+            </li>
+            <li>
+              <a ui-sref="help">Help</a>
+            </li>
+            <li ng-if="storefront.ee.User.user.storefront_meta.blog.url">
+              <a href="{{ storefront.ee.User.user.storefront_meta.blog.url | addHttp }}" target="_blank">Blog</a>
+            </li>
+            <li ng-if="storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content">
+              <a ui-sref="storefront-about">About</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col col-sm-2" ng-if="storefront">
+          <ul class="nav nav-pills nav-stacked nav-compact">
+            <li class="disabled">Collections</li>
+            <ee-collection-nav
+              collections="storefront.ee.Collections.nav.alphabetical"
+              class="nav nav-pills nav-stacked nav-compact">
+            </ee-collection-nav>
+          </ul>
+        </div>
+        <div class="col col-sm-2" ng-if="storefront.ee.User.user.storefront_meta.audience.social.facebook || storefront.ee.User.user.storefront_meta.audience.social.pinterest || !!storefront.ee.User.user.storefront_meta.audience.social.twitter || !!storefront.ee.User.user.storefront_meta.audience.social.instagram || !!storefront.ee.User.user.storefront_meta.audience.contact.email">
+          <ul class="nav nav-pills nav-stacked nav-compact">
+            <li class="disabled">Connect</li>
+            <li ng-if="!!storefront.ee.User.user.storefront_meta.audience.contact.email">
+              <a href="mailto:{{ storefront.ee.User.user.storefront_meta.audience.contact.email }}" target="_blank">
+                Email us
+              </a>
+            </li>
+            <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
+                ng-if="!!storefront.ee.User.user.storefront_meta.audience.social[site]">
+              <a href="http://{{ site }}.com/{{ storefront.ee.User.user.storefront_meta.audience.social[site] }}" target="_blank">
+                <span ng-bind="site"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div> <!-- /row -->
+    </div> <!-- /container -->
     <div class="section vert-10"></div>
   </div> <!-- /gray-background -->
 
-  <div class="vert-20">
+  <div class="container vert-20">
     <div class="row margin-0">
-      <div class="col col-sm-7 col-md-offset-1">
+      <div class="col col-sm-7">
         <small>
           &copy;&nbsp;2015&nbsp;<span ng-bind="storefront.ee.User.user.storefront_meta.name"></span>.&nbsp;&nbsp;
           <a href="https://eeosk.com" target="_blank" class="gray-color">Ecommerce by eeosk</a>.
         </small>
       </div>
-      <div class="col col-sm-4">
+      <div class="col col-sm-5">
         <!-- <img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-paypal.png" alt="PayPal">&nbsp; -->
         <img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-visa.png" alt="Visa">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-mastercard.png" alt="Mastercard">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-amex.png" alt="American Express">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-discover.png" alt="Discover">
       </div>
     </div>
-  </div> <!-- /white-background -->
+  </div>
 
 
 </div><!-- /store-footer-region -->

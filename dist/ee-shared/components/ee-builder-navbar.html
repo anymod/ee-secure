@@ -8,6 +8,7 @@
   productsNav:    when true show the sub-navbar for products & collections
   editNav:        when true show the sub-navbar for edit
   orderNav:       when true show the sub-navbar for orders
+  accountNav:     when true show the sub-navbar for account
   noShadow:       when true do not show box-shadow
 //-->
 
@@ -110,5 +111,13 @@
   ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
     <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="orders">Your<br><small>Orders</small></a>
+  </div>
+</nav>
+
+<nav ng-if="accountNav == 'true' && ee.User.user"
+  class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center"
+  ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
+  <div class="max-width-600 margin-0-auto pad-2 position-relative">
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="account">Your<br><small>Account</small></a>
   </div>
 </nav>

@@ -5,3 +5,4 @@ angular.module('ee-loading').directive "eeLoading", ($state, eeDefiner, eeUser) 
   restrict: 'E'
   scope:
     loading: '='
+    eeMinHeight: '@'

@@ -62,26 +62,13 @@
 </div>
 <!-- /Desktop nav -->
 
-<nav ng-if="productsNav == 'true' && ee.User.user"
-  class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center"
-  ng-style="{ 'background-color': ee.User.user.storefront_meta.brand.color.secondary }">
-  <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
-    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-style="{ color: ee.User.user.storefront_meta.brand.color.tertiary, 'border-bottom': '5px solid ' + ee.User.user.storefront_meta.brand.color.tertiary }" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
-  </div>
-</nav>
-
 <!-- Desktop Subnav -->
-<nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs"
-  ng-style="{ 'background-color': meta.brand.color.secondary }">
+<nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
   <div class="container">
     <ul class="nav navbar-nav">
       <li ng-repeat="category in categories">
         <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
           ng-bind="category.title"
-          ng-style="{ color: meta.brand.color.tertiary, 'border-bottom': '5px solid ' + meta.brand.color.tertiary }"
           ng-class="{ active: category.id == id }"
           class="transition-200 store-subnav-btn">
         </a>
@@ -188,9 +175,9 @@
 <!-- /Mobile Sidenav -->
 
 <!-- scrollToTop -->
-<div ng-if="showScrollToTop" ee-scroll-to-top class="position-fixed round-50-pct text-center pad-2 hover-pointer transition-400"
+<div ng-if="showScrollToTop" ee-scroll-to-top class="ee-scroll-to-top position-fixed round-50-pct text-center pad-2 hover-pointer transition-400"
   style="right: 24px; width: 44px; height: 44px; z-index: 3020; opacity: 0.9;"
-  ng-style="{ 'background-color': meta.brand.color.secondary, bottom: showScrollButton ? '24px' : '-200px' }">
-  <i class="fa fa-3x fa-chevron-circle-up" ng-style="{ color: meta.brand.color.tertiary }"></i>
+  ng-style="{ bottom: showScrollButton ? '24px' : '-200px' }">
+  <i class="fa fa-3x fa-chevron-circle-up"></i>
 </div>
 <!-- /scrollToTop -->

@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-storefront-header', []
 
-module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart) ->
+module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, categories) ->
   templateUrl: 'ee-shared/components/ee-storefront-header.html'
   scope:
     meta:           '='
@@ -12,7 +12,6 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart) ->
     collections:    '='
     quantityArray:  '='
     query:          '='
-    showSupranav:   '='
     showScrollnav:  '='
     showScrollToTop: '@'
   link: (scope, ele, attrs) ->
@@ -23,14 +22,7 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart) ->
     scope.cart        = eeCart.cart
     scope.showScrollButton = false
 
-    scope.categories = [
-      { id: 4, title: 'Home Accents' }
-      { id: 3, title: 'Furniture' }
-      { id: 1, title: 'Artwork' }
-      { id: 2, title: 'Bed & Bath' }
-      { id: 5, title: 'Kitchen' }
-      { id: 6, title: 'Outdoor' }
-    ]
+    scope.categories = categories
 
     if scope.showScrollnav
       trigger = 75
