@@ -10,6 +10,7 @@ utils =
     {
       bootstrap:
         uuid: req.params.cart_uuid
+        url:  req.protocol + '://' + req.get('host') + req.originalUrl
       host: req.headers.host
       path: url.parse(req.url).pathname
     }

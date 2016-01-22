@@ -1,7 +1,9 @@
 'use strict'
 
-angular.module('checkout.core').run ($rootScope, $window) ->
+angular.module('checkout.core').run ($rootScope, $window, eeBootstrap) ->
   $rootScope.isStore = true
+
+  console.log eeBootstrap
 
   $rootScope.forceReload = (path, query) ->
     protocol  = $window.location.protocol
