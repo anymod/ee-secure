@@ -1,6 +1,6 @@
 <div class="pad-5 product-container">
   <a class="product" ui-sref="product({ id: product.id, title: (product.title | urlText) })">
-    <img ng-src="{{ product.image | midsize }}" class="img-responsive full-width">
+    <img ng-src="{{ product.image | cloudinaryResizeTo:250:250 }}" class="img-responsive full-width">
     <h4 class="product-title vert-5 text-dark-blue font-weight-200" ng-bind="product.title"></h4>
     <div class="vert-5">
       <h4 class="inline-block vert-0 text-dark-gray" ng-bind="product.prices | priceRange"></h4>

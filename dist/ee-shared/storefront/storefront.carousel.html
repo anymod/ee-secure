@@ -1,6 +1,6 @@
 <div ng-if="storefront.ee.Collections.nav.carousel.length > 0" class="container">
   <div class="row vert-20 margin-bottom-0">
-    <div class="col col-md-2 col-sm-3 hidden-xs">
+    <!-- <div class="col col-md-2 col-sm-3 hidden-xs">
       <h4 class="margin-5 margin-top-0">Collections</h4>
       <ee-collection-nav
         ng-show="storefront"
@@ -9,16 +9,13 @@
         class="nav nav-pills nav-stacked nav-compact">
       </ee-collection-nav>
       <br>
-    </div>
-    <div class="col col-md-10 col-sm-9">
+    </div> -->
+    <div class="col col-xs-12">
       <div class="margin-0-auto" style="max-width: 800px;">  <!-- max-height: 470px; -->
         <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
           <uib-slide ng-repeat="collection in storefront.ee.Collections.nav.carousel" active="collection.active">
-            <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })">
+            <a ui-sref="collection({ id: collection.id })">
               <img ng-src="{{ collection.banner }}" class="gray-border" style="margin:auto;">
-              <div class="carousel-caption">
-                <h4 ng-bind="collection.headline || collection.title"></h4>
-              </div>
             </a>
           </uib-slide>
         </uib-carousel>

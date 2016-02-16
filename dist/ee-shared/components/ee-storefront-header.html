@@ -66,6 +66,9 @@
 <nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
   <div class="container">
     <ul class="nav navbar-nav">
+      <li>
+        <a ui-sref="collections" class="transition-200 store-subnav-btn" ng-class="{ active: state == 'collections' }">Collections</a>
+      </li>
       <li ng-repeat="category in categories">
         <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
           ng-bind="category.title"
@@ -118,6 +121,11 @@
     </nav>
     <div class="pad-20 pad-top-0">
       <ul class="nav navbar-nav">
+        <!-- collections -->
+        <li>
+          <a ui-sref="collections" class="text-muted">Collections</a>
+        </li>
+        <!-- /collections -->
         <!-- categories -->
         <li ng-repeat="category in categories">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
@@ -126,16 +134,16 @@
           </a>
         </li>
         <!-- /categories -->
-        <li ng-if="collections.length > 0">
+        <!-- <li ng-if="collections.length > 0">
           <hr class="vert-5">
-        </li>
+        </li> -->
         <!-- collections -->
-        <li ng-repeat="collection in collections">
-          <a ui-sref="collection({ id: collection.id, title: (collection.title | urlText) })"
+        <!-- <li ng-repeat="collection in collections">
+          <a ui-sref="collection({ id: collection.id })"
             class="text-muted"
             ng-bind="collection.title">
           </a>
-        </li>
+        </li> -->
         <!-- /collections -->
         <li ng-if="collections.length > 0">
           <hr class="vert-5">

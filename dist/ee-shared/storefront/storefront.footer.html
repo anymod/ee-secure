@@ -33,11 +33,15 @@
         </div>
         <div class="col col-sm-2" ng-if="storefront">
           <ul class="nav nav-pills nav-stacked nav-compact">
-            <li class="disabled">Collections</li>
-            <ee-collection-nav
+            <li class="disabled">Shop</li>
+            <li><a ui-sref="collections" class="nav nav-pills nav-stacked nav-compact">Collections</a></li>
+            <li ng-repeat="category in storefront.categories">
+              <a ui-sref="category({ id: category.id, title: (category.title | urlText) })" class="nav nav-pills nav-stacked nav-compact" ng-bind="category.title"></a>
+            </li>
+            <!-- <ee-collection-nav
               collections="storefront.ee.Collections.nav.alphabetical"
               class="nav nav-pills nav-stacked nav-compact">
-            </ee-collection-nav>
+            </ee-collection-nav> -->
           </ul>
         </div>
         <div class="col col-sm-2" ng-if="storefront.ee.User.user.storefront_meta.audience.social.facebook || storefront.ee.User.user.storefront_meta.audience.social.pinterest || !!storefront.ee.User.user.storefront_meta.audience.social.twitter || !!storefront.ee.User.user.storefront_meta.audience.social.instagram || !!storefront.ee.User.user.storefront_meta.audience.contact.email">

@@ -15,7 +15,7 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
 
   $cookies = null
   angular.injector(['ngCookies']).invoke([ '$cookies', (_$cookies_) -> $cookies = _$cookies_ ])
-  otherwise = if $cookies.get('loginToken') then '/dashboard' else '/'
+  otherwise = if $cookies.get('loginToken') then '/daily' else '/'
 
   $urlRouterProvider.otherwise otherwise
 

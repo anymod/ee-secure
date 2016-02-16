@@ -1,7 +1,7 @@
 <div>
   <!-- TODO replace zoom.js -->
   <div class="position-relative">
-    <img ng-src="{{ mainImage | mainImg }}"
+    <img ng-src="{{ mainImage | cloudinaryResizeTo:600:600 }}"
         class="full-width"
         name="mainImage"
         data-action="zoom">
@@ -11,11 +11,11 @@
   </div>
   <!-- images -->
   <div ng-show="product.additional_images.length > 0" class="vert-5">
-    <img ng-src="{{ product.image | thumbnail }}"
+    <img ng-src="{{ product.image | cloudinaryResizeTo:80:80 }}"
          class="inline-block width-62 gray-border hover-pointer margin-2"
          ng-click="setMainImage(product.image)" />
     <img ng-repeat="image in product.additional_images"
-         ng-src="{{ image | thumbnail }}"
+         ng-src="{{ image | cloudinaryResizeTo:80:80 }}"
          class="inline-block width-62 gray-border hover-pointer margin-2"
          ng-click="setMainImage(image)" />
   </div>
