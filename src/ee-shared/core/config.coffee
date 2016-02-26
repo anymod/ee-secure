@@ -11,8 +11,6 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
   $httpProvider.defaults.headers.common["Content-Type"] = "application/json"
   # $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest"
 
-  # otherwise = if !!$cookiesProvider.$get().loginToken then '/dashboard' else '/'
-
   $cookies = null
   angular.injector(['ngCookies']).invoke([ '$cookies', (_$cookies_) -> $cookies = _$cookies_ ])
   otherwise = if $cookies.get('loginToken') then '/daily' else '/'

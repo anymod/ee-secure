@@ -9,7 +9,7 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
     collection: '='
   link: (scope, ele, attrs) ->
     maxWidth = 800
-    maxHeight = 470
+    maxHeight = 420
     padding = 0
     scope.base_path = 'https://res.cloudinary.com/eeosk/image/upload'
     scope.base_transform = 'w_' + maxWidth + ',h_' + maxHeight
@@ -199,4 +199,4 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
 # Examples
 # https://res.cloudinary.com/eeosk/image/upload/w_600/l_hue_bar,g_south_west,w_0.6,h_0.2,fl_relative,e_hue:55,o_60/l_text:Doppio%20One_20:Get%20Cooking%0ATools%20For%20The%20Chef,g_south_west,y_20,x_10,co_rgb:eee/v1439837012/banner/uzzgq1ekvvc4qxmcmswj.jpg
 # https://res.cloudinary.com/eeosk/image/upload/l_hue_bar,g_south_west,w_0.6,h_0.3,fl_relative,y_10,x_10,e_hue:55,e_brightness:99,o_60/l_text:Doppio%20One_40:Get%20Cooking:%0ATools%20For%20The%20Chef,g_south_west,y_20,x_20,co_rgb:333/v1439837012/banner/uzzgq1ekvvc4qxmcmswj.jpg
-# https://res.cloudinary.com/eeosk/image/upload/w_800,h_470,o_100/l_rcddzr6uirxwthic8szw,c_fit,w_200,h_200,x_10,y_10,r_max,g_south_west/l_rcddzr6uirxwthic8szw,c_fit,w_200,h_200,x_220,y_10,g_south_west/l_rcddzr6uirxwthic8szw,c_fit,w_200,h_200,x_430,y_10,g_south_west/l_hue_bar,g_south_west,w_291,h_100,y_277,x_509,r_0,e_colorize,co_rgb:FF9933,o_77/l_text:Berkshire%20Swash_35_italic:Get%20Cooking:%20Tools%20for%20the%20Chef,g_south_west,w_269,h_181,c_fit,x_531,y_289,co_rgb:FFF/v1439837012/banner/uzzgq1ekvvc4qxmcmswj.jpg
+# https://res.cloudinary.com/eeosk/image/upload/w_800,h_420,o_100/l_rcddzr6uirxwthic8szw,c_fit,w_200,h_200,x_10,y_10,r_max,g_south_west/l_rcddzr6uirxwthic8szw,c_fit,w_200,h_200,x_220,y_10,g_south_west/l_rcddzr6uirxwthic8szw,c_fit,w_200,h_200,x_430,y_10,g_south_west/l_hue_bar,g_south_west,w_291,h_100,y_277,x_509,r_0,e_colorize,co_rgb:FF9933,o_77/l_text:Berkshire%20Swash_35_italic:Get%20Cooking:%20Tools%20for%20the%20Chef,g_south_west,w_269,h_181,c_fit,x_531,y_289,co_rgb:FFF/v1439837012/banner/uzzgq1ekvvc4qxmcmswj.jpg
