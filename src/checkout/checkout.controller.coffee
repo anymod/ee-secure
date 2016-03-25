@@ -21,8 +21,6 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
     # address_city: 'Menlo Park'
     # address_zip: '94040'
 
-  console.log eeBootstrap
-
   checkout.ee   = eeBootstrap
   checkout.meta = eeBootstrap.storefront_meta
 

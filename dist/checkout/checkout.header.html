@@ -1,8 +1,8 @@
 <!-- CHECKOUT navbar -->
 <div class="box-shadow white-background">
-  <div class="container max-width-900 text-center">
-    <a href="{{ checkout.ee.root_path }}">
-      <img ng-src="{{ checkout.ee.logo }}" class="max-width-200"/>
+  <div class="container max-width-900 text-center" style="min-height: 60px;">
+    <a href="{{ checkout.ee.root_path }}" class="inline-block pad-5">
+      <img ng-src="{{ checkout.ee.logo | cloudinaryTrim }}" class="max-width-300"/>
     </a>
   </div>
   <div class="full-width pad-2 text-center" ng-style="{ 'background-color': checkout.meta.brand.color.secondary }"></div>
