@@ -47,7 +47,7 @@ else
   app.use morgan 'dev'
 
 app.all '/favicon.ico', (req, res, next) ->
-  res.redirect 'https://res.cloudinary.com/eeosk/image/upload/v1456514495/favicon_lock.ico'
+  res.redirect 'https://res.cloudinary.com/eeosk/image/upload/v1458866623/favicon_lock_2.ico'
   return
 
 app.use serveStatic(path.join __dirname, 'dist')
