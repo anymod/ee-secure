@@ -1,9 +1,9 @@
 <!-- breadcrumb -->
 <div style="background-color: #F5F5F5">
-  <div class="container">
+  <div class="container max-width-900">
     <ol class="breadcrumb margin-0">
       <li><a ui-sref="storefront" class="text-muted">Home</a></li>
-      <li>
+      <!-- <li>
         <a ui-sref="collections" class="dropdown-toggle text-muted">Collections</a>
         &nbsp;&&nbsp;
         <span class="dropdown" uib-dropdown>
@@ -14,14 +14,14 @@
             </li>
           </ul>
         </span>
-      </li>
+      </li> -->
       <li class="active" ng-bind="product.data.product.title"></li>
     </ol>
   </div>
 </div>
 <!-- /breadcrumb -->
 
-<div ng-hide="product.data.reading" class="container text-center vert-20">
+<div ng-hide="product.data.reading" class="container max-width-900 text-center vert-20">
   <!-- PRODUCT -->
   <ee-product-card
     ng-if="product.data.product.id"

@@ -1,13 +1,8 @@
 <!-- CHECKOUT navbar -->
-<div class="box-shadow">
-  <div class="full-width white-background text-center">
+<div class="box-shadow white-background">
+  <div class="container max-width-900 text-center">
     <a href="{{ checkout.ee.root_path }}">
-      <ee-storefront-logo
-        ng-if="checkout.meta"
-        meta="checkout.meta"
-        blocked="true"
-        class="pad-7 hover-pointer">
-      </ee-storefront-logo>
+      <img ng-src="{{ checkout.ee.logo }}" class="max-width-200"/>
     </a>
   </div>
   <div class="full-width pad-2 text-center" ng-style="{ 'background-color': checkout.meta.brand.color.secondary }"></div>

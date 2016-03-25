@@ -1,4 +1,5 @@
-<div ng-if="search.ee.Products.products.length > 0" ng-hide="search.ee.Products.reading" class="container vert-20 text-center">
+<div ng-if="search.ee.Products.products.length > 0" ng-hide="search.ee.Products.reading"
+  class="container max-width-900 vert-20 text-center">
 
   <div class="margin-10">
     <uib-pagination ng-if="search.ee.Products.count > search.ee.Products.perPage"
@@ -15,9 +16,9 @@
   </div>
 
   <div class="full-width text-center vert-20 overflow-hidden">
-    <div ng-repeat="product in search.ee.Products.products" class="text-left inline-block vertical-align-top">
+    <div ng-repeat="product in search.ee.Products.products"
+      class="product-repeater text-left inline-block vertical-align-top">
       <ee-product-for-store product="product"></ee-product-for-store>
-      <br>
     </div>
   </div>
 

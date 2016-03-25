@@ -1,5 +1,10 @@
 'use strict'
 
+angular.module('app.core').filter 'reverse', ($filter) ->
+  (elems) ->
+    if !elems then return []
+    elems.slice().reverse()
+
 angular.module('app.core').filter 'centToDollar', ($filter) ->
   (cents) ->
     $filter('currency')(Math.floor(cents)/100)

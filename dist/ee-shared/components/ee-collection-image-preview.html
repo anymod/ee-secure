@@ -4,8 +4,8 @@
       <uib-tab-heading>Main <i class="fa fa-fw fa-image"></i></uib-tab-heading>
       <div class="row vert-5">
         <div class="col-sm-4">
-          <p class="vert-2 text-info">Main image layer <small class="text-muted">800x470px</small></p>
-          <img ng-src="{{ base_path + '/' + base_transform + '/' + base_image | cloudinaryResizeTo:300:177 }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.banner"/>
+          <p class="vert-2 text-info">Main image layer <small class="text-muted">800x420px</small></p>
+          <img ng-src="{{ base_path + '/' + base_transform + '/' + base_image | cloudinaryResizeTo:300:158 }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.banner"/>
           <div class="inline-block vertical-align-top">
             <div ng-if="base_transform.indexOf('o_0') < 0"
               class="btn btn-link pad-0"
@@ -80,7 +80,7 @@
         <div class="col-sm-8">
           <div class="row thin-slider">
             <div class="col-xs-1" style="height: 250px;">
-              <rzslider rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 470, hideLimitLabels: true, vertical: true }"></rzslider>
+              <rzslider rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 420, hideLimitLabels: true, vertical: true }"></rzslider>
             </div>
             <div class="col-xs-11" style="max-width: 446px;">
               <img ng-src="{{ url | cloudinaryResizeTo:425:250 }}" class="text-center max-width-100-pct" style="max-height: 250px;">

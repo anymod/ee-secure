@@ -6,7 +6,7 @@
   <div class="section vert-20"></div>
   <div class="full-width pad-15 position-relative text-muted gray-background">
 
-    <div class="container">
+    <div class="container max-width-900">
       <div class="row">
         <div class="col col-xs-12">
           <h4 ng-bind="storefront.ee.User.user.storefront_meta.name"></h4>
@@ -34,7 +34,6 @@
         <div class="col col-sm-2" ng-if="storefront">
           <ul class="nav nav-pills nav-stacked nav-compact">
             <li class="disabled">Shop</li>
-            <li><a ui-sref="collections" class="nav nav-pills nav-stacked nav-compact">Collections</a></li>
             <li ng-repeat="category in storefront.categories">
               <a ui-sref="category({ id: category.id, title: (category.title | urlText) })" class="nav nav-pills nav-stacked nav-compact" ng-bind="category.title"></a>
             </li>
@@ -55,7 +54,7 @@
             <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
                 ng-if="!!storefront.ee.User.user.storefront_meta.audience.social[site]">
               <a href="http://{{ site }}.com/{{ storefront.ee.User.user.storefront_meta.audience.social[site] }}" target="_blank">
-                <span ng-bind="site"></span>
+                <span ng-bind="site | humanize"></span>
               </a>
             </li>
           </ul>
@@ -65,7 +64,7 @@
     <div class="section vert-10"></div>
   </div> <!-- /gray-background -->
 
-  <div class="container vert-20">
+  <div class="container max-width-900 vert-20">
     <div class="row margin-0">
       <div class="col col-sm-7">
         <small>

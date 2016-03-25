@@ -1,0 +1,17 @@
+<div class="vert-5" ng-class="{ 'gray-border pad-5': collection.products.length > 0 && !collection.show_banner }">
+  <!-- banner -->
+  <a ui-sref="collection({ id: collection.id })">
+    <img ng-if="collection.banner && collection.show_banner" ng-src="{{ collection.banner }}" class="full-width vert-5">
+  </a>
+  <!-- /banner -->
+  <!-- carousel -->
+  <div ng-if="collection.products.length > 0 && !collection.show_banner" class="text-center">
+    <div ng-repeat="product in collection.products"
+      class="homepage-product text-left inline-block vertical-align-top vert-5">
+      <ee-product-for-store product="product"></ee-product-for-store>
+    </div>
+
+    <a class="btn btn-default" ui-sref="collection({ id: collection.id })">More from this collection</a>
+  </div>
+  <!-- /carousel -->
+</div>

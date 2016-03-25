@@ -36,12 +36,19 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
       size:           'lg'
       backdropClass:  _backdropClass
       windowClass:    'full-modal'
-
+    activity:
+      templateUrl:    'builder/tracks/activity.modal.html'
+      controller:     'activityModalCtrl as modal'
+      size:           'lg'
+      backdropClass:  _backdropClass
+      windowClass:    'full-modal'
 
   ## PRIVATE FUNCTIONS
-  _open = (name) ->
+  _open = (name, data) ->
     if !name or !_config[name] then return
-    _modals[name] = $uibModal.open _config[name]
+    modalObj = _config[name]
+    modalObj.resolve = data: () -> data
+    _modals[name] = $uibModal.open modalObj
     return
 
   _close = (name) ->
@@ -51,8 +58,8 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
 
   ## EXPORTS
   fns:
-    open:   (name) -> _open name
-    close:  (name) -> _close name
+    open: _open
+    close: _close
 
     openCollectionsModal: (colls) ->
       _modals.collections = $uibModal.open({

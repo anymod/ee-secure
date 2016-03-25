@@ -1,31 +1,32 @@
-<div ng-if="storefront.ee.Collections.nav.carousel.length > 0" class="container">
-  <div class="row vert-20 margin-bottom-0">
-    <!-- <div class="col col-md-2 col-sm-3 hidden-xs">
-      <h4 class="margin-5 margin-top-0">Collections</h4>
-      <ee-collection-nav
-        ng-show="storefront"
-        collections="storefront.ee.Collections.nav.alphabetical"
-        limit="10"
-        class="nav nav-pills nav-stacked nav-compact">
-      </ee-collection-nav>
-      <br>
-    </div> -->
-    <div class="col col-xs-12">
-      <div class="margin-0-auto" style="max-width: 800px;">  <!-- max-height: 470px; -->
-        <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
-          <uib-slide ng-repeat="collection in storefront.ee.Collections.nav.carousel" active="collection.active">
-            <a ui-sref="collection({ id: collection.id })">
-              <img ng-src="{{ collection.banner }}" class="gray-border" style="margin:auto;">
-            </a>
-          </uib-slide>
-        </uib-carousel>
-      </div>
+<!-- Carousel -->
+<div ng-if="storefront.ee.User.user.home_carousel.length > 0" class="container max-width-900">
+  <div class="vert-25">
+    <div class="margin-0-auto">
+      <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
+        <uib-slide ng-repeat="collection in storefront.ee.User.user.home_carousel" active="collection.active">
+          <a ui-sref="collection({ id: collection.id })">
+            <img ng-src="{{ collection.banner }}" class="full-width gray-border" style="margin:auto;">
+          </a>
+        </uib-slide>
+      </uib-carousel>
     </div>
   </div>
 </div>
+<!-- /Carousel -->
+
+<!-- Arranged -->
+<div ng-if="storefront.ee.User.user.home_arranged.length > 0" class="container max-width-900 vert-20">
+  <div ng-repeat="collection in storefront.ee.User.user.home_arranged">
+    <ee-collection-for-store collection="collection"></ee-collection-for-store>
+  </div>
+</div>
+<!-- /Arranged -->
 
 <ee-empty-message
-  ng-if="isStore && storefront.ee.Collections.nav.alphabetical.length <= 0 && storefront.ee.Products.storefront.products.length <= 0"
+  ng-if="isStore && storefront.ee.User.user.home_carousel.length <= 0 && storefront.ee.User.user.home_arranged.length <= 0"
+  ng-hide="storefront.ee.User.reading"
   main-message="Coming soon"
   sub-message="We're setting up our store, so please check back soon!">
 </ee-empty-message>
+
+<ee-loading loading="storefront.ee.User.reading" ee-min-height="600"></ee-loading>

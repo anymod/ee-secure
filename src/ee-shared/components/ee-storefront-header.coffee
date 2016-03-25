@@ -5,24 +5,24 @@ module = angular.module 'ee-storefront-header', []
 module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, categories) ->
   templateUrl: 'ee-shared/components/ee-storefront-header.html'
   scope:
-    meta:           '='
+    # meta:           '='
+    # logo:           '='
+    # categoryIds:    '='
+    user:           '='
     blocked:        '='
     fluid:          '@'
     loading:        '='
-    collections:    '='
     quantityArray:  '='
     query:          '='
     showScrollnav:  '='
     showScrollToTop: '@'
   link: (scope, ele, attrs) ->
-    scope.isStore     = $rootScope.isStore
-    scope.isBuilder   = $rootScope.isBuilder
-    scope.state       = $state.current.name
-    scope.id          = if scope.state is 'category' then parseInt($state.params.id) else null
-    scope.cart        = eeCart.cart
+    scope.state  = $state.current.name
+    scope.id     = if scope.state is 'category' then parseInt($state.params.id) else null
+    scope.cart   = eeCart.cart
     scope.showScrollButton = false
 
-    scope.categories = categories
+    return unless scope.user
 
     if scope.showScrollnav
       trigger = 75
@@ -39,9 +39,17 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, cat
           scope.showScrollButton = $window.pageYOffset > trigger
           scope.$apply()
 
+    assignCategories = () ->
+      scope.categories = []
+      for category in categories
+        if scope.user.categorization_ids?.indexOf(category.id) > -1 then scope.categories.push category
+
     scope.search = (query, page) ->
       $state.go 'search', { q: (query || scope.query), p: (page || scope.page) }
 
     $rootScope.$on 'search:query', (e, query) -> scope.search query, 1
+
+    assignCategories()
+    scope.$on 'updated:user', () -> assignCategories()
 
     return
