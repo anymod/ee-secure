@@ -25,8 +25,8 @@ utils =
     bootstrap.username          = attrs.username
     bootstrap.logo              = attrs.logo
     bootstrap.storefront_meta   = attrs.storefront_meta
-    bootstrap.title             = attrs.storefront_meta?.home?.name
-    bootstrap.site_name         = attrs.storefront_meta?.home?.name
+    bootstrap.title             = attrs.storefront_meta?.name
+    bootstrap.site_name         = attrs.storefront_meta?.name
     bootstrap.checkout_disabled = (attrs.proposition is 'foothill')
     bootstrap
 

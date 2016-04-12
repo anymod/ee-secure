@@ -11,7 +11,9 @@
       <ee-product-for-store product="product"></ee-product-for-store>
     </div>
 
-    <a class="btn btn-default" ui-sref="collection({ id: collection.id })">More from this collection</a>
+    <div ng-show="collection.products.length == 8">
+      <a class="btn btn-default" ui-sref="collection({ id: collection.id })">More from this collection</a>
+    </div>
   </div>
   <!-- /carousel -->
 </div>

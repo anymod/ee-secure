@@ -8841,6 +8841,12 @@ rzslider.vertical .rz-ticks .tick .tick-value {
 .text-envelope:hover {
   color: #ffac00 !important;
 }
+.text-flag {
+  color: #6b5c84 !important;
+}
+.text-flag:hover {
+  color: #6b5c84 !important;
+}
 .text-dark-gray {
   color: #474747 !important;
 }
@@ -9154,15 +9160,19 @@ html {
   left: 0;
   right: 0;
 }
-.ee-store-subnav,
 .ee-builder-subnav {
   max-height: 50px;
   overflow: hidden;
 }
-.ee-store-subnav .store-subnav-btn:hover,
-.ee-store-subnav .store-subnav-btn:focus,
-.ee-store-subnav .store-subnav-btn.active {
-  padding-bottom: 8px;
+.ee-store-subnav {
+  max-height: 40px;
+  min-height: 40px;
+  font-size: 17px;
+  overflow: hidden;
+}
+.ee-store-subnav ul.nav > li > a {
+  padding-top: 8px;
+  padding-bottom: 12px;
 }
 .ee-builder-navbar {
   min-height: 60px;
@@ -9242,9 +9252,9 @@ html {
   font-weight: 500;
 }
 .store-navbar {
-  height: 90px;
-  min-height: 90px;
-  max-height: 90px;
+  height: 84px;
+  min-height: 84px;
+  max-height: 84px;
   overflow: hidden;
 }
 .store-navbar .navbar-nav > li > a {
@@ -9592,6 +9602,9 @@ html {
 .pad-top-0 {
   padding-top: 0px !important;
 }
+.pad-bottom-0 {
+  padding-bottom: 0px !important;
+}
 .pad-right-20 {
   padding-right: 20px;
 }
@@ -9730,6 +9743,12 @@ html {
 .width-45 {
   width: 45px;
 }
+.width-50 {
+  width: 50px;
+}
+.width-55 {
+  width: 55px;
+}
 .width-62 {
   width: 62px;
 }
@@ -9847,12 +9866,13 @@ html {
 .brand-area {
   width: 300px;
   left: 0;
-  padding-top: 7px;
+  padding-top: 2px;
 }
 .activity-area {
   left: 307px;
   right: 0;
-  padding-top: 7px;
+  padding-top: 5px;
+  font-size: 16px;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {

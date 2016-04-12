@@ -20,7 +20,8 @@ Cart =
       utils.assignPaths bootstrap, utils.constructRoot(bootstrap.cart.domain)
       User.findById data[0].seller_id
     .then (data) ->
-      utils.assignBootstrap bootstrap, data[0]
+      user = data[0]
+      utils.assignBootstrap bootstrap, user
 
   addTotals: (cart) ->
     sku_ids = _.pluck cart.quantity_array, 'sku_id'
@@ -36,6 +37,8 @@ Cart =
           cart.cumulative_price += sku.price * elem.quantity
           elem.sku = sku
           elem.product = sku.product
+      # For Free shipping over $50
+      if cart.cumulative_price >= 5000 then cart.shipping_total = 0
       cart.grand_total = cart.cumulative_price + cart.shipping_total + cart.taxes_total
       cart
 

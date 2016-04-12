@@ -31,13 +31,13 @@
               </form>
               <!-- /Search -->
             </div>
-            <div class="full-width text-right pad-5 vert-5 vertical-align-middle">
+            <div class="full-width text-right pad-5 vert-5 margin-top-0 vertical-align-middle">
               <!-- social media -->
               <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
                 ng-if="user.storefront_meta.audience.social[site]"
                 href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
                 class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
-                <i class="fa fa-{{ site }} vertical-align-middle"></i>
+                <i class="fa fa-lg fa-{{ site }} vertical-align-middle"></i>
               </a>
               <!-- /social media -->
               <!-- blog -->
@@ -83,14 +83,14 @@
 <!-- /Desktop Subnav -->
 
 <!-- Mobile nav -->
-<nav class="navbar navbar-default white-background round-0 margin-0 no-side-border text-center visible-xs">
+<nav class="navbar navbar-default white-background round-0 margin-0 no-side-border text-center visible-xs" style="border-top: none;">
   <div class="margin-7">
     <a href ng-click="sidenavOpen = true" class="pad-5 pull-left inline-block text-muted">
       <i class="fa fa-fw fa-2x fa-bars"></i>
     </a>
     <!-- Logo -->
     <a ui-sref="storefront">
-      <img ng-src="{{ user.logo }}" style="max-height: 34px;"/>
+      <img ng-src="{{ user.logo | cloudinaryTrim }}" style="max-height: 34px;"/>
     </a>
     <!-- /Logo -->
     <a ui-sref="cart" class="pad-5 pull-right inline-block text-muted">
@@ -172,9 +172,9 @@
 <!-- /Mobile Sidenav -->
 
 <!-- scrollToTop -->
-<div ng-if="showScrollToTop" ee-scroll-to-top class="ee-scroll-to-top position-fixed round-50-pct text-center pad-2 hover-pointer transition-400"
-  style="right: 24px; width: 44px; height: 44px; z-index: 3020; opacity: 0.9;"
+<div ng-if="showScrollToTop" ee-scroll-to-top class="ee-scroll-to-top position-fixed text-center pad-5 hover-pointer transition-400"
+  style="right: 24px; width: 44px; height: 44px; z-index: 3020;"
   ng-style="{ bottom: showScrollButton ? '24px' : '-200px' }">
-  <i class="fa fa-3x fa-chevron-circle-up"></i>
+  <i class="fa fa-2x fa-chevron-up" ng-style="{ color: user.storefront_meta.brand.color.tertiary, 'text-shadow': '0 2px ' + user.storefront_meta.brand.color.secondaryAccent }"></i>
 </div>
 <!-- /scrollToTop -->
