@@ -109,12 +109,12 @@ angular.module('app.core').filter 'humanize', () ->
     (frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)) for i in [0..(frags.length - 1)]
     frags.join(' ')
 
-angular.module('app.core').filter 'in_carousel', () ->
-  (collections) ->
-    if !collections or !angular.isArray(collections) or collections.length <= 0 then return []
-    filtered = []
-    (if collections[i].in_carousel and filtered.length < 10 then filtered.push(collections[i])) for i in [0..(collections.length-1)]
-    filtered
+# angular.module('app.core').filter 'in_carousel', () ->
+#   (collections) ->
+#     if !collections or !angular.isArray(collections) or collections.length <= 0 then return []
+#     filtered = []
+#     (if collections[i].in_carousel and filtered.length < 10 then filtered.push(collections[i])) for i in [0..(collections.length-1)]
+#     filtered
 
 angular.module('app.core').filter 'hexToRgba', () ->
   (hex, opacity) -> # hex with # sign
