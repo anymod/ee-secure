@@ -57,7 +57,7 @@ app.get '/', (req, res, next) ->
   bootstrap = { foo: 'bar' }
   bootstrap.stringified = utils.stringify bootstrap
   # res.render 'checkout.ejs', { bootstrap: bootstrap }
-  res.send 'Hi!'
+  res.send 'Hi'
   # .catch (err) ->
   #   console.error 'error in HOME', err
   #   res.send 'Not found'
@@ -66,7 +66,7 @@ app.get '/', (req, res, next) ->
 app.get '/checkout/:cart_uuid', (req, res, next) ->
   { bootstrap, host, path } = utils.setup req
   Cart.defineCheckoutByUUID req.params.cart_uuid, bootstrap
-  .then () -> Cart.addTotals bootstrap.cart
+  .then () -> Cart.addTotals bootstrap.cart, { id: bootstrap.id, pricing: bootstrap.pricing }
   .then () ->
     bootstrap.stringified = utils.stringify bootstrap
     res.render 'checkout.ejs', { bootstrap: bootstrap }

@@ -5,6 +5,8 @@ sequelize = require '../config/sequelize/setup'
 constants = require '../server.constants'
 utils     = require './utils'
 
+# Shared    = require '../copied-from-ee-back/shared'
+
 User      = require './user'
 Sku       = require './sku'
 
@@ -23,9 +25,9 @@ Cart =
       user = data[0]
       utils.assignBootstrap bootstrap, user
 
-  addTotals: (cart) ->
+  addTotals: (cart, user) ->
     sku_ids = _.pluck cart.quantity_array, 'sku_id'
-    Sku.forCheckout sku_ids, cart.seller_id
+    Sku.forCheckout sku_ids, user
     .then (skus) ->
       cart.cumulative_price = 0
       cart.shipping_total   = 0
