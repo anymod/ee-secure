@@ -18,7 +18,7 @@ fns.calcPrice = (marginRows, baseline_price) ->
   firstMargin   = fns.getMargin marginRows, baseline_price
   firstGuess    = parseInt((baseline_price / (1 - firstMargin))/100) * 100 + 99
   secondMargin  = fns.getMargin marginRows, firstGuess
-  if firstMargin <= secondMargin then return firstGuess
+  if firstMargin >= secondMargin then return firstGuess
   parseInt((baseline_price / (1 - secondMargin))/100) * 100 + 99
 
 fns.calcSellerEarnings = (marginRows, baseline_price) ->
