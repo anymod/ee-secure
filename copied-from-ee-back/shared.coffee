@@ -49,7 +49,7 @@ fns.Product.search = (user, opts) ->
     size: opts.size
     filter:
       and: [
-        { bool: must_not: term: hide_from_catalog: true },
+        # { bool: must_not: term: hide_from_catalog: true },
         { bool: must: has_child: {
           type: 'sku',
           filter:
@@ -136,7 +136,7 @@ fns.Product.sort = (user, opts) ->
   replacements  = []
 
   # Attributes
-  attributes = 'SELECT p.id, p.title, p.image, p.category_id, p.discontinued, array_agg(s.id) as sku_ids, array_agg(s.msrp) as msrps, min(s.baseline_price) AS min_price, max(s.baseline_price) AS max_price, array_agg(s.baseline_price) as baseline_prices'
+  attributes = 'SELECT p.id, p.title, p.image, p.category_id, array_agg(s.id) as sku_ids, array_agg(s.msrp) as msrps, min(s.baseline_price) AS min_price, max(s.baseline_price) AS max_price, array_agg(s.baseline_price) as baseline_prices'
 
   # Product IDs
   product_ids_filter = ' '
@@ -158,11 +158,6 @@ fns.Product.sort = (user, opts) ->
   if user?.admin? and opts.supplier_id
     supplier_filter = ' AND s.supplier_id = ? '
     replacements.push opts.supplier_id
-
-  # Featured
-  featured_join = ' '
-  ## TEMPORARILY (?) removing for disabled custom pricing.  May not need this at all anymore though.
-  # if opts.feat then featured_join = ' JOIN "Customizations" c ON c.product_id = p.id AND c.seller_id = ' + user.id + ' AND c.featured = true '
 
   # Order
   order = 'p.updated_at DESC'
@@ -201,10 +196,10 @@ fns.Product.sort = (user, opts) ->
   # Filters
   other_filters = ''
   if opts.discontinued
-    other_filters += ' AND (p.discontinued IS true OR s.discontinued IS true) '
+    other_filters += ' AND s.discontinued IS true '
   else
-    other_filters += ' AND p.discontinued IS NOT true AND s.discontinued IS NOT true '
-    other_filters += if opts.hide_from_catalog then ' AND (p.hide_from_catalog IS true OR s.hide_from_catalog IS true) ' else ' AND p.hide_from_catalog IS NOT true AND s.hide_from_catalog IS NOT true'
+    other_filters += ' AND s.discontinued IS NOT true '
+    other_filters += if opts.hide_from_catalog then ' AND s.hide_from_catalog IS true ' else ' AND s.hide_from_catalog IS NOT true'
     other_filters += if opts.out_of_stock then ' AND s.quantity < 1 ' else ' AND s.quantity > 0 '
   if opts.manual_pricing then other_filters += ' AND s.auto_pricing IS NOT true '
 
@@ -219,7 +214,6 @@ fns.Product.sort = (user, opts) ->
 
   baseQuery =
     ' FROM "Products" p
-      ' + featured_join + '
       JOIN "Skus" s
       ON p.id = s.product_id
       WHERE p.category_id in (' + category_ids.join(',') + ')
@@ -248,7 +242,7 @@ fns.Product.sort = (user, opts) ->
 
 fns.Product.findById = (id) ->
   q =
-  'SELECT p.id, p.title, p.image, p.content, p.additional_images, p.category_id, p.discontinued, array_agg(s.msrp) as msrps, array_agg(s.baseline_price) as baseline_prices
+  'SELECT p.id, p.title, p.image, p.content, p.additional_images, p.category_id, array_agg(s.msrp) as msrps, array_agg(s.baseline_price) as baseline_prices
     FROM "Products" p
     JOIN "Skus" s
     ON p.id = s.product_id
@@ -262,7 +256,7 @@ fns.Product.findAllByIds = (ids, opts) ->
   limit  = if opts?.limit  then (' LIMIT '  + parseInt(opts.limit) + ' ') else ' '
   offset = if opts?.offset then (' OFFSET ' + parseInt(opts.offset) + ' ') else ' '
   q =
-  'SELECT p.id, p.title, p.image, p.category_id, p.discontinued, array_agg(s.msrp) as msrps
+  'SELECT p.id, p.title, p.image, p.category_id, array_agg(s.msrp) as msrps
     FROM "Products" p
     JOIN "Skus" s
     ON p.id = s.product_id
@@ -275,14 +269,13 @@ fns.Product.addCustomizationsFor = (user, products) ->
   if !products or products.length < 1 then return
   product_ids = _.map products, 'id'
   for product in products
-    # product.featured  = false
     if product.baseline_prices
       product.prices = _.map(product.baseline_prices, (baseline_price) -> shared.utils.calcPrice(user.pricing, baseline_price))
     if product.skus
       shared.sku.setPricesFor product.skus, user.pricing
       product.msrps = _.map product.skus, 'msrp'
       product.prices = _.map product.skus, 'price'
-  q = 'SELECT product_id, title, featured, selling_prices FROM "Customizations" WHERE seller_id = ? AND product_id IN (' + product_ids.join(',') + ');'
+  q = 'SELECT product_id, title FROM "Customizations" WHERE seller_id = ? AND product_id IN (' + product_ids.join(',') + ');'
   sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
   .then (customizations) ->
     for product in products
@@ -310,7 +303,7 @@ fns.Product.addAdminDetailsFor = (user, products) ->
 fns.Product.elasticsearch_findall_attrs = [
   'id'
   'title'
-  'discontinued'
+  # 'discontinued'
   'image'
   'category_id'
   'skus'
@@ -380,7 +373,6 @@ fns.Customization.alterProduct = (product, customization) ->
   product ||= {}
   customization ||= {}
   if customization?.title then product.title = customization.title
-  product.featured = !!customization?.featured
   if product.skus
     product.msrps = _.map product.skus, 'msrp'
     product.prices = _.map product.skus, 'price'

@@ -46,13 +46,6 @@ angular.module('app.core').filter 'cloudinaryResizeTo', () ->
   # Usage: | cloudinaryResizeTo:400:200[:crop]
   (input, w, h, crop) -> resizeCloudinaryImageTo input, w, h, crop
 
-# angular.module('app.core').filter 'thumbnail',            () -> (url) -> resizeCloudinaryImageTo url, 80, 80
-# angular.module('app.core').filter 'small',                () -> (url) -> resizeCloudinaryImageTo url, 120, 120
-# angular.module('app.core').filter 'midsize',              () -> (url) -> resizeCloudinaryImageTo url, 250, 250
-# angular.module('app.core').filter 'mainImg',              () -> (url) -> resizeCloudinaryImageTo url, 600, 600
-# angular.module('app.core').filter 'collectionThumbnail',  () -> (url) -> resizeCloudinaryImageTo url, 300, 177
-# angular.module('app.core').filter 'collectionEdit',       () -> (url) -> resizeCloudinaryImageTo url, 425, 250
-
 angular.module('app.core').filter 'scaledDownBackground', () ->
   (url) ->
     if !!url and url.indexOf("h_400,w_1200") > -1

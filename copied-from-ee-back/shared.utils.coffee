@@ -23,7 +23,7 @@ fns.calcPrice = (marginRows, baseline_price) ->
 
 fns.calcSellerEarnings = (marginRows, baseline_price) ->
   margin = fns.getMargin marginRows, baseline_price
-  parseInt(baseline_price * margin)
+  Math.round(baseline_price * margin)
 
 fns.orderedResults = (results, ids) ->
   return [] unless results and ids

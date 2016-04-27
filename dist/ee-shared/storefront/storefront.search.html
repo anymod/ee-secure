@@ -37,7 +37,9 @@
   </div>
 </div>
 
-<div ng-if="search.ee.Products.products.length <= 0" class="container vert-20 text-center min-height-600">
+<div ng-if="search.ee.Products.products.length <= 0"
+  ng-hide="search.ee.Products.reading"
+  class="container vert-20 text-center min-height-600">
   No results found
 </div>
 

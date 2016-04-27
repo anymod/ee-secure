@@ -26,7 +26,6 @@ Sku =
       product_ids = _.pluck(skus, 'product_id').join(',')
       Customization.findAllByProductIds user.id, product_ids
     .then (customizations) ->
-      console.log 'user', user.pricing
       shared.sku.setPricesFor scope.skus, user.pricing
       for sku in scope.skus
         sku.product =
@@ -34,12 +33,11 @@ Sku =
           title:  sku.product_title
           image:  sku.product_image
         Customization.alterProduct sku.product, customizations
-      _.map scope.skus, (sku) -> _.omit(sku, ['identifier', 'regular_price', 'baseline_price'])
+      _.map scope.skus, (sku) -> _.omit(sku, ['identifier', 'baseline_price'])
 
 Sku.attrs = [
   'id'
   'product_id'
-  # 'regular_price'
   'baseline_price'
   'msrp'
   'shipping_price'

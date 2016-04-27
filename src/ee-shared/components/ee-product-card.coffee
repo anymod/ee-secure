@@ -6,9 +6,10 @@ module.directive "eeProductCard", ($rootScope, $state, eeBack) ->
   templateUrl: 'ee-shared/components/ee-product-card.html'
   restrict: 'E'
   scope:
-    product:        '='
-    skus:           '='
-    disabled:       '='
+    product:  '='
+    skus:     '='
+    products: '='
+    disabled: '='
   link: (scope, ele, attrs) ->
 
     scope.adding = false
@@ -19,8 +20,8 @@ module.directive "eeProductCard", ($rootScope, $state, eeBack) ->
 
     scope.setCurrentSku = (sku) ->
       scope.currentSku = sku
-      if sku.msrp and sku.regular_price
-        scope.msrpDiscount = (sku.msrp - sku.regular_price) / sku.msrp
+      if sku.msrp and sku.price
+        scope.msrpDiscount = (sku.msrp - sku.price) / sku.msrp
 
     if scope.skus and scope.skus.length > 0 then scope.setCurrentSku scope.skus[0]
 

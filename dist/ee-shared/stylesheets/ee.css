@@ -8811,6 +8811,36 @@ rzslider.vertical .rz-ticks .tick .tick-value {
   color: white;
 }
 /* @brand-danger: #ED5E5A; */
+.bg-facebook,
+.btn-facebook {
+  background-color: #3b5998 !important;
+  color: white;
+}
+.btn-facebook:hover,
+.btn-facebook:focus {
+  background-color: #2d4373 !important;
+  color: white;
+}
+.bg-pinterest,
+.btn-pinterest {
+  background-color: #cc2127 !important;
+  color: white;
+}
+.btn-pinterest:hover,
+.btn-pinterest:focus {
+  background-color: #a01a1f !important;
+  color: white;
+}
+.bg-twitter,
+.btn-twitter {
+  background-color: #55acee !important;
+  color: white;
+}
+.btn-twitter:hover,
+.btn-twitter:focus {
+  background-color: #2795e9 !important;
+  color: white;
+}
 .text-facebook {
   color: #3b5998 !important;
 }
