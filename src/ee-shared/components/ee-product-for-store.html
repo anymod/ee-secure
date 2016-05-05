@@ -7,7 +7,7 @@
       <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrps && product.msrps.length == 1 && product.msrps[0] > product.prices[0]">&nbsp;<s>{{ product.msrps | priceRange }}</s></h5>
     </div>
   </a>
-  <a ui-sref="search({ q: product.title })" class="text-muted">
+  <a ui-sref="search({ q: product.title, c: product.category_id })" class="text-muted">
     <small class="hover-pointer"><i class="fa fa-fw fa-search"></i>more like this</small>
   </a>
 </div>

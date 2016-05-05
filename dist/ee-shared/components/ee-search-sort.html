@@ -1,0 +1,95 @@
+<div class="text-left">
+
+  <!-- collection image -->
+  <div ng-show="state.current.name == 'collection' && collectionData.collection.banner"
+    class="text-center">
+    <img ng-src="{{ collectionData.collection.banner | cloudinaryResizeTo:200:118 }}"
+      class="vert-10 margin-bottom-0">
+  </div>
+  <!-- /collection image -->
+
+  <form class="form-group input-group vert-10" ng-submit="fns.search()">
+    <input type="text"
+      class="form-control full-width-important"
+      placeholder="Search for products"
+      ng-model="data.inputs.search"
+      style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
+    <span class="input-group-btn">
+      <button class="btn btn-themed" type="submit"
+        style="padding: 8px 20px; min-height: 38px; border-bottom-width: 1px !important;">
+        Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i>
+      </button>
+    </span>
+  </form>
+
+  <div class="vert-5 margin-top-0">
+    <!-- category -->
+    <span class="dropdown" ng-hide="state.current.name == 'collection'" uib-dropdown>
+      <div class="btn btn-sm" ng-class="data.inputs.category.id ? 'btn-themed' : 'btn-default'" uib-dropdown-toggle>
+        <span ng-show="data.inputs.category" ng-bind="data.inputs.category.title"></span>
+        <span ng-hide="data.inputs.category">Category</span>&nbsp;<i class="caret"></i>
+      </div>
+      <ul class="dropdown-menu" uib-dropdown-menu>
+        <li ng-repeat="category in data.inputs.categories" ng-class="{ active: data.inputs.category.id == category.id }">
+          <a href ng-bind="category.title" ng-click="setCategory({ id: category.id, title: (category.title | urlText) })"></a>
+        </li>
+        <li ng-show="data.inputs.category" class="divider"></li>
+        <li ng-show="data.inputs.category">
+          <a href ng-click="setCategory()">Reset</a>
+        </li>
+      </ul>
+    </span>
+    <!-- /category -->
+    <!-- price range -->
+    <span class="dropdown" uib-dropdown>
+      <div class="btn btn-sm" ng-class="data.inputs.range.min || data.inputs.range.max ? 'btn-themed' : 'btn-default'" uib-dropdown-toggle>
+        <span ng-show="data.inputs.range.min || data.inputs.range.max" ng-bind="data.inputs.range | rangeToText"></span>
+        <span ng-hide="data.inputs.range.min || data.inputs.range.max">Price range</span>&nbsp;<i class="caret"></i>
+      </div>
+      <ul class="dropdown-menu" uib-dropdown-menu>
+        <li ng-repeat="range in data.inputs.rangeArray" ng-class="{ active: data.inputs.range.min == range.min }">
+          <a href ng-bind="range | rangeToText" ng-click="fns.setRange(range)"></a>
+        </li>
+        <li ng-show="data.inputs.range.min || data.inputs.range.max" class="divider"></li>
+        <li ng-show="data.inputs.range.min || data.inputs.range.max">
+          <a href ng-click="fns.setRange()">Reset</a>
+        </li>
+      </ul>
+    </span>
+    <!-- /price range -->
+    <!-- sort order -->
+    <span class="dropdown" uib-dropdown>
+      <div class="btn btn-sm" ng-class="data.inputs.order.order ? 'btn-themed' : 'btn-default'" uib-dropdown-toggle>
+        <span ng-show="data.inputs.order.order" ng-bind="data.inputs.order.title"></span>
+        <span ng-hide="data.inputs.order.order">Sort by</span>&nbsp;<i class="caret"></i>
+      </div>
+      <ul class="dropdown-menu" uib-dropdown-menu>
+        <li ng-repeat="order in data.inputs.orderArray" ng-class="{ active: data.inputs.order.order == order.order }">
+          <a href ng-bind="order.title" ng-click="fns.setOrder(order)"></a>
+        </li>
+        <li ng-show="data.inputs.order.order" class="divider"></li>
+        <li ng-show="data.inputs.order.order">
+          <a href ng-click="fns.setOrder()">Reset</a>
+        </li>
+      </ul>
+    </span>
+    <!-- /sort order -->
+    <!-- material -->
+    <!-- <span class="dropdown" uib-dropdown>
+      <div class="btn btn-sm btn-default" ng-class="{ active: data.inputs.order.order }" uib-dropdown-toggle>
+        <span ng-show="data.inputs.order.order" ng-bind="data.inputs.order.title"></span>
+        <span ng-hide="data.inputs.order.order">Material</span>&nbsp;<i class="caret"></i>
+      </div>
+      <ul class="dropdown-menu" uib-dropdown-menu>
+        <li ng-repeat="order in data.inputs.orderArray" ng-class="{ active: data.inputs.order.order == order.order }">
+          <a href ng-bind="order.title" ng-click="fns.setOrder(order)"></a>
+        </li>
+        <li ng-show="data.inputs.order.order" class="divider"></li>
+        <li ng-show="data.inputs.order.order">
+          <a href ng-click="fns.setOrder()">Reset</a>
+        </li>
+      </ul>
+    </span> -->
+    <!-- /material -->
+  </div>
+</div>

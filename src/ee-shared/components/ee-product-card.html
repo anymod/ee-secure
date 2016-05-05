@@ -55,21 +55,22 @@
           </div>
           <div class="vert-5">
             <i class="fa fa-lg fa-fw fa-cube text-info"></i>&nbsp;&nbsp;&nbsp;Ships from USA
-            <br>
-            <a href ui-sref="search({ q: product.title })" class="text-muted">
-              <small class="hover-pointer"><i class="fa fa-fw fa-search"></i>more like this</small>
-            </a>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Similar products -->
-    <!-- <div ng-if="products.length > 0" class="vert-50 margin-bottom-0 text-center">
+    <div ng-if="products.length > 0" class="vert-50 margin-bottom-0 text-center">
+      <h5 class="font-weight-200 text-left margin-0">You might also like</h5>
       <div ng-repeat="prod in products" class="homepage-product text-left inline-block vertical-align-top vert-5">
         <ee-product-for-store product="prod"></ee-product-for-store>
       </div>
-    </div> -->
+      <br>
+      <a ui-sref="search({ q: product.title })" class="btn btn-themed">
+        <i class="fa fa-search"></i>&nbsp;more like these
+      </a>
+    </div>
     <!-- /Similar products -->
 
     <!-- Sku options -->
@@ -113,7 +114,7 @@
         </li>
       </ul>
       <h4 ng-bind="product.title" class="vert-5 pad-5 font-weight-200"></h4>
-      <h4 ng-bind="product.content" class="vert-20 font-weight-200" style="white-space: pre-line;"></h4>
+      <h4 ng-bind="product.content" class="vert-15 pad-5 font-weight-200" style="white-space: pre-line;"></h4>
       <h5 ng-bind="currentSku.selection_text" class="vert-5 pad-5 font-weight-200"></h5>
       <div class="row">
         <div class="col col-sm-4">

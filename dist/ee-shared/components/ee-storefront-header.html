@@ -172,9 +172,8 @@
 <!-- /Mobile Sidenav -->
 
 <!-- scrollToTop -->
-<div ng-if="showScrollToTop" ee-scroll-to-top class="ee-scroll-to-top position-fixed text-center pad-5 hover-pointer transition-400"
-  style="right: 24px; width: 44px; height: 44px; z-index: 3020;"
-  ng-style="{ bottom: showScrollButton ? '24px' : '-200px' }">
-  <i class="fa fa-2x fa-chevron-up" ng-style="{ color: user.storefront_meta.brand.color.tertiary, 'text-shadow': '0 2px ' + user.storefront_meta.brand.color.secondaryAccent }"></i>
-</div>
+<ee-storefront-scroller
+  ng-if="showScrollToTop && user"
+  user="user">
+</ee-storefront-scroller>
 <!-- /scrollToTop -->
