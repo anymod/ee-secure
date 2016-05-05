@@ -26,6 +26,7 @@
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
+              id="checkout-email"
               ng-model="checkout.email"
               placeholder="Email" />
           </div>
@@ -53,34 +54,40 @@
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-user fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
+              id="checkout-shipping-name"
               ng-model="checkout.shipping.name"
               placeholder="Name" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input type="text" class="form-control"
+              id="checkout-shipping-address_line1"
               ng-model="checkout.shipping.address_line1"
               placeholder="Street Address" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
+              id="checkout-shipping-address_line2"
               ng-model="checkout.shipping.address_line2"
               placeholder="Apt Unit" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
+              id="checkout-shipping-address_city"
               ng-model="checkout.shipping.address_city"
               placeholder="City" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
+              id="checkout-shipping-address_zip"
               ng-model="checkout.shipping.address_zip"
               placeholder="Zip Code" />
           </div>
           <div class="input-group input-group-plain">
             <span class="input-group-addon" disabled><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
+              id="checkout-shipping-address_country"
               ng-model="checkout.shipping.address_country"
               placeholder="Country" disabled/>
           </div>
@@ -97,34 +104,40 @@
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-user fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
+              id="checkout-card-name"
               ng-model="checkout.card.name"
               placeholder="Name" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input type="text" class="form-control"
+              id="checkout-card-address_line1"
               ng-model="checkout.card.address_line1"
               placeholder="Street Address" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
+              id="checkout-card-address_line2"
               ng-model="checkout.card.address_line2"
               placeholder="Apt Unit" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 70%;">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
+              id="checkout-card-address_city"
               ng-model="checkout.card.address_city"
               placeholder="City" />
           </div>
           <div class="input-group input-group-plain pull-left" style="width: 30%;">
             <input type="text" class="form-control" style="padding-left: 8px;"
+              id="checkout-card-address_zip"
               ng-model="checkout.card.address_zip"
               placeholder="Zip Code" />
           </div>
           <div class="input-group input-group-plain">
             <span class="input-group-addon"><i class="fa fa-fw"></i></span>
             <input type="text" class="form-control"
+              id="checkout-card-address_country"
               ng-model="checkout.card.address_country"
               placeholder="Country" />
           </div>
@@ -141,6 +154,7 @@
               <i class="fa fa-credit-card fa-fw text-muted"></i>
             </span>
             <input type="text" class="form-control"
+              id="checkout-card-number"
               ng-model="checkout.card.number"
               ng-class="ccForm.ccNumber.$ccType"
               cc-number cc-format cc-type="cardType"
@@ -151,6 +165,7 @@
           <div class="input-group input-group-plain pull-left" style="width: 50%;">
             <span class="input-group-addon" style="border-bottom-left-radius: 5px;"><i class="fa fa-calendar fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
+              id="checkout-card-exp"
               ng-model="checkout.card.exp"
               ee-exp-combined
               placeholder="MM / YY" />
@@ -158,6 +173,7 @@
           <div class="input-group input-group-plain pull-left" style="width: 50%;">
             <span class="input-group-addon" style="border-bottom-left-radius: 0; border-left: none;"><i class="fa fa-lock fa-fw text-muted"></i></span>
             <input type="text" class="form-control"
+              id="checkout-card-cvc"
               ng-model="checkout.card.cvc"
               cc-cvc cc-type="ccForm.ccNumber.$ccType"
               placeholder="CVC"
