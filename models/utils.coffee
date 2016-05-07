@@ -26,6 +26,7 @@ utils =
     bootstrap.title             = attrs.storefront_meta?.name
     bootstrap.site_name         = attrs.storefront_meta?.name
     bootstrap.checkout_disabled = (attrs.proposition is 'foothill')
+    if bootstrap.storefront_meta? then delete bootstrap.storefront_meta.seo
     bootstrap
 
   assignPaths: (bootstrap, root) ->
