@@ -219,14 +219,16 @@
       <!-- CHECKOUT Submit -->
       <div class="form-group vert-20 margin-bottom-0">
         <div class="col-sm-12">
-          <button type="submit" class="btn btn-lg btn-success btn-block" ng-disabled="ccForm.$invalid || ccForm.$error.ccExp || checkout.processing">Pay {{ checkout.ee.cart.grand_total | centToDollar }}</button>
+          <button type="submit" class="btn btn-lg btn-success btn-block" ng-disabled="ccForm.$invalid || ccForm.$error.ccExp || checkout.processing || !checkout.ee.cart.grand_total">
+            Pay <span ng-bind="checkout.ee.cart.grand_total | centToDollar"></span>
+          </button>
         </div>
       </div>
       <!-- /CHECKOUT Submit -->
     </form>
   </div>
 
-  <pre ng-show="checkout.result" ng-bind="checkout.result | json" class="vert-20"></pre>
+  <!-- <pre ng-show="checkout.result" ng-bind="checkout.result | json" class="vert-20"></pre> -->
 
   <div class="max-width-300 margin-0-auto text-center">
     <div class="vert-10 full-width text-center">
