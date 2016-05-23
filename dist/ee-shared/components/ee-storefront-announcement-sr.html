@@ -1,0 +1,45 @@
+<div class="hidden-xs">
+  <div class="container pad-5 max-width-900 margin-0-auto">
+    <div class="row">
+      <div class="col col-sm-4 text-muted">
+        <strong>Free Shipping over $50</strong>
+      </div>
+      <div class="col col-sm-4 text-center">
+        <!-- offer -->
+        <div ng-click="openOfferModal()"
+          class="btn btn-themed pad-2"
+          style="text-shadow: none; border-bottom-width: 1px !important;">
+          &nbsp;<i class="fa fa-fw fa-envelope-o"></i>&nbsp;Get exclusive offers&nbsp;
+        </div>
+        <!-- /offer -->
+      </div>
+      <div class="col col-sm-4 text-right">
+        <div class="vertical-align-middle">
+          <!-- social media -->
+          <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
+            ng-if="user.storefront_meta.audience.social[site]"
+            href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
+            class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
+            <i class="fa fa-lg fa-{{ site }} vertical-align-middle"></i>
+          </a>
+          <!-- /social media -->
+          <!-- blog -->
+          <a ng-if="user.storefront_meta.blog.url" href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
+          <!-- /blog -->
+          <!-- help -->
+          <a ui-sref="help" class="text-muted margin-5 margin-top-0 margin-bottom-0">help</a>
+          <!-- /help -->
+          <!-- cart -->
+          <a ui-sref="cart" class="text-muted">
+            <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
+            </span>
+            <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>
+          </a>
+          <!-- /cart -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

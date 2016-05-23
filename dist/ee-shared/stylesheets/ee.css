@@ -9199,6 +9199,7 @@ html {
   min-height: 40px;
   font-size: 17px;
   overflow: hidden;
+  border-top: none;
 }
 .ee-store-subnav ul.nav > li > a {
   padding-top: 8px;
@@ -10424,6 +10425,24 @@ a.product:focus .product-title {
   ee-collection-for-builder .collection-well {
     width: 100%;
   }
+}
+.btn-arrow {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  height: 30px;
+  line-height: 16px;
+  border-radius: 2px 0 0 2px;
+}
+.btn-arrow:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -15px;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-width: 15px 15px 15px 0;
 }
 img[data-action="zoom"] {
   cursor: pointer;

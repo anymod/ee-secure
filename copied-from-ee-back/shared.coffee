@@ -314,22 +314,25 @@ fns.Product.addCustomizationsFor = (user, products) ->
     if product.baseline_prices
       product.prices = _.map(product.baseline_prices, (baseline_price) -> shared.utils.calcPrice(user.pricing, baseline_price))
     if product.skus
-      shared.sku.setPricesFor product.skus, user.pricing
-      product.msrps = _.map product.skus, 'msrp'
-      product.prices = _.map product.skus, 'price'
-  q = 'SELECT product_id, title FROM "Customizations" WHERE seller_id = ? AND product_id IN (' + product_ids.join(',') + ');'
-  sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
-  .then (customizations) ->
-    for product in products
-      for customization in customizations
-        if customization.product_id is product.id
-          ## TEMPORARILY disabling sku custom pricing
-          # if product.skus then fns.Customization.alterSkus product.skus, customization
-          # if !product.skus and customization.selling_prices and customization.selling_prices.length > 0 then product.prices = _.map customization.selling_prices, 'selling_price'
-          # if product.skus then shared.sku.setPricesFor(product.skus, user.pricing)
-          fns.Customization.alterProduct product, customization
-      if !product.skus then product.skus = null
+      shared.sku.setPricesFor product.skus, user.pricing, true
+  fns.Collection.setDiscountsFor user, products
+  .then () ->
+    _.map(products, (prod) -> prod.msrps = _.map prod.skus, 'msrp')
+    _.map(products, (prod) -> prod.prices = _.map prod.skus, 'price')
     products
+  ## TODO temporarily(?) disabling custom titles
+  # q = 'SELECT product_id, title FROM "Customizations" WHERE seller_id = ? AND product_id IN (' + product_ids.join(',') + ');'
+  # sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
+  # .then (customizations) ->
+  #   for product in products
+  #     for customization in customizations
+  #       if customization.product_id is product.id
+  #         ## TEMPORARILY disabling sku custom pricing
+  #         # if product.skus then fns.Customization.alterSkus product.skus, customization
+  #         # if !product.skus and customization.selling_prices and customization.selling_prices.length > 0 then product.prices = _.map customization.selling_prices, 'selling_price'
+  #         # if product.skus then shared.sku.setPricesFor(product.skus, user.pricing)
+  #         fns.Customization.alterProduct product, customization
+  #     if !product.skus then product.skus = null
 
 fns.Product.addAdminDetailsFor = (user, products) ->
   if user.admin isnt true or !products or products.length < 1 then return
@@ -386,8 +389,25 @@ fns.Collection.findHomeArranged = (collection_ids, user) ->
     Promise.reduce collections, ((total, collection) -> addProductsIfNoBanner collection), 0
   .then () -> shared.utils.orderedResults arranged, collection_ids.split(',')
 
-fns.Collection.findForHomepage = (collection, user, opts) ->
-  collection
+fns.Collection.setDiscountsFor = (user, products) ->
+  skus = _.flatten(_.map products, 'skus')
+  if !user?.id? or !skus? or skus.length is 0 then return products
+  # TODO implement array search by product_ids to further narrow amount of collections returned?
+  sequelize.query 'SELECT id, product_ids, discount_up_to, discount_expires_at, discount_title, discount_sale_section FROM "Collections" WHERE seller_id = ? AND discount_up_to IS NOT NULL AND (discount_expires_at IS NULL OR discount_expires_at > CURRENT_TIMESTAMP) AND deleted_at IS NULL', { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
+  .then (colls) ->
+    # Use the maximum discount for each product
+    for product in products
+      collections_with_product = _.filter(colls, (c) -> c.product_ids.indexOf(product.id) > -1)
+      max_discount_collection = _.maxBy collections_with_product, 'discount_up_to'
+      max_discount = max_discount_collection?.discount_up_to
+      if max_discount > 0 and max_discount <= 0.7
+        product.discounted = max_discount_collection.id
+        for sku in product.skus
+          sku.price = parseInt(sku.msrp * (1 - max_discount))
+          sku.discounted = max_discount_collection.id
+          if sku.price < sku.baseline_price then sku.price = sku.baseline_price
+      _.map product.skus, (sku) -> delete sku.baseline_price
+    products
 
 fns.Collection.restricted_attrs = ['title', 'headline', 'button', 'cloned_from', 'creator_id', 'seller_id', 'deleted_at']
 

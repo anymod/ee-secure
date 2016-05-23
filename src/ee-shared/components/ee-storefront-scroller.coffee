@@ -14,9 +14,11 @@ module.directive "eeStorefrontScroller", ($window) ->
     angular.element($window).bind 'scroll', (e, a, b) ->
       if scope.showScrollButton and $window.pageYOffset < trigger
         scope.showScrollButton = false
+        ele.addClass('foobar')
         scope.$apply()
       else if scope.showScrollButton isnt $window.pageYOffset > trigger
         scope.showScrollButton = $window.pageYOffset > trigger
+        ele.removeClass('foobar')
         scope.$apply()
 
     return

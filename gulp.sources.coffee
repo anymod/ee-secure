@@ -32,6 +32,8 @@ sources.checkoutVendorMin = [
   './src/bower_components/keen-js/dist/keen.min.js'
 ]
 sources.checkoutVendorUnmin = [
+  './src/bower_components/braintree-web/dist/braintree.js'
+  ## TODO remove when stripe is removed
   './src/bower_components/angular-stripe/release/angular-stripe.js'
   './src/bower_components/angular-credit-cards/release/angular-credit-cards.js'
 ]

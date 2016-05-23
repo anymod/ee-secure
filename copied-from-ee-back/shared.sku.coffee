@@ -8,8 +8,8 @@ fns.setPriceFor = (sku, marginArray, skipDelete) ->
   delete sku.baseline_price unless skipDelete
   sku
 
-fns.setPricesFor = (skus, marginArray) ->
-  fns.setPriceFor(sku, marginArray) for sku in skus
+fns.setPricesFor = (skus, marginArray, skipDelete) ->
+  fns.setPriceFor(sku, marginArray, skipDelete) for sku in skus
   skus
 
 module.exports = fns

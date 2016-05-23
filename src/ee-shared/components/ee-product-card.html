@@ -7,7 +7,7 @@
       </div>
       <div class="col col-sm-6">
         <div class="pad-10">
-          <h1 ng-bind="product.title" class="vert-15 margin-top-0 font-weight-200"></h1>
+          <h1 ng-bind="product.title" class="vert-15 margin-top-0 font-weight-200" style="font-size: 24px;"></h1>
           <div ng-if="product.skus.length > 1">
             <h4 ng-bind="currentSku.selection_text" class="inline-block font-weight-200"></h4>
             <div class="pull-right btn-group" uib-dropdown>
@@ -24,6 +24,7 @@
               </ul>
             </div>
           </div>
+          <a ng-if="currentSku.discounted" ui-sref="sale({ id: currentSku.discounted })" class="btn btn-themed btn-arrow">Sale</a>
           <h4 ng-if="currentSku.msrp && currentSku.price && currentSku.msrp > currentSku.price && msrpDiscount > 0.045" class="vert-10">
             <span class="text-muted"><s>{{ currentSku.msrp | centToDollar }}</s></span>
             <span class="text-danger">&nbsp;{{ msrpDiscount | percentage:0 }} Off</span>
@@ -54,7 +55,10 @@
             <span ng-if="currentSku.height">{{ currentSku.height }}"H </span>
           </div>
           <div class="vert-5">
-            <i class="fa fa-lg fa-fw fa-cube text-info"></i>&nbsp;&nbsp;&nbsp;Ships from USA
+            <i class="fa fa-lg fa-fw fa-cube text-info"></i>&nbsp;&nbsp;Ships from USA
+          </div>
+          <div class="vert-5">
+            <i class="fa fa-lg fa-fw fa-info-circle text-info"></i>&nbsp;&nbsp;<a ui-sref="product({ id: product.id, title: (product.title | urlText), '#': 'details' })" class="text-dark-blue">Product details</a>
           </div>
         </div>
       </div>
@@ -107,7 +111,7 @@
     <!-- /Sku options -->
 
     <!-- Details -->
-    <div class="vert-50">
+    <div class="vert-50" id="details">
       <ul class="nav nav-tabs">
         <li class="active">
           <a href class="white-background" style="padding: 4px 10px">Details</a>

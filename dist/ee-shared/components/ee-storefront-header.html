@@ -1,179 +1,195 @@
-<!-- Desktop nav -->
-<div class="position-relative hidden-xs" style="z-index: 5;">
-  <div class="container max-width-900">
-    <!-- blocker -->
-    <div ng-show="blocked" class="navbar position-absolute margin-0" style="z-index: 2005; top: 0; left: 0; right: 0; height: 140px;"></div>
-    <!-- /blocker -->
+<!-- SR-SPECIFIC -->
+<div ng-if="user.username == 'stylishrustic'" ng-include="'ee-shared/components/ee-storefront-header-sr.html'"></div>
+<!-- /SR-SPECIFIC -->
 
-    <nav id="navtop"
-         class="navbar store-navbar navbar-default white-background border-none margin-0 pad-0 round-0"
-         ng-hide="loading">
+<!-- NON-SR -->
+<div ng-if="user.username != 'stylishrustic'">
+  <!-- Desktop nav -->
+  <div class="position-relative hidden-xs" style="z-index: 5;">
+    <div class="container max-width-900">
+      <!-- blocker -->
+      <div ng-show="blocked" class="navbar position-absolute margin-0" style="z-index: 2005; top: 0; left: 0; right: 0; height: 140px;"></div>
+      <!-- /blocker -->
 
-      <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
+      <nav id="navtop"
+           class="navbar store-navbar navbar-default white-background border-none margin-0 pad-0 round-0"
+           ng-hide="loading">
 
-        <div class="row position-relative margin-bottom-0">
+        <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
 
-          <div class="brand-area position-absolute">
-            <!-- Logo -->
-            <a ui-sref="storefront">
-              <img ng-src="{{ user.logo }}"/>
-            </a>
-            <!-- /Logo -->
-          </div>
-          <div class="activity-area position-absolute">
-            <div>
-              <!-- Search -->
-              <form class="form-group input-group margin-0" ng-submit="search()">
-                <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
-                </span>
-              </form>
-              <!-- /Search -->
+          <div class="row position-relative margin-bottom-0">
+
+            <div class="brand-area position-absolute">
+              <!-- Logo -->
+              <a ui-sref="storefront">
+                <img ng-src="{{ user.logo }}"/>
+              </a>
+              <!-- /Logo -->
             </div>
-            <div class="full-width text-right pad-5 vert-5 margin-top-0 vertical-align-middle">
-              <!-- social media -->
+            <div class="activity-area position-absolute">
+              <div>
+                <!-- Search -->
+                <form class="form-group input-group margin-0" ng-submit="search()">
+                  <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
+                  </span>
+                </form>
+                <!-- /Search -->
+              </div>
+              <div class="full-width text-right pad-5 vert-5 margin-top-0 vertical-align-middle">
+                <!-- social media -->
+                <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
+                  ng-if="user.storefront_meta.audience.social[site]"
+                  href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
+                  class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
+                  <i class="fa fa-lg fa-{{ site }} vertical-align-middle"></i>
+                </a>
+                <!-- /social media -->
+                <!-- blog -->
+                <a ng-if="user.storefront_meta.blog.url" href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
+                <!-- /blog -->
+                <!-- help -->
+                <a ui-sref="help" class="text-muted margin-5 margin-top-0 margin-bottom-0">help</a>
+                <!-- /help -->
+                <!-- cart -->
+                <a ui-sref="cart" class="text-muted">
+                  <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
+                  </span>
+                  <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>cart
+                </a>
+                <!-- /cart -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!-- /Desktop nav -->
+
+  <!-- Desktop Subnav -->
+  <nav ng-if="user.username != 'stylishrustic'" class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
+    <div class="container max-width-900">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="category in categories">
+          <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
+            ng-bind="category.title"
+            ng-class="{ active: category.id == id }"
+            class="transition-200 store-subnav-btn">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /Desktop Subnav -->
+
+  <!-- Mobile nav -->
+  <nav class="navbar navbar-default white-background round-0 margin-0 no-side-border text-center visible-xs" style="border-top: none;">
+    <div class="margin-7">
+      <a href ng-click="sidenavOpen = true" class="pad-5 pull-left inline-block text-muted">
+        <i class="fa fa-fw fa-2x fa-bars"></i>
+      </a>
+      <!-- Logo -->
+      <a ui-sref="storefront">
+        <img ng-src="{{ user.logo | cloudinaryTrim }}" style="max-height: 34px;"/>
+      </a>
+      <!-- /Logo -->
+      <a ui-sref="cart" class="pad-5 pull-right inline-block text-muted">
+        <i class="fa fa-fw fa-2x fa-shopping-cart"></i>
+      </a>
+    </div>
+  </nav>
+  <div class="visible-xs white-background pad-5 border-bottom-gray">
+    <form class="margin-0" ng-submit="search()">
+      <input type="text" class="form-control" placeholder="Search for products" ng-model="query">
+    </form>
+  </div>
+  <!-- /Mobile nav -->
+
+  <!-- Mobile Sidenav -->
+  <!-- closer -->
+  <div ng-show="sidenavOpen" ng-click="sidenavOpen = false"
+    class="position-fixed top-left-bottom-right-0 white-background opacity-05 hover-pointer"
+    style="z-index: 3090">
+  </div>
+  <!-- /closer -->
+  <div class="position-fixed transition-400 box-shadow white-background visible-xs"
+    style="top: 0; bottom: 0; width: 250px; overflow-y: scroll; z-index: 4000"
+    ng-style="{ left: (sidenavOpen ? 0 : '-250px') }">
+    <div class="position-relative full-width">
+      <nav class="navbar navbar-default round-0 margin-0 no-side-border text-center"
+        ng-style="{ 'background-color': user.storefront_meta.brand.color.secondary }">
+        <div class="margin-7">
+          <a href ng-click="sidenavOpen = false" class="pad-5 pull-right inline-block text-muted">
+            <i class="fa fa-fw fa-2x fa-times" ng-style="{ color: user.storefront_meta.brand.color.tertiary }"></i>
+          </a>
+        </div>
+      </nav>
+      <div class="pad-20 pad-top-0">
+        <ul class="nav navbar-nav">
+          <!-- search -->
+          <li>
+            <a ui-sref="search" class="text-muted">Search</a>
+          </li>
+          <!-- /search -->
+          <li>
+            <hr class="vert-5">
+          </li>
+          <!-- categories -->
+          <li ng-repeat="category in categories">
+            <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
+              class="text-muted"
+              ng-bind="category.title">
+            </a>
+          </li>
+          <!-- /categories -->
+          <li ng-if="categories.length > 0">
+            <hr class="vert-5">
+          </li>
+          <!-- blog -->
+          <li ng-if="user.storefront_meta.blog.url">
+            <a href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted">Blog</a>
+          </li>
+          <!-- /blog -->
+          <li ng-if="user.storefront_meta.blog.url">
+            <hr class="vert-5">
+          </li>
+          <!-- help -->
+          <li>
+            <a ui-sref="help" class="text-muted">Help</a>
+          </li>
+          <!-- /help -->
+          <li>
+            <hr class="vert-5">
+          </li>
+          <!-- social media -->
+          <li>
+            <div class="pad-10">
               <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
                 ng-if="user.storefront_meta.audience.social[site]"
                 href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
                 class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
-                <i class="fa fa-lg fa-{{ site }} vertical-align-middle"></i>
+                <i class="fa fa-fw fa-2x fa-{{ site }} vertical-align-middle"></i>
               </a>
-              <!-- /social media -->
-              <!-- blog -->
-              <a ng-if="user.storefront_meta.blog.url" href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
-              <!-- /blog -->
-              <!-- help -->
-              <a ui-sref="help" class="text-muted margin-5 margin-top-0 margin-bottom-0">help</a>
-              <!-- /help -->
-              <!-- cart -->
-              <a ui-sref="cart" class="text-muted">
-                <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
-                </span>
-                <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>cart
-              </a>
-              <!-- /cart -->
             </div>
-          </div>
-
-        </div>
-
+          </li>
+          <!-- /social media -->
+        </ul>
       </div>
-    </nav>
-  </div>
-</div>
-<!-- /Desktop nav -->
-
-<!-- Desktop Subnav -->
-<nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
-  <div class="container max-width-900">
-    <ul class="nav navbar-nav">
-      <li ng-repeat="category in categories">
-        <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
-          ng-bind="category.title"
-          ng-class="{ active: category.id == id }"
-          class="transition-200 store-subnav-btn">
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<!-- /Desktop Subnav -->
-
-<!-- Mobile nav -->
-<nav class="navbar navbar-default white-background round-0 margin-0 no-side-border text-center visible-xs" style="border-top: none;">
-  <div class="margin-7">
-    <a href ng-click="sidenavOpen = true" class="pad-5 pull-left inline-block text-muted">
-      <i class="fa fa-fw fa-2x fa-bars"></i>
-    </a>
-    <!-- Logo -->
-    <a ui-sref="storefront">
-      <img ng-src="{{ user.logo | cloudinaryTrim }}" style="max-height: 34px;"/>
-    </a>
-    <!-- /Logo -->
-    <a ui-sref="cart" class="pad-5 pull-right inline-block text-muted">
-      <i class="fa fa-fw fa-2x fa-shopping-cart"></i>
-    </a>
-  </div>
-</nav>
-<div class="visible-xs white-background pad-5 border-bottom-gray">
-  <form class="margin-0" ng-submit="search()">
-    <input type="text" class="form-control" placeholder="Search for products" ng-model="query">
-  </form>
-</div>
-<!-- /Mobile nav -->
-
-<!-- Mobile Sidenav -->
-<!-- closer -->
-<div ng-show="sidenavOpen" ng-click="sidenavOpen = false"
-  class="position-fixed top-left-bottom-right-0 white-background opacity-05 hover-pointer"
-  style="z-index: 3090">
-</div>
-<!-- /closer -->
-<div class="position-fixed transition-400 box-shadow white-background visible-xs"
-  style="top: 0; bottom: 0; width: 250px; overflow-y: scroll; z-index: 4000"
-  ng-style="{ left: (sidenavOpen ? 0 : '-250px') }">
-  <div class="position-relative full-width">
-    <nav class="navbar navbar-default round-0 margin-0 no-side-border text-center"
-      ng-style="{ 'background-color': user.storefront_meta.brand.color.secondary }">
-      <div class="margin-7">
-        <a href ng-click="sidenavOpen = false" class="pad-5 pull-right inline-block text-muted">
-          <i class="fa fa-fw fa-2x fa-times" ng-style="{ color: user.storefront_meta.brand.color.tertiary }"></i>
-        </a>
-      </div>
-    </nav>
-    <div class="pad-20 pad-top-0">
-      <ul class="nav navbar-nav">
-        <!-- categories -->
-        <li ng-repeat="category in categories">
-          <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
-            class="text-muted"
-            ng-bind="category.title">
-          </a>
-        </li>
-        <!-- /categories -->
-        <li ng-if="categories.length > 0">
-          <hr class="vert-5">
-        </li>
-        <!-- blog -->
-        <li ng-if="user.storefront_meta.blog.url">
-          <a href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted">Blog</a>
-        </li>
-        <!-- /blog -->
-        <li ng-if="user.storefront_meta.blog.url">
-          <hr class="vert-5">
-        </li>
-        <!-- help -->
-        <li>
-          <a ui-sref="help" class="text-muted">Help</a>
-        </li>
-        <!-- /help -->
-        <li>
-          <hr class="vert-5">
-        </li>
-        <!-- social media -->
-        <li>
-          <div class="pad-10">
-            <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
-              ng-if="user.storefront_meta.audience.social[site]"
-              href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
-              class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
-              <i class="fa fa-fw fa-2x fa-{{ site }} vertical-align-middle"></i>
-            </a>
-          </div>
-        </li>
-        <!-- /social media -->
-      </ul>
     </div>
   </div>
-</div>
-<!-- /Mobile Sidenav -->
+  <!-- /Mobile Sidenav -->
 
-<!-- scrollToTop -->
-<ee-storefront-scroller
-  ng-if="showScrollToTop && user"
-  user="user">
-</ee-storefront-scroller>
-<!-- /scrollToTop -->
+  <!-- scrollToTop -->
+  <ee-storefront-scroller
+    ng-if="showScrollToTop && user"
+    user="user">
+  </ee-storefront-scroller>
+  <!-- /scrollToTop -->
+</div>
+<!-- /NON-SR -->

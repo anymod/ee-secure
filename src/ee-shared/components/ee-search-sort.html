@@ -14,15 +14,23 @@
       placeholder="Search for products"
       ng-model="data.inputs.search"
       style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
+    <span class="input-group-btn" ng-if="data.inputs.searchLabel">
+      <button class="btn btn-default round-0 no-side-border" type="button"
+        style="padding: 8px 15px; min-height: 38px;"
+        ng-click="fns.clearSearch()">
+        <i class="fa fa-times text-muted"></i>
+      </button>
+    </span>
     <span class="input-group-btn">
-      <button class="btn btn-themed" type="submit"
+      <button class="btn btn-default" type="submit"
         style="padding: 8px 20px; min-height: 38px; border-bottom-width: 1px !important;">
-        Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i>
+        <span class="hidden-xs">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></span>
+        <span class="visible-xs"><i class="fa fa-fw fa-search"></i></span>
       </button>
     </span>
   </form>
 
-  <div class="vert-5 margin-top-0">
+  <div class="vert-5 margin-top-0" ng-hide="hideSort">
     <!-- category -->
     <span class="dropdown" ng-hide="state.current.name == 'collection'" uib-dropdown>
       <div class="btn btn-sm" ng-class="data.inputs.category.id ? 'btn-themed' : 'btn-default'" uib-dropdown-toggle>
