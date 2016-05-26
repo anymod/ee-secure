@@ -11,8 +11,9 @@ angular.module('checkout.core').config ($locationProvider, $stateProvider, $urlR
           controller: 'checkoutCtrl as checkout'
           templateUrl: 'checkout/checkout.header.html'
         middle:
-          controller: 'checkoutCtrl as checkout'
-          templateUrl: 'checkout/checkout.form.html'
+          controller: 'braintreeCtrl as checkout'
+          templateUrl: 'checkout/checkout.braintree.html'
+          # templateUrl: 'checkout/checkout.form.html'
       data:
         pageTitle:        'Checkout'
         padTop:           '0'

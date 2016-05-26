@@ -20,7 +20,6 @@
     "angular-scroll": "~0.6",
     "angular-stripe": "^4.2",
     "angular-credit-cards": "~2.3",
-    "keen-js": "~3.3.0",
-    "braintree-web": "~2.24.1"
+    "keen-js": "~3.3.0"
   }
 }

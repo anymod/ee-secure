@@ -150,6 +150,11 @@
   ng-if="state != 'cart' && state != 'help' && state != 'search'"
   class="ee-scroll-top full-width text-center pad-5 transition-200 visible-xs">
   <div class="inline-block pad-5 round-5" style="background: rgba(255,255,255,0.5);">
+    <!-- sale -->
+    <a ui-sref="sale({ id: 13016 })" class="btn btn-themed">
+      &nbsp;<i class="fa fa-fw fa-tags"></i>&nbsp;Sale&nbsp;
+    </a>&nbsp;
+    <!-- /sale -->
     <!-- offer -->
     <div ng-click="openOfferModal()" class="btn btn-themed">
       &nbsp;<i class="fa fa-fw fa-envelope-o"></i>&nbsp;Get exclusive offers&nbsp;

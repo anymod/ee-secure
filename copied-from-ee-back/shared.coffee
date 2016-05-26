@@ -62,6 +62,7 @@ esqSetSort = (esq, opts) ->
   switch opts.order
     when 'pa', 'pd' then esq.query 'sort', 'skus.baseline_price', sku_sort_order
     when 'ua', 'ud' then esq.query 'sort', 'updated_at', order
+    when 'ca', 'cd' then esq.query 'sort', 'created_at', order
     when 'ta', 'td' then esq.query ['sort'], 'title.raw', { order: order }
     when 'shipa', 'shipd' then esq.query 'sort', 'skus.shipping_price', sku_sort_order
     # TODO rework without regular_price column

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, stripe, eeBootstrap, eeBack) ->
+angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, eeBootstrap, eeBack) -> # stripe
 
   checkout = this
 
@@ -56,18 +56,18 @@ angular.module('eeCheckout').controller 'checkoutCtrl', ($state, $stateParams, s
     setAlert message
     !message
 
-  checkout.charge = () ->
-    formCheckoutCard()
-    if validateForm()
-      checkout.processing = true
-      stripe.card.createToken checkout.card
-      .then (token) -> eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
-      .then (order) -> $state.go 'order', { order_uuid: order.uuid }
-      .catch (err) ->
-        checkout.alert = if err and err.message then err.message else 'Problem sending payment'
-        if typeof checkout.alert is 'object' then checkout.alert = 'Problem sending payment'
-        if err and err.message and err.message.message then checkout.alert = err.message.message
-        if checkout.alert is 'transition prevented' then checkout.alert = null
-      .finally () -> checkout.processing = false
+  # checkout.charge = () ->
+  #   formCheckoutCard()
+  #   if validateForm()
+  #     checkout.processing = true
+  #     stripe.card.createToken checkout.card
+  #     .then (token) -> eeBack.orderPOST checkout.cart_uuid, checkout.email, token, checkout.shipping
+  #     .then (order) -> $state.go 'order', { order_uuid: order.uuid }
+  #     .catch (err) ->
+  #       checkout.alert = if err and err.message then err.message else 'Problem sending payment'
+  #       if typeof checkout.alert is 'object' then checkout.alert = 'Problem sending payment'
+  #       if err and err.message and err.message.message then checkout.alert = err.message.message
+  #       if checkout.alert is 'transition prevented' then checkout.alert = null
+  #     .finally () -> checkout.processing = false
 
   return

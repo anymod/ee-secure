@@ -65,7 +65,9 @@
   <div ui-view="bottom" id="ee-bottom-view" class="position-relative"></div>
   <div ui-view="footer" id="ee-footer" class="position-relative"></div>
 
-  <script src="https://js.stripe.com/v2/"></script>
+  <!-- <script src="https://js.stripe.com/v2/"></script> -->
+  <script src="https://js.braintreegateway.com/js/braintree-2.24.1.min.js"></script>
+
   <!-- Do not edit inside of build block; it is auto-generated -->
   <!-- build:js -->
   <script src="bower_components/angular/angular.js"></script>
@@ -76,8 +78,6 @@
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="bower_components/keen-js/dist/keen.js"></script>
   <script src="bower_components/braintree-web/dist/braintree.js"></script>
-  <script src="bower_components/angular-stripe/release/angular-stripe.js"></script>
-  <script src="bower_components/angular-credit-cards/release/angular-credit-cards.js"></script>
   <script src="js/ee-shared/core/core.module.js"></script>
   <script src="js/ee-shared/core/constants.js"></script>
   <script src="js/ee-shared/core/filters.js"></script>
@@ -91,6 +91,7 @@
   <script src="js/checkout/core/svc.back.js"></script>
   <script src="js/checkout/core/svc.cart.js"></script>
   <script src="js/checkout/checkout.controller.js"></script>
+  <script src="js/checkout/braintree.controller.js"></script>
   <script src="js/ee-shared/components/ee-storefront-header.js"></script>
   <script src="js/ee-shared/components/ee-storefront-logo.js"></script>
   <script src="js/ee-shared/components/ee-exp-combined.js"></script>

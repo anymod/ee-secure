@@ -30,12 +30,13 @@ sources.checkoutVendorMin = [
   # './src/bower_components/angulartics/dist/angulartics.min.js'
   # './src/bower_components/angulartics/dist/angulartics-ga.min.js'
   './src/bower_components/keen-js/dist/keen.min.js'
+  ## TODO not minified (but takes a long time to do so)
+  './src/bower_components/braintree-web/dist/braintree.js'
 ]
 sources.checkoutVendorUnmin = [
-  './src/bower_components/braintree-web/dist/braintree.js'
   ## TODO remove when stripe is removed
-  './src/bower_components/angular-stripe/release/angular-stripe.js'
-  './src/bower_components/angular-credit-cards/release/angular-credit-cards.js'
+  # './src/bower_components/angular-stripe/release/angular-stripe.js'
+  # './src/bower_components/angular-credit-cards/release/angular-credit-cards.js'
 ]
 
 ### MODULE ###
@@ -60,15 +61,9 @@ sources.checkoutModule = [
   # Services
   './src/checkout/core/svc.back.coffee'
   './src/checkout/core/svc.cart.coffee'
-  # './src/checkout/core/svc.modal.coffee'
   # Module - checkout
   './src/checkout/checkout.controller.coffee'
-  # Module - collection
-  # './src/checkout/collection.controller.coffee'
-  # Module - cart
-  # './src/checkout/cart.controller.coffee'
-  # Module - modal
-  # './src/checkout/modal/modal.controller.coffee'
+  './src/checkout/braintree.controller.coffee'
 ]
 
 ### DIRECTIVES ###

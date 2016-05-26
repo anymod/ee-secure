@@ -30,13 +30,13 @@ angular.module('checkout.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
 
   data: _data
 
-  orderPOST: (cart_uuid, email, stripeToken, shipping) ->
-    _makeRequest {
-      method: 'POST'
-      url: eeBackUrl + 'orders'
-      data:
-        cart_uuid:    cart_uuid
-        email:        email
-        stripeToken:  stripeToken
-        shipping:     shipping
-    }
+  # orderPOST: (cart_uuid, email, stripeToken, shipping) ->
+  #   _makeRequest {
+  #     method: 'POST'
+  #     url: eeBackUrl + 'orders'
+  #     data:
+  #       cart_uuid:    cart_uuid
+  #       email:        email
+  #       stripeToken:  stripeToken
+  #       shipping:     shipping
+  #   }

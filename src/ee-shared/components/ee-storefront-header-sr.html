@@ -31,13 +31,16 @@
 <!-- SR Desktop Subnav -->
 <nav ng-if="!compactView" class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
   <div class="container max-width-900 vert-10 margin-top-0">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav full-width">
       <li ng-repeat="category in categories">
         <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
           ng-bind="category.title"
           ng-class="{ active: category.id == id }"
           class="transition-200 store-subnav-btn">
         </a>
+      </li>
+      <li class="pull-right">
+        <a ui-sref="sale({ id: 13016 })" class="active transition-200 store-subnav-btn"><i class="fa fa-tags"></i>&nbsp;Sale</a>
       </li>
     </ul>
   </div>
@@ -89,6 +92,14 @@
           <a ui-sref="search" class="text-muted">Search</a>
         </li>
         <!-- /search -->
+        <li>
+          <hr class="vert-5">
+        </li>
+        <!-- sale -->
+        <li>
+          <a ui-sref="sale({ id: 13016 })" class="text-muted">Sale</a>
+        </li>
+        <!-- /sale -->
         <li>
           <hr class="vert-5">
         </li>
@@ -150,6 +161,11 @@
   ng-if="state != 'cart' && state != 'help' && state != 'search'"
   class="ee-scroll-top full-width text-center pad-5 transition-200 visible-xs">
   <div class="inline-block pad-5 round-5" style="background: rgba(255,255,255,0.5);">
+    <!-- sale -->
+    <a ui-sref="sale({ id: 13016 })" class="btn btn-themed">
+      &nbsp;<i class="fa fa-fw fa-tags"></i>&nbsp;Sale&nbsp;
+    </a>&nbsp;
+    <!-- /sale -->
     <!-- offer -->
     <div ng-click="openOfferModal()" class="btn btn-themed">
       &nbsp;<i class="fa fa-fw fa-envelope-o"></i>&nbsp;Get exclusive offers&nbsp;
