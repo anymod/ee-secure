@@ -6,7 +6,7 @@
 <div ng-if="user.username != 'stylishrustic'">
   <!-- Desktop nav -->
   <div class="position-relative hidden-xs" style="z-index: 5;">
-    <div class="container max-width-900">
+    <div class="container container-narrow">
       <!-- blocker -->
       <div ng-show="blocked" class="navbar position-absolute margin-0" style="z-index: 2005; top: 0; left: 0; right: 0; height: 140px;"></div>
       <!-- /blocker -->
@@ -29,12 +29,13 @@
             <div class="activity-area position-absolute">
               <div>
                 <!-- Search -->
-                <form class="form-group input-group margin-0" ng-submit="search()">
+                <ee-search-sort hide-sort="true"></ee-search-sort>
+                <!-- <form class="form-group input-group margin-0" ng-submit="search()">
                   <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
                   </span>
-                </form>
+                </form> -->
                 <!-- /Search -->
               </div>
               <div class="full-width text-right pad-5 vert-5 margin-top-0 vertical-align-middle">
@@ -74,7 +75,7 @@
 
   <!-- Desktop Subnav -->
   <nav ng-if="user.username != 'stylishrustic'" class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
-    <div class="container max-width-900">
+    <div class="container container-narrow">
       <ul class="nav navbar-nav">
         <li ng-repeat="category in categories">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
@@ -105,9 +106,10 @@
     </div>
   </nav>
   <div class="visible-xs white-background pad-5 border-bottom-gray">
-    <form class="margin-0" ng-submit="search()">
+    <ee-search-sort hide-sort="true"></ee-search-sort>
+    <!-- <form class="margin-0" ng-submit="search()">
       <input type="text" class="form-control" placeholder="Search for products" ng-model="query">
-    </form>
+    </form> -->
   </div>
   <!-- /Mobile nav -->
 

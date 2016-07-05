@@ -8,6 +8,10 @@ module.directive "eeProductImages", () ->
   scope:
     product: '='
   link: (scope, ele, attrs) ->
+    scope.hideFavoriteButton = true
+
     scope.setMainImage = (url) -> scope.mainImage = url
+
     if scope.product?.image then scope.setMainImage scope.product.image
+    
     return

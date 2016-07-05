@@ -1,6 +1,6 @@
 <style>
   .design-band {
-    height: 50px;
+    height: 48px;
     width: 100%;
     background: url({{ 'https://res.cloudinary.com/eeosk/image/upload/v1463444225/sr-floral.jpg' | cloudinaryResizeTo:1200:50:'fill' }}) no-repeat center center;
     -webkit-background-size: cover;
@@ -8,76 +8,64 @@
     -o-background-size: cover;
     background-size: cover;
   }
-  .design-band-sm {
-    height: 40px;
-    background-image: url({{ 'https://res.cloudinary.com/eeosk/image/upload/v1463444225/sr-floral.jpg' | cloudinaryResizeTo:600:40:'fill' }}) no-repeat center center;
+  @media (max-width: 678px) {
+    .design-band {
+      background-image: url({{ 'https://res.cloudinary.com/eeosk/image/upload/v1463444225/sr-floral.jpg' | cloudinaryResizeTo:600:40:'fill' }}) no-repeat center center;
+    }
   }
 </style>
 
-<!-- SR Desktop nav -->
-<div class="position-relative hidden-xs" style="z-index: 5;">
-  <div class="design-band" ng-if="compactView" style="height: 10px;"></div>
-  <div class="text-center pad-5">
-    <!-- Logo -->
-    <a ui-sref="storefront">
-      <img ng-src="{{ user.logo | cloudinaryTrim }}" alt="Stylish Rustic"/>
-    </a>
-    <!-- /Logo -->
-  </div>
-  <div class="design-band" ng-if="!compactView"></div>
-</div>
-<!-- /SR Desktop nav -->
-
-<!-- SR Desktop Subnav -->
-<nav ng-if="!compactView" class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
-  <div class="container max-width-900 vert-10 margin-top-0">
-    <ul class="nav navbar-nav">
-      <li ng-repeat="category in categories">
-        <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
-          ng-bind="category.title"
-          ng-class="{ active: category.id == id }"
-          class="transition-200 store-subnav-btn">
+<!-- SR Nav -->
+<nav class="navbar navbar-default white-background round-0 margin-0 no-side-border" style="border-top: none;">
+  <div class="container container-narrow">
+    <div class="margin-7">
+      <!-- Logo -->
+      <a ui-sref="storefront">
+        <img ng-src="{{ user.logo | cloudinaryTrim }}" class="logo"/>
+      </a>
+      <!-- /Logo -->
+      <div class="pull-right pad-5 vert-7">
+        <a ui-sref="search" class="white-color no-underline">
+          <i class="fa fa-lg fa-search text-muted"></i>
         </a>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </nav>
-<!-- /SR Desktop Subnav -->
-
-<!-- SR Mobile Nav -->
-<nav class="navbar navbar-default white-background round-0 margin-0 no-side-border text-center visible-xs" style="border-top: none;">
-  <div class="margin-7">
-    <a href ng-click="sidenavOpen = true" class="pad-5 vert-5 pull-left inline-block text-muted">
-      <i class="fa fa-fw fa-2x fa-bars"></i>
-    </a>
-    <!-- Logo -->
-    <a ui-sref="storefront">
-      <img ng-src="{{ user.logo | cloudinaryTrim }}" style="max-height: 46px;"/>
-    </a>
-    <!-- /Logo -->
-    <a ui-sref="cart" class="pad-5 vert-5 pull-right inline-block text-muted">
-      <i class="fa fa-fw fa-2x fa-shopping-cart"></i>
-    </a>
+<div class="design-band">
+  <div class="container container-narrow">
+    <div class="row">
+      <div class="col-xs-4">
+        <a href ng-click="sidenavOpen = true" class="white-color no-underline">
+          <i class="fa fa-2x fa-bars pad-10"></i>
+        </a>
+      </div>
+      <div class="col-xs-4 text-center">
+        <i class="fa fa-2x fa-heart pad-10 white-color hover-pointer" ng-click="modalOrFavorites()"></i>
+      </div>
+      <div class="col-xs-4 text-right">
+        <a ui-sref="cart" class="white-color no-underline">
+          <i class="fa fa-2x fa-shopping-cart pad-10"></i>
+        </a>
+      </div>
+    </div>
   </div>
-</nav>
-<div class="design-band design-band-sm visible-xs" ng-style="{ 'max-height': compactView ? '10px' : '' }"></div>
-<!-- /SR Mobile nav -->
+</div>
+<!-- /SR nav -->
 
-<!-- SR Mobile Sidenav -->
+<!-- SR Sidenav -->
 <!-- closer -->
 <div ng-show="sidenavOpen" ng-click="sidenavOpen = false"
   class="position-fixed top-left-bottom-right-0 white-background opacity-05 hover-pointer"
   style="z-index: 3090">
 </div>
 <!-- /closer -->
-<div class="position-fixed transition-400 box-shadow white-background visible-xs"
-  style="top: 0; bottom: 0; width: 250px; overflow-y: scroll; z-index: 4000"
-  ng-style="{ left: (sidenavOpen ? 0 : '-250px') }">
+<div class="nav-side transition-400 box-shadow white-background"
+  ng-class="{ open: sidenavOpen }">
   <div class="position-relative full-width">
-    <nav class="navbar navbar-default round-0 margin-0 no-side-border text-center"
-      ng-style="{ 'background-color': user.storefront_meta.brand.color.secondary }">
-      <div class="margin-7">
-        <a href ng-click="sidenavOpen = false" class="pad-5 pull-right inline-block text-muted">
+    <nav class="navbar navbar-default round-0 margin-0 no-side-border text-center design-band">
+      <div>
+        <a href ng-click="sidenavOpen = false" class="pad-10 pull-right inline-block text-muted">
           <i class="fa fa-fw fa-2x fa-times" ng-style="{ color: user.storefront_meta.brand.color.tertiary }"></i>
         </a>
       </div>
@@ -85,11 +73,19 @@
     <div class="pad-20 pad-top-0">
       <ul class="nav navbar-nav">
         <!-- search -->
-        <li>
+        <li class="full-width">
           <a ui-sref="search" class="text-muted">Search</a>
         </li>
         <!-- /search -->
-        <li>
+        <li class="full-width">
+          <hr class="vert-5">
+        </li>
+        <!-- sale -->
+        <li class="full-width">
+          <a ui-sref="sale({ id: 13016 })" class="text-muted">Sale</a>
+        </li>
+        <!-- /sale -->
+        <li class="full-width">
           <hr class="vert-5">
         </li>
         <!-- categories -->
@@ -135,44 +131,4 @@
     </div>
   </div>
 </div>
-<!-- /SR Mobile Sidenav -->
-
-<!-- SR Mobile Topnav -->
-<style>
-  .ee-scroll-top {
-    position: fixed;
-    top: -100px;
-    z-index: 2000;
-  }
-  .ee-scroll-top-show { top: 0; }
-</style>
-<div ee-scroll-show trigger-at="{{ compactView ? 800 : 300 }}"
-  ng-if="state != 'cart' && state != 'help' && state != 'search'"
-  class="ee-scroll-top full-width text-center pad-5 transition-200 visible-xs">
-  <div class="inline-block pad-5 round-5" style="background: rgba(255,255,255,0.5);">
-    <!-- offer -->
-    <div ng-click="openOfferModal()" class="btn btn-themed">
-      &nbsp;<i class="fa fa-fw fa-envelope-o"></i>&nbsp;Get exclusive offers&nbsp;
-    </div>
-    <!-- /offer -->
-  </div>
-
-</div>
-<!-- /SR Mobile Topnav -->
-
-<!-- Search -->
-<div class="container max-width-900 vert-5">
-  <ee-search-sort
-    ng-if="!compactView && state != 'cart' && state != 'help'"
-    hide-sort="true">
-  </ee-search-sort>
-</div>
-<!-- <div class="container max-width-900 vert-5">
-  <form class="form-group input-group margin-0" ng-submit="search()">
-    <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
-    </span>
-  </form>
-</div> -->
-<!-- /Search -->
+<!-- /SR Sidenav -->

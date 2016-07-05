@@ -1,0 +1,51 @@
+<div>
+  <div ng-hide="showLoadScreen">
+    <!-- <h3 class="margin-0">Create a favorites list</h3> -->
+    <p class="vert-5">Create a shareable list for your decor ideas, birthdays, and registries.</p>
+  </div>
+
+  <div ng-if="showLoadScreen">
+    <h3 class="margin-0">Load your favorites</h3>
+    <p class="vert-10">We'll send you a link to load your favorites.</p>
+  </div>
+
+  <form class="form-group input-group vert-20" ng-submit="subscribe()">
+    <input ng-model="email" type="email" placeholder="Email address"
+      class="form-control full-width-important margin-0"
+      style="padding: 8px 20px; min-height: 38px;"
+      ng-disabled="submitting || !sendFavoritesLink">
+    <span class="input-group-btn">
+      <button class="btn btn-themed margin-0" type="submit"
+        style="padding: 8px 10px; min-height: 38px; border-bottom-width: 1px !important;"
+        ng-disabled="submitting || !sendFavoritesLink">
+        <span ng-hide="showLoadScreen">Create</span>
+        <span ng-show="showLoadScreen">Send</span>
+      </button>
+    </span>
+  </form>
+  <div ng-if="alert" ng-bind="alert" class="alert alert-info pad-10"></div>
+  <div ng-if="data.email_sent" class="alert alert-success pad-10">Your favorites link was sent. Please check your email.</div>
+
+  <div ng-hide="showLoadScreen">
+    <div class="checkbox vert-5">
+      <label>
+        <input type="checkbox" ng-model="sendFavoritesLink"><small>Send me a custom favorites link</small>
+      </label>
+    </div>
+    <div class="checkbox vert-5">
+      <label>
+        <input type="checkbox" ng-model="onMailingList"><small>Send me occasional offers & savings</small>
+      </label>
+    </div>
+    <div class="vert-20 margin-bottom-0">
+      <small class="text-muted">Already saved? <a href ng-click="showLoadScreen = true; sendFavoritesLink = true;">Load your favorites</a></small>
+    </div>
+  </div>
+
+  <div ng-if="showLoadScreen">
+    <div class="vert-20 margin-bottom-0">
+      <small class="text-muted"><a href ng-click="hideLoadScreen()"><i class="fa fa-long-arrow-left"></i>&nbsp;Back</a></small>
+    </div>
+  </div>
+
+</div>

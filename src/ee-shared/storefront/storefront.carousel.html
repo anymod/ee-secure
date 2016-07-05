@@ -1,5 +1,5 @@
 <!-- Carousel -->
-<div ng-if="storefront.ee.User.user.home_carousel.length > 0" class="container max-width-900">
+<div ng-if="storefront.ee.User.user.home_carousel.length > 0" class="container container-narrow">
   <div class="vert-10">
     <div class="margin-0-auto">
       <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
@@ -15,7 +15,7 @@
 <!-- /Carousel -->
 
 <!-- Arranged -->
-<div ng-if="storefront.ee.User.user.home_arranged.length > 0" class="container max-width-900 vert-20">
+<div ng-if="storefront.ee.User.user.home_arranged.length > 0" class="container container-narrow vert-20">
   <div ng-repeat="collection in storefront.ee.User.user.home_arranged">
     <ee-collection-for-store collection="collection"></ee-collection-for-store>
   </div>

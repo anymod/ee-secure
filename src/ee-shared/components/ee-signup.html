@@ -1,0 +1,40 @@
+<div class="max-width-300 margin-0-auto text-center">
+  <!-- Social -->
+  <div ng-hide="hideSocial">
+    <div class="facebook-follow">
+      <div class="fb-page" data-href="https://www.facebook.com/StylishRustic/"
+        data-width="280" data-height="70"
+        data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/StylishRustic/" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/StylishRustic/">Stylish Rustic</a>
+        </blockquote>
+      </div>
+    </div>
+    <div class="pinterest-follow vert-5 margin-bottom-0">
+      <style>
+        .pinterest-follow > span { box-shadow: none; background: none; }
+        .pinterest-follow > span > span:nth-child(1) { display: none; }
+        .pinterest-follow > span > span:nth-child(2) { display: none; }
+      </style>
+      <a data-pin-do="embedUser" href="https://www.pinterest.com/stylishrustic/"
+        data-pin-scale-width="115"
+        data-pin-scale-height="70"
+        data-pin-board-width="260">
+      </a>
+    </div>
+  </div>
+  <!-- /Social -->
+  <!-- Email -->
+  <form class="form-group input-group pad-10 pad-top-0 margin-0" ng-submit="subscribe()">
+    <input ng-model="email" type="email" class="form-control full-width-important margin-0" placeholder="Email address" style="padding: 8px 20px; min-height: 38px;">
+    <span class="input-group-btn">
+      <button class="btn btn-themed margin-0" type="submit"
+        style="padding: 8px 10px; min-height: 38px; border-bottom-width: 1px !important;"
+        ng-disabled="submitting">
+        Subscribe
+      </button>
+    </span>
+  </form>
+  <div ng-show="alert" ng-bind="alert" class="font-weight-200"></div>
+  <!-- /Email -->
+</div>

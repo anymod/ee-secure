@@ -1,14 +1,35 @@
-<div class="pad-5 product-container">
+<div class="product-container position-relative pad-5">
   <a class="product" ui-sref="product({ id: product.id, title: (product.title | urlText) })">
-    <img ng-src="{{ product.image | cloudinaryResizeTo:250:250 }}" class="img-responsive full-width">
-    <h5 class="product-title vert-5 text-dark-blue font-weight-200" ng-bind="product.title"></h5>
+    <img ee-image-fadein
+      ee-src="{{ product.image }}"
+      ee-w=220 ee-h=220 ee-trim=true
+      load-boolean="hideFavoriteButton"
+      class="img-responsive full-width transition-400">
+    <!-- <h5 class="product-title vert-5 text-dark-blue font-weight-200" ng-bind="product.title"></h5> -->
   </a>
-  <a ng-if="product.discounted" ui-sref="sale({ id: product.discounted })" class="btn btn-themed btn-arrow">Sale</a>
-  <div class="vert-5">
+  <div ng-if="product.discounted"
+    class="position-absolute"
+    style="bottom: 14px; left: -1px;">
+    <a ui-sref="sale({ id: product.discounted })"
+      class="btn btn-themed btn-arrow">
+      <span ng-if="state != 'sale'">Sale</span>
+      <span ng-if="state == 'sale'" ng-bind="product.skus | discountRange"></span>
+    </a>
+  </div>
+  <div ng-hide="hideFavoriteButton"
+    class="position-absolute"
+    style="bottom: 0; right: 0; padding: 15px 0 0 15px;">
+    <ee-favorites-heart
+      ng-if="product.skus"
+      product-skus="product.skus">
+    </ee-favorites-heart>
+  </div>
+
+  <!-- <div class="vert-5">
     <h4 class="inline-block vert-0 text-dark-gray" ng-bind="product.prices | priceRange"></h4>
     <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrps && product.msrps.length == 1 && product.msrps[0] > product.prices[0]">&nbsp;<s>{{ product.msrps | priceRange }}</s></h5>
-  </div>
-  <a ui-sref="search({ q: product.title, c: product.category_id })" class="text-muted">
+  </div> -->
+  <!-- <a ui-sref="search({ q: product.title, c: product.category_id })" class="text-muted">
     <small class="hover-pointer"><i class="fa fa-fw fa-search"></i>more like this</small>
-  </a>
+  </a> -->
 </div>

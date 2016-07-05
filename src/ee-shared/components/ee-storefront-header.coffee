@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-storefront-header', []
 
-module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, eeModal, categories) ->
+module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeFavorites, eeCart, eeModal, categories) ->
   templateUrl: 'ee-shared/components/ee-storefront-header.html'
   scope:
     user:           '='
@@ -21,7 +21,7 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, eeM
 
     return unless scope.user
 
-    if scope.showScrollnav
+    if !!scope.showScrollnav
       trigger = 75
       angular.element($window).bind 'scroll', (e, a, b) ->
         if $window.pageYOffset > trigger then ele.addClass 'show-scrollnav' else ele.removeClass 'show-scrollnav'
@@ -40,5 +40,7 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, eeM
     scope.$on 'updated:user', () -> assignCategories()
 
     scope.openOfferModal = () -> eeModal.fns.open 'offer'
+
+    scope.modalOrFavorites = () -> eeFavorites.fns.modalOrRedirect()
 
     return

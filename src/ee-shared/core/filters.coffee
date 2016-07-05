@@ -22,6 +22,17 @@ angular.module('app.core').filter 'percentage', ($filter) ->
   (input, decimals) ->
     $filter('number')(input * 100, decimals) + '%'
 
+angular.module('app.core').filter 'discountRange', ($filter) ->
+  # Usage: | discountRange
+  (input) ->
+    return '' unless input and input.length > 0
+    discounts = []
+    discounts.push $filter('number')(100 * (1 - (sku.price / sku.msrp)), 0) for sku in input
+    max = Math.max discounts
+    min = Math.min discounts
+    if max is min then return '' + max + '%'
+    '' + min + '-' + max + '%'
+
 angular.module('app.core').filter 'truncate', ($filter) ->
   # Usage: | truncate:20
   (input, n) ->

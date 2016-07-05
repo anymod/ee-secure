@@ -1,0 +1,14 @@
+<div class="text-center">
+  <span ng-repeat="prod in products">
+    <span class="homepage-product text-left inline-block vertical-align-top">
+      <ee-product-for-store product="prod"></ee-product-for-store>
+    </span>
+    <div ng-if="showSignup && $index == signupIndex"
+      class="text-center pad-10 margin-0-auto" style="max-width: 320px;">
+      <h3 ee-signup-message
+        class="font-weight-200 vert-10 margin-top-0 line-height-1 text-muted">
+      </h3>
+      <ee-signup hide-social=true identifier="products-list"></ee-signup>
+    </div>
+  </span>
+</div>

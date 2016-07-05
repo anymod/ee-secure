@@ -30,6 +30,11 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
       templateUrl:    'store/modal/modal.offer.thanks.html'
       controller:     'modalCtrl as modal'
       backdropClass:  _backdropClass
+    favorites:
+      templateUrl:    'store/modal/modal.favorites.html'
+      controller:     'modalCtrl as modal'
+      size:           'sm'
+      backdropClass:  _backdropClass
     themes:
       templateUrl:    'builder/create/create.themes.modal.html'
       controller:     'createCtrl as create'

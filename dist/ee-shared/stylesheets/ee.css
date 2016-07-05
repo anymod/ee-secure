@@ -9062,17 +9062,7 @@ body.modal-open {
   background: none !important;
 }
 .carousel-indicators {
-  bottom: -35px !important;
-  right: 15px !important;
-  left: inherit !important;
-  text-align: right;
-}
-.carousel-indicators li {
-  border: 1px solid #777777 !important;
-  background-color: #fcfcfc !important;
-}
-.carousel-indicators .active {
-  background-color: #777777 !important;
+  display: none;
 }
 .carousel-caption {
   left: 0;
@@ -9093,12 +9083,9 @@ body.modal-open {
   .carousel {
     margin-bottom: 0;
   }
-  .carousel-indicators {
-    display: none;
-  }
   .carousel-control .glyphicon {
     padding: 8px;
-    margin-top: -8px;
+    margin-top: -18px;
     background: #474747;
   }
 }
@@ -9120,9 +9107,10 @@ body.modal-open {
 .ng-cloak {
   display: none;
 }
-.container.squeeze {
-  max-width: 730px;
-  margin: 0 auto;
+.container-narrow {
+  max-width: 900px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 html,
 body {
@@ -9156,6 +9144,13 @@ html {
   padding: 0px;
   background: none;
   color: #03a9f4;
+}
+@media (max-width: 370px) {
+  #footer-region .bg-themed,
+  #store-footer-region .bg-themed {
+    margin: 10px -25px;
+    border-radius: 0;
+  }
 }
 .ee-brand {
   background-image: none !important;
@@ -9741,6 +9736,9 @@ html {
 .max-height-2400 {
   max-height: 2400px;
 }
+.min-height-120 {
+  min-height: 120px;
+}
 .min-height-300 {
   min-height: 300px;
 }
@@ -9755,6 +9753,9 @@ html {
 }
 .height-50 {
   height: 50px;
+}
+.height-62 {
+  height: 62px;
 }
 .height-450 {
   height: 450px;
@@ -10374,9 +10375,9 @@ a.product:focus .product-title {
   background-color: white;
   border: 1px solid #fcfcfc;
   border-radius: 2px;
-  margin: 3px;
+  margin: 1px;
   transition: all 0.2s ease-in-out;
-  max-width: 210px;
+  max-width: 218px;
 }
 .product-container:hover,
 .product-container:focus {
@@ -10387,6 +10388,16 @@ a.product:focus .product-title {
 @media (max-width: 480px) {
   .product-container {
     max-width: 100%;
+  }
+}
+ee-product-card .main-image {
+  width: auto;
+  max-height: 450px;
+  max-width: 100%;
+}
+@media (min-width: 768px) {
+  ee-product-card .product-info {
+    text-align: left !important;
   }
 }
 @media (max-width: 480px) {
@@ -10484,6 +10495,29 @@ img.zoom-img {
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
   cursor: default;
+}
+img.logo {
+  max-height: 60px;
+}
+@media (max-width: 767px) {
+  img.logo {
+    max-height: 50px;
+  }
+}
+.nav-side {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -280px;
+  width: 250px;
+  overflow-y: scroll;
+  z-index: 4000;
+}
+.nav-side li {
+  width: 100%;
+}
+.nav-side.open {
+  left: 0;
 }
 
 /*# sourceMappingURL=ee.css.map */
