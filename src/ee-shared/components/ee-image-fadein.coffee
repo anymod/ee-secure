@@ -4,7 +4,7 @@ angular.module 'ee-image-fadein', []
 
 angular.module('ee-image-fadein').directive "eeImageFadein", ($filter, $timeout) ->
   scope:
-    eeSrc: '@'
+    eeSrc: '='
     eeW: '@'
     eeH: '@'
     eeTrim: '@'
@@ -16,21 +16,23 @@ angular.module('ee-image-fadein').directive "eeImageFadein", ($filter, $timeout)
     h = parseInt scope.eeH
     crop = scope.eeCrop || 'pad'
     scope.loadBoolean = false
-    element.attr 'src', 'https://placeholdit.imgix.net/~text?txtsize=40&bg=ffffff&txtclr=ffcccc&txt=loading+image&w=' + w + '&h=' + h
+    loadSrc = 'https://placeholdit.imgix.net/~text?txtsize=40&bg=ffffff&txtclr=ffcccc&txt=loading+image&w=' + w + '&h=' + h
+    element.attr 'src', loadSrc
 
     loadImage = (url) ->
       element.attr 'style', 'opacity: 0.5;'
-      element.attr 'src', url
+      urlToLoad = url
+      if scope.eeTrim
+        urlToLoad = $filter('cloudinaryResizeTo')($filter('cloudinaryTrim')(url), w, h, crop)
+      else
+        urlToLoad = $filter('cloudinaryResizeTo')(url, w, h, crop)
+      element.attr 'src', urlToLoad
       element.one 'load', () ->
         element.attr 'style', 'opacity: 1;'
         $timeout(() -> scope.loadBoolean = false)
 
-    element.one 'load', () ->
-      if scope.eeTrim
-        loadImage $filter('cloudinaryResizeTo')($filter('cloudinaryTrim')(scope.eeSrc), w, h, crop)
-      else
-        loadImage $filter('cloudinaryResizeTo')(scope.eeSrc, w, h, crop)
-
     if scope.watch
       scope.$watch 'eeSrc', (newVal, oldVal) ->
         if newVal isnt oldVal then loadImage newVal
+
+    element.one 'load', (e) -> loadImage scope.eeSrc

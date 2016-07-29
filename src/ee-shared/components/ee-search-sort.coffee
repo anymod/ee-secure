@@ -13,6 +13,10 @@ angular.module('ee-search-sort').directive 'eeSearchSort', ($state, $stateParams
     scope.collectionData = eeCollection.data
     scope.state = $state
 
+    scope.clearParamsAndRunQuery = () ->
+      eeProducts.fns.clearParams()
+      eeProducts.fns.runQuery()
+
     scope.setCategory = (category) ->
       if !category?.id?
         $stateParams.c = null

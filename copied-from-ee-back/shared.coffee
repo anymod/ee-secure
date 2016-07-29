@@ -3,24 +3,23 @@ elasticsearch = require '../config/elasticsearch/setup'
 ESQ           = require 'esq'
 Promise       = require 'bluebird'
 _             = require 'lodash'
-argv          = require('yargs').argv
+# argv          = require('yargs').argv
 
 # Temporary for printing
-util = require 'util'
+# util = require 'util'
 
 shared =
   defaults: require './shared.defaults'
   utils:    require './shared.utils'
-  sku:      require './shared.sku'
 
 fns =
   Defaults: shared.defaults
   Utils:    shared.utils
-  Sku:      shared.sku
-  User:     {}
-  Product:  {}
-  Collection: {}
-  Customization: {}
+  User:           {}
+  Product:        {}
+  Sku:            {}
+  Collection:     {}
+  Customization:  {}
 
 ### USER ###
 fns.User.addAccentColors = (obj) ->
@@ -59,9 +58,16 @@ esqSetSort = (esq, opts) ->
     nested_path: 'skus'
     mode:  'min'
     order: order
+  sku_sort_script =
+    nested_path: 'skus'
+    mode:  'min'
+    order: order
+    type: 'number'
+    script: "doc['baseline_price'].value + doc['shipping_price'].value - doc['supply_price'].value - doc['supply_shipping_price'].value"
   switch opts.order
     when 'pa', 'pd' then esq.query 'sort', 'skus.baseline_price', sku_sort_order
     when 'ua', 'ud' then esq.query 'sort', 'updated_at', order
+    when 'ca', 'cd' then esq.query 'sort', 'created_at', order
     when 'ta', 'td' then esq.query ['sort'], 'title.raw', { order: order }
     when 'shipa', 'shipd' then esq.query 'sort', 'skus.shipping_price', sku_sort_order
     # TODO rework without regular_price column
@@ -72,7 +78,7 @@ esqSetSort = (esq, opts) ->
     #   attributes += ', min((1.0*s.msrp - s.regular_price)/s.msrp) as discount'
     #   order = "discount ASC"
     # TODO rework with calculation
-    # when 'eeprofd'
+    when 'eeprofa', 'eeprofd' then esq.query 'sort', '_script', sku_sort_script
     #   attributes += ', max(1.0 - (1.0*s.supply_price + s.supply_shipping_price) / (1.0*s.baseline_price + s.shipping_price)) as profit'
     #   order = "profit DESC"
     # when 'eeprofa'
@@ -86,19 +92,36 @@ esqSetSort = (esq, opts) ->
     #   attributes += ', min(1.0*regular_price - baseline_price) as profit'
     #   order = "profit ASC"
 
+esqSetExclusions = (esq, opts) ->
+  return if opts?.admin?
+  nested_match =
+    nested:
+      path: 'skus'
+      query:
+        bool:
+          must_not: [
+            # term: 'skus.discontinued': true
+            term: 'skus.hide_from_catalog': true
+            # term: 'skus.quantity': 0
+          ]
+  esq.query 'query', 'bool', ['must'], nested_match
+
 esqSetPrice = (esq, opts) ->
   return unless opts?.min_price? or opts?.max_price
+  min_price = parseInt opts.min_price
+  max_price = parseInt opts.max_price
+  return if min_price is 0 and max_price is 0
+  if max_price <= min_price then max_price = null
   nested_match =
     nested:
       path: 'skus'
       query:
         bool:
           must: [
-            # match: { 'skus.material': 'Canvas' }
             range:
               baseline_price:
-                gte: opts.min_price
-                lte: opts.max_price
+                gte: min_price || null
+                lte: max_price || null
           ]
   esq.query 'query', 'bool', ['must'], nested_match
 
@@ -115,6 +138,37 @@ esqSetProductIds = (esq, opts) ->
     terms:
       id: opts.product_ids.split(',')
   esq.query 'query', 'bool', ['must'], id_match
+
+esqSetSkuIds = (esq, opts) ->
+  return if !opts?.sku_ids? or opts.sku_ids.split(',').length < 1
+  sku_ids = _.map opts.sku_ids.split(','), (id) -> parseInt(id) || 999999999999
+  nested_match =
+    nested:
+      path: 'skus'
+      query:
+        bool:
+          must: [
+            terms:
+              'skus.id': sku_ids
+          ]
+  esq.query 'query', 'bool', ['must'], nested_match
+
+esqSetNoDimensions = (esq, opts) ->
+  # console.log esq, opts
+  return unless opts?.no_dimensions
+  nested_match =
+    nested:
+      path: 'skus'
+      query:
+        constant_score:
+          filter:
+            bool:
+              must: [
+                missing: { field: 'skus.width' }
+                # missing: { field: 'skus.width' }
+                # missing: { field: 'skus.height' }
+              ]
+  esq.query 'query', 'bool', ['must'], nested_match
 
 esqSetCollectionId = (esq, opts) ->
   new Promise (resolve, reject) ->
@@ -141,6 +195,7 @@ fns.Product.search = (user, opts) ->
 
   # Form query
   esq.query 'size', opts.size
+  esqSetExclusions esq, opts    # Exclude discontinued, hidden, out-of-stock
   esqSetPagination esq, opts    # Pagination: opts.size, opts.page
   esqSetSearch esq, opts        # Search:     opts.search
   esqSetSort esq, opts          # Sort:       opts.order
@@ -148,15 +203,22 @@ fns.Product.search = (user, opts) ->
   # esqSetMaterial esq, opts      # Material: opts.material
   esqSetCategories esq, opts    # Categorization: opts.category_ids
   esqSetProductIds esq, opts    # Product ids: opts.product_ids
+  esqSetSkuIds esq, opts        # Sku ids: opts.sku_ids
   # esqSetSupplierId esq, opts    # Supplier (admin only): opts.supplier_id
+  esqSetNoDimensions esq, opts  # No Dimensions, Out of Stock, Discontinued, or Hidden
   esqSetCollectionId esq, opts  # Collection: opts.collection_id (Promise-based)
   .then () ->
+    # console.log 'esq.getQuery() -------------------------------'
+    # console.log esq.getQuery().query.bool.must[0].nested.query.bool.must[0]
     elasticsearch.client.search
       index: 'nested_search'
       _source: fns.Product.elasticsearch_findall_attrs
       body: esq.getQuery()
   .then (res) ->
-    scope.rows    = _.map res?.hits?.hits, '_source'
+    omitSkuAttrs = (prod) ->
+      prod.skus = _.map prod.skus, (sku) -> _.omit sku, ['discontinued', 'hide_from_catalog']
+      prod
+    scope.rows    = _.map(res?.hits?.hits, (row) -> omitSkuAttrs row['_source'])
     scope.count   = res?.hits?.total
     scope.took    = res.took
     scope.page    = opts?.page || 1
@@ -169,119 +231,6 @@ fns.Product.search = (user, opts) ->
     console.log 'err', err
     throw err
 
-# fns.Product.sort = (user, opts) ->
-#   console.log '------------------------------- PRODUCT SORT --------------------------------'
-#   scope         = {}
-#   user        ||= {}
-#   opts        ||= {}
-#   replacements  = []
-#
-#   # Attributes
-#   attributes = 'SELECT p.id, p.title, p.image, p.category_id, array_agg(s.id) as sku_ids, array_agg(s.msrp) as msrps, min(s.baseline_price) AS min_price, max(s.baseline_price) AS max_price, array_agg(s.baseline_price) as baseline_prices'
-#
-#   # Product IDs
-#   product_ids_filter = ' '
-#   if opts.product_ids then product_ids_filter = ' AND p.id IN (' + opts.product_ids.split(',').join(',') + ') '
-#
-#   # Categorization
-#   category_ids = null
-#   if opts.categorized or opts.category_ids
-#     category_ids = if opts.category_ids then ('' + opts.category_ids).split(',') else user.categorization_ids
-#   if !category_ids then category_ids = [1,2,3,4,5,6]
-#
-#   # Price
-#   # TODO make price filter based on calculated selling price instead of baseline_price directly
-#   price_filter = ' '
-#   if opts.min_price then price_filter += ' AND s.baseline_price > ' + parseInt(opts.min_price) + ' '
-#   if opts.max_price then price_filter += ' AND s.baseline_price < ' + parseInt(opts.max_price) + ' '
-#
-#   # Supplier
-#   supplier_filter = ' '
-#   if user?.admin? and opts.supplier_id
-#     supplier_filter = ' AND s.supplier_id = ? '
-#     replacements.push opts.supplier_id
-#
-#   # Order
-#   order = 'p.updated_at DESC'
-#   switch opts.order
-#     when 'pa' then order = 'min_price ASC'
-#     when 'pd' then order = 'max_price DESC'
-#     when 'ta' then order = "LOWER(regexp_replace(p.title, '[^[:alpha:]]', '', 'g')) ASC"
-#     when 'td' then order = "LOWER(regexp_replace(p.title, '[^[:alpha:]]', '', 'g')) DESC"
-#     when 'shipd'
-#       attributes += ', max(s.shipping_price*1.0/s.baseline_price) as shipping'
-#       order = "shipping DESC"
-#     when 'shipa'
-#       attributes += ', min(s.shipping_price*1.0/s.baseline_price) as shipping'
-#       order = "shipping ASC"
-#     # TODO rework without regular_price column
-#     # when 'discd'
-#     #   attributes += ', max((1.0*s.msrp - s.regular_price)/s.msrp) as discount'
-#     #   order = "discount DESC"
-#     # when 'disca'
-#     #   attributes += ', min((1.0*s.msrp - s.regular_price)/s.msrp) as discount'
-#     #   order = "discount ASC"
-#     when 'eeprofd'
-#       attributes += ', max(1.0 - (1.0*s.supply_price + s.supply_shipping_price) / (1.0*s.baseline_price + s.shipping_price)) as profit'
-#       order = "profit DESC"
-#     when 'eeprofa'
-#       attributes += ', min(1.0 - (1.0*s.supply_price + s.supply_shipping_price) / (1.0*s.baseline_price + s.shipping_price)) as profit'
-#       order = "profit ASC"
-#     # TODO rework without regular_price column
-#     # when 'sellprofd'
-#     #   attributes += ', max(1.0*regular_price - baseline_price) as profit'
-#     #   order = "profit DESC"
-#     # when 'sellprofa'
-#     #   attributes += ', min(1.0*regular_price - baseline_price) as profit'
-#     #   order = "profit ASC"
-#
-#   # Filters
-#   other_filters = ''
-#   if opts.discontinued
-#     other_filters += ' AND s.discontinued IS true '
-#   else
-#     other_filters += ' AND s.discontinued IS NOT true '
-#     other_filters += if opts.hide_from_catalog then ' AND s.hide_from_catalog IS true ' else ' AND s.hide_from_catalog IS NOT true'
-#     other_filters += if opts.out_of_stock then ' AND s.quantity < 1 ' else ' AND s.quantity > 0 '
-#   if opts.manual_pricing then other_filters += ' AND s.auto_pricing IS NOT true '
-#
-#   # Limit
-#   limit = if opts.size then parseInt(opts.size) else 48
-#
-#   # Offset
-#   offset = if opts.page then ((parseInt(opts.page) - 1) * limit) else 0
-#
-#   scope.page    = parseInt(offset / limit) + 1
-#   scope.perPage = limit
-#
-#   baseQuery =
-#     ' FROM "Products" p
-#       JOIN "Skus" s
-#       ON p.id = s.product_id
-#       WHERE p.category_id in (' + category_ids.join(',') + ')
-#       ' + product_ids_filter + '
-#       ' + supplier_filter + '
-#       ' + price_filter + '
-#       ' + other_filters + '
-#       GROUP BY p.id '
-#
-#   q = attributes + baseQuery + 'ORDER BY ' + order + ' LIMIT ' + limit + ' OFFSET ' + offset + ';'
-#
-#   countQuery = 'SELECT count(*) FROM (SELECT p.id' + baseQuery + ') AS countable;'
-#
-#   sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: replacements }
-#   .then (res) ->
-#     scope.rows = res
-#     sequelize.query countQuery, { type: sequelize.QueryTypes.SELECT, replacements: replacements }
-#   .then (res) ->
-#     scope.count = if res[0]?.count then parseInt(res[0].count) else null
-#     fns.Product.addAdminDetailsFor user, scope.rows
-#   .then () ->
-#     if opts.uncustomized is 'true' then return scope
-#     fns.Product.addCustomizationsFor user, scope.rows
-#   .then () ->
-#     scope
-
 fns.Product.findById = (id) ->
   q =
   'SELECT p.id, p.title, p.image, p.content, p.additional_images, p.category_id, array_agg(s.msrp) as msrps, array_agg(s.baseline_price) as baseline_prices
@@ -292,6 +241,19 @@ fns.Product.findById = (id) ->
     GROUP BY p.id'
   sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: [id] }
   .then (products) -> products[0]
+
+fns.Product.findCompleteById = (id, user) ->
+  scope = {}
+  fns.Product.findById id
+  .then (product) ->
+    if !product or !product.id then throw 'Not Found'
+    scope.product = product
+    fns.Sku.findAllByProductId scope.product.id
+  .then (skus) ->
+    scope.product.skus = _.map skus, (sku) -> _.omit(sku, fns.Sku.restricted_attrs)
+    fns.Product.addCustomizationsFor user, [ scope.product ]
+  .then () ->
+    scope.product
 
 fns.Product.findAllByIds = (ids, opts) ->
   opts ||= {}
@@ -314,7 +276,7 @@ fns.Product.addCustomizationsFor = (user, products) ->
     if product.baseline_prices
       product.prices = _.map(product.baseline_prices, (baseline_price) -> shared.utils.calcPrice(user.pricing, baseline_price))
     if product.skus
-      shared.sku.setPricesFor product.skus, user.pricing, true
+      fns.Sku.setPricesFor product.skus, user.pricing, true
   fns.Collection.setDiscountsFor user, products
   .then () ->
     _.map(products, (prod) -> prod.msrps = _.map prod.skus, 'msrp')
@@ -330,7 +292,7 @@ fns.Product.addCustomizationsFor = (user, products) ->
   #         ## TEMPORARILY disabling sku custom pricing
   #         # if product.skus then fns.Customization.alterSkus product.skus, customization
   #         # if !product.skus and customization.selling_prices and customization.selling_prices.length > 0 then product.prices = _.map customization.selling_prices, 'selling_price'
-  #         # if product.skus then shared.sku.setPricesFor(product.skus, user.pricing)
+  #         # if product.skus then fns.Sku.setPricesFor(product.skus, user.pricing)
   #         fns.Customization.alterProduct product, customization
   #     if !product.skus then product.skus = null
 
@@ -353,6 +315,62 @@ fns.Product.elasticsearch_findall_attrs = [
   # 'msrps'
 ]
 ### /PRODUCT ###
+
+### SKU ###
+
+fns.Sku.setObfuscatedId = (sku) ->
+  sku.obfuscated_id = fns.Utils.obfuscateId sku.id
+
+fns.Sku.setPriceFor = (sku, marginArray, skipDelete) ->
+  sku.price = fns.Utils.calcPrice(marginArray, sku.baseline_price)
+  delete sku.baseline_price unless skipDelete
+  sku
+
+fns.Sku.setPricesFor = (skus, marginArray, skipDelete) ->
+  fns.Sku.setPriceFor(sku, marginArray, skipDelete) for sku in skus
+  skus
+
+fns.Sku.findById = (id) ->
+  sequelize.query 'SELECT * FROM "Skus" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
+  .then (data) -> data[0]
+
+fns.Sku.findComplete = (id, user) ->
+  scope = {}
+  fns.Sku.findById id
+  .then (sku) ->
+    scope.sku = _.omit sku, fns.Sku.restricted_attrs
+    fns.Product.findCompleteById sku.product_id, user
+  .then (product) ->
+    scope.sku.product = product
+    fns.Sku.setPriceFor scope.sku, user.pricing
+    fns.Sku.setObfuscatedId scope.sku
+    scope.sku
+
+fns.Sku.findCompleteByObfuscatedId = (obfuscated_id, user) ->
+  id = fns.Utils.unobfuscateId obfuscated_id
+  fns.Sku.findComplete id, user
+
+fns.Sku.findAllByProductId = (product_id) ->
+  # where: { product_id: scope.product.id, discontinued: { $not: true }, quantity: { $gt: 0 } }, order: 'baseline_price asc'
+  q = 'SELECT * FROM "Skus" WHERE product_id = ? AND discontinued != true AND quantity > 0 ORDER BY baseline_price ASC;'
+  sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: [product_id] }
+  .then (skus) ->
+    fns.Sku.setObfuscatedId sku for sku in skus
+    skus
+
+fns.Sku.restricted_attrs = [
+  'filter_applied',
+  'created_at',
+  'updated_at',
+  'supplier_id',
+  'supply_price',
+  'supply_shipping_price',
+  'hide_from_catalog',
+  'auto_pricing',
+  'other'
+]
+
+### /SKU ###
 
 ### COLLECTION ###
 fns.Collection.formattedResponse = (collection, user, opts) ->
@@ -398,7 +416,7 @@ fns.Collection.setDiscountsFor = (user, products) ->
     # Use the maximum discount for each product
     for product in products
       collections_with_product = _.filter(colls, (c) -> c.product_ids.indexOf(product.id) > -1)
-      max_discount_collection = _.maxBy collections_with_product, 'discount_up_to'
+      max_discount_collection = _.max collections_with_product, 'discount_up_to'
       max_discount = max_discount_collection?.discount_up_to
       if max_discount > 0 and max_discount <= 0.7
         product.discounted = max_discount_collection.id

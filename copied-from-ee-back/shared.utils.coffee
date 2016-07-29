@@ -1,3 +1,7 @@
+Hashids = require "hashids"
+hashids = new Hashids "my-obfuscating-salt-eel3a28knl2zj91o2i", 6, '23456789ABCDEFGHJKLMNPQRTUVWXYZ'
+old_hashids = new Hashids "my-obfuscating-salt-eel3a28knl2zj91o2i", 6
+
 fns = {}
 
 shared =
@@ -43,6 +47,12 @@ fns.luminance = (hex, lum) ->
     c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16)
     rgb += ("00" + c).substr(c.length)
   rgb
+
+# https://github.com/ivanakimov/hashids.node.js
+fns.obfuscateId = (id) -> hashids.encode id
+fns.unobfuscateId = (obfuscatedId) ->
+  if obfuscatedId.match(/[a-z01]/g)? then return old_hashids.decode(obfuscatedId)[0] # Previous hashes had lowercase and/or 0 & 1
+  hashids.decode(obfuscatedId)[0]
 ### /UTILS ###
 
 module.exports = fns

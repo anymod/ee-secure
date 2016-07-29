@@ -13,7 +13,7 @@ Sku       = require './sku'
 Cart =
 
   findByUUID: (uuid) ->
-    sequelize.query 'SELECT id, uuid, seller_id, quantity_array, cumulative_price, purchased, domain FROM "Carts" WHERE uuid = ?', { type: sequelize.QueryTypes.SELECT, replacements: [uuid] }
+    sequelize.query 'SELECT id, uuid, seller_id, quantity_array, cumulative_price, taxes_total, shipping_total, grand_total, coupon_id, coupon_total, purchased, domain FROM "Carts" WHERE uuid = ?', { type: sequelize.QueryTypes.SELECT, replacements: [uuid] }
 
   defineCheckoutByUUID: (uuid, bootstrap) ->
     Cart.findByUUID uuid
@@ -29,19 +29,19 @@ Cart =
     sku_ids = _.pluck cart.quantity_array, 'sku_id'
     Sku.forCheckout sku_ids, user
     .then (skus) ->
-      cart.cumulative_price = 0
-      cart.shipping_total   = 0
-      cart.taxes_total      = 0
+      # cart.cumulative_price = 0
+      # cart.shipping_total   = 0
+      # cart.taxes_total      = 0
       for elem in cart.quantity_array
         sku = _.where(skus, { id: elem.sku_id })[0]
         if sku
-          cart.shipping_total   += sku.shipping_price * elem.quantity
-          cart.cumulative_price += sku.price * elem.quantity
+          # cart.shipping_total   += sku.shipping_price * elem.quantity
+          # cart.cumulative_price += sku.price * elem.quantity
           elem.sku = sku
           elem.product = sku.product
-      # For Free shipping over $50
-      if cart.cumulative_price >= 5000 then cart.shipping_total = 0
-      cart.grand_total = cart.cumulative_price + cart.shipping_total + cart.taxes_total
+      # For Free shipping over $49
+      # if cart.cumulative_price >= 4900 then cart.shipping_total = 0
+      # cart.grand_total = cart.cumulative_price + cart.shipping_total + cart.taxes_total
       cart
 
 module.exports = Cart

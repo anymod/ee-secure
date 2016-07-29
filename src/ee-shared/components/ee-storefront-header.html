@@ -12,7 +12,7 @@
       <!-- /blocker -->
 
       <nav id="navtop"
-           class="navbar store-navbar navbar-default white-background border-none margin-0 pad-0 round-0"
+           class="navbar store-navbar navbar-default bg-white border-none margin-0 pad-0 round-0"
            ng-hide="loading">
 
         <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
@@ -57,7 +57,7 @@
                 <a ui-sref="cart" class="text-muted">
                   <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
+                    <i class="fa fa-stack-1x text-white"><strong ng-bind="quantityArray.length"></strong></i>
                   </span>
                   <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>cart
                 </a>
@@ -90,7 +90,7 @@
   <!-- /Desktop Subnav -->
 
   <!-- Mobile nav -->
-  <nav class="navbar navbar-default white-background round-0 margin-0 no-side-border text-center visible-xs" style="border-top: none;">
+  <nav class="navbar navbar-default bg-white round-0 margin-0 no-side-border text-center visible-xs" style="border-top: none;">
     <div class="margin-7">
       <a href ng-click="sidenavOpen = true" class="pad-5 pull-left inline-block text-muted">
         <i class="fa fa-fw fa-2x fa-bars"></i>
@@ -105,7 +105,7 @@
       </a>
     </div>
   </nav>
-  <div class="visible-xs white-background pad-5 border-bottom-gray">
+  <div class="visible-xs bg-white pad-5 border-bottom-gray">
     <ee-search-sort hide-sort="true"></ee-search-sort>
     <!-- <form class="margin-0" ng-submit="search()">
       <input type="text" class="form-control" placeholder="Search for products" ng-model="query">
@@ -116,11 +116,11 @@
   <!-- Mobile Sidenav -->
   <!-- closer -->
   <div ng-show="sidenavOpen" ng-click="sidenavOpen = false"
-    class="position-fixed top-left-bottom-right-0 white-background opacity-05 hover-pointer"
+    class="position-fixed top-left-bottom-right-0 bg-white opacity-05 hover-pointer"
     style="z-index: 3090">
   </div>
   <!-- /closer -->
-  <div class="position-fixed transition-400 box-shadow white-background visible-xs"
+  <div class="position-fixed transition-400 box-shadow bg-white visible-xs"
     style="top: 0; bottom: 0; width: 250px; overflow-y: scroll; z-index: 4000"
     ng-style="{ left: (sidenavOpen ? 0 : '-250px') }">
     <div class="position-relative full-width">

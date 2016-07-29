@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeModal', ($uibModal) ->
+angular.module('app.core').factory 'eeModal', ($uibModal, $rootScope) ->
 
   ## SETUP
   _modals         = {}
@@ -47,6 +47,12 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
       size:           'lg'
       backdropClass:  _backdropClass
       windowClass:    'full-modal'
+    search:
+      templateUrl:    'store/modal/modal.search.html'
+      controller:     'modalCtrl as modal'
+      size:           'lg'
+      backdropClass:  _backdropClass
+      windowClass:    'overlay-modal'
 
   ## PRIVATE FUNCTIONS
   _open = (name, data) ->
@@ -54,6 +60,8 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
     modalObj = _config[name]
     modalObj.resolve = data: () -> data
     _modals[name] = $uibModal.open modalObj
+    if name is 'search'
+      _modals[name].rendered.then () -> $rootScope.$broadcast 'rzSliderForceRender'
     return
 
   _close = (name) ->

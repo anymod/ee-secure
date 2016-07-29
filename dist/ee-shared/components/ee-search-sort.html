@@ -16,7 +16,7 @@
     <span class="input-group-btn" ng-if="data.inputs.search">
       <button class="btn btn-default round-0 no-side-border" type="button"
         style="padding: 8px 15px; min-height: 38px;"
-        ng-click="fns.clearSearch()">
+        ng-click="clearParamsAndRunQuery()">
         <i class="fa fa-times text-muted"></i>
       </button>
     </span>
@@ -32,12 +32,12 @@
   <div class="vert-5 margin-top-0" ng-hide="hideSort">
     <!-- category -->
     <span class="dropdown" ng-hide="state.current.name == 'collection'" uib-dropdown>
-      <div class="btn btn-sm" ng-class="data.inputs.category.id ? 'btn-themed' : 'btn-default'" uib-dropdown-toggle>
-        <span ng-show="data.inputs.category" ng-bind="data.inputs.category.title"></span>
-        <span ng-hide="data.inputs.category">Category</span>&nbsp;<i class="caret"></i>
+      <div class="btn btn-sm" ng-class="data.params.c ? 'btn-themed' : 'btn-default'" uib-dropdown-toggle>
+        <span ng-show="data.params.c" ng-bind="data.inputs.categoryTitle"></span>
+        <span ng-hide="data.params.c">Category</span>&nbsp;<i class="caret"></i>
       </div>
       <ul class="dropdown-menu" uib-dropdown-menu>
-        <li ng-repeat="category in data.inputs.categories" ng-class="{ active: data.inputs.category.id == category.id }">
+        <li ng-repeat="category in data.inputs.categories" ng-class="{ active: data.params.c == category.id }">
           <a href ng-bind="category.title" ng-click="setCategory({ id: category.id, title: (category.title | urlText) })"></a>
         </li>
         <li ng-show="data.inputs.category" class="divider"></li>

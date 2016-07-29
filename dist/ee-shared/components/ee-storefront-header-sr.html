@@ -15,8 +15,18 @@
   }
 </style>
 
+<!-- Coupon Header -->
+<div ng-if="couponData.coupon.uuid"
+  class="full-width pad-5 text-center">
+  Welcome!&nbsp;
+  <strong ng-if="couponData.coupon.percentage_off"><span ng-bind="couponData.coupon.percentage_off | percentage"></span>&nbsp;Off</strong>
+  <strong ng-if="couponData.coupon.dollars_off"><span ng-bind="couponData.coupon.dollars_off | centToDollar"></span>&nbsp;Off</strong>
+  &nbsp;Applied at Checkout&nbsp;
+</div>
+<!-- /Coupon Header -->
+
 <!-- SR Nav -->
-<nav class="navbar navbar-default white-background round-0 margin-0 no-side-border" style="border-top: none;">
+<nav class="navbar navbar-default bg-white round-0 margin-0 no-side-border" style="border-top: none;">
   <div class="container container-narrow">
     <div class="margin-7">
       <!-- Logo -->
@@ -24,10 +34,20 @@
         <img ng-src="{{ user.logo | cloudinaryTrim }}" class="logo"/>
       </a>
       <!-- /Logo -->
-      <div class="pull-right pad-5 vert-7">
-        <a ui-sref="search" class="white-color no-underline">
-          <i class="fa fa-lg fa-search text-muted"></i>
-        </a>
+      <div class="pull-right vert-10">
+
+        <div class="hidden-xs">
+          <h4 class="inline-block vert-10 text-right font-weight-200 text-success">
+            Free Shipping over $49
+          </h4>
+          <a ui-sref="cart" class="text-muted no-underline"
+            style="margin: 0 5px 0 20px;">
+            <i class="fa fa-2x fa-shopping-cart"></i>
+          </a>
+        </div>
+        <small class="inline-block vert-5 text-right text-muted line-height-1 visible-xs">
+          Free Shipping<br>Over $49
+        </small>
       </div>
     </div>
   </div>
@@ -36,17 +56,17 @@
   <div class="container container-narrow">
     <div class="row">
       <div class="col-xs-4">
-        <a href ng-click="sidenavOpen = true" class="white-color no-underline">
+        <a href ng-click="sidenavOpen = true" class="text-white no-underline">
           <i class="fa fa-2x fa-bars pad-10"></i>
         </a>
       </div>
       <div class="col-xs-4 text-center">
-        <i class="fa fa-2x fa-heart pad-10 white-color hover-pointer" ng-click="modalOrFavorites()"></i>
+        <div ng-click="openSearchModal()" class="text-white no-underline hover-pointer">
+          <i class="fa fa-2x fa-search pad-10"></i>
+        </div>
       </div>
       <div class="col-xs-4 text-right">
-        <a ui-sref="cart" class="white-color no-underline">
-          <i class="fa fa-2x fa-shopping-cart pad-10"></i>
-        </a>
+        <i class="fa fa-2x fa-heart pad-10 text-white hover-pointer" ng-click="modalOrFavorites()"></i>
       </div>
     </div>
   </div>
@@ -56,11 +76,11 @@
 <!-- SR Sidenav -->
 <!-- closer -->
 <div ng-show="sidenavOpen" ng-click="sidenavOpen = false"
-  class="position-fixed top-left-bottom-right-0 white-background opacity-05 hover-pointer"
+  class="position-fixed top-left-bottom-right-0 bg-white opacity-05 hover-pointer"
   style="z-index: 3090">
 </div>
 <!-- /closer -->
-<div class="nav-side transition-400 box-shadow white-background"
+<div class="nav-side transition-400 box-shadow bg-white"
   ng-class="{ open: sidenavOpen }">
   <div class="position-relative full-width">
     <nav class="navbar navbar-default round-0 margin-0 no-side-border text-center design-band">
@@ -72,14 +92,6 @@
     </nav>
     <div class="pad-20 pad-top-0">
       <ul class="nav navbar-nav">
-        <!-- search -->
-        <li class="full-width">
-          <a ui-sref="search" class="text-muted">Search</a>
-        </li>
-        <!-- /search -->
-        <li class="full-width">
-          <hr class="vert-5">
-        </li>
         <!-- sale -->
         <li class="full-width">
           <a ui-sref="sale({ id: 13016 })" class="text-muted">Sale</a>
@@ -90,13 +102,21 @@
         </li>
         <!-- categories -->
         <li ng-repeat="category in categories">
-          <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
+        <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
             class="text-muted"
             ng-bind="category.title">
           </a>
         </li>
         <!-- /categories -->
         <li ng-if="categories.length > 0">
+          <hr class="vert-5">
+        </li>
+        <!-- cart -->
+        <li>
+          <a ui-sref="cart" class="text-muted">Cart</a>
+        </li>
+        <!-- /cart -->
+        <li>
           <hr class="vert-5">
         </li>
         <!-- blog -->

@@ -1,10 +1,10 @@
 <div class="container vert-20">
 
-  <div class="max-width-300 margin-0-auto">
+  <!-- <div class="max-width-300 margin-0-auto">
     <a href="{{ checkout.ee.cart_path }}" class="btn btn-link pad-left-0 font-weight-200">
       <i class="fa fa-fw fa-long-arrow-left"></i>&nbsp;back to cart
     </a>
-  </div>
+  </div> -->
 
   <div class="well white-background box-shadow margin-0-auto text-left" style="max-width: 320px;">
 
@@ -189,6 +189,16 @@
           <td class="border-none pad-0"><small ng-bind="pair.product.title"></small></td>
           <td class="border-none pad-0"><small class="text-muted" style="padding: 0 10px;">x{{ pair.quantity }}</small></td>
           <td class="border-none pad-0 text-right"><small ng-bind="(pair.sku.price * pair.quantity) | centToDollar"></small></td>
+        </tr>
+        <tr>
+          <td class="pad-0"><small>Subtotal</small></td>
+          <td class="pad-0"></td>
+          <td class="pad-0 text-right"><small ng-bind="checkout.ee.cart.cumulative_price | centToDollar"></small></td>
+        </tr>
+        <tr ng-if="checkout.ee.cart.coupon_total > 0">
+          <td class="border-none pad-0"><small>Discount</small></td>
+          <td class="border-none pad-0"></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="'-' + checkout.ee.cart.coupon_total | centToDollar"></small></td>
         </tr>
         <tr>
           <td class="border-none pad-0"><small>Taxes</small></td>

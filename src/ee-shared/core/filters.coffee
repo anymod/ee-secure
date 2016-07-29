@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').filter 'reverse', ($filter) ->
+angular.module('app.core').filter 'reverse', () ->
   (elems) ->
     if !elems then return []
     elems.slice().reverse()
@@ -15,7 +15,7 @@ angular.module('app.core').filter 'priceRange', ($filter) ->
     if msrps.length is 1 then return $filter('centToDollar')(msrps[0])
     min = Math.min.apply(Math, msrps)
     max = Math.max.apply(Math, msrps)
-    '' + $filter('centToDollar')(min) + ' - ' + $filter('centToDollar')(max)
+    '' + $filter('centToDollar')(min) + '-' + $filter('centToDollar')(max)
 
 angular.module('app.core').filter 'percentage', ($filter) ->
   # Usage: | percentage:2
@@ -33,13 +33,13 @@ angular.module('app.core').filter 'discountRange', ($filter) ->
     if max is min then return '' + max + '%'
     '' + min + '-' + max + '%'
 
-angular.module('app.core').filter 'truncate', ($filter) ->
+angular.module('app.core').filter 'truncate', () ->
   # Usage: | truncate:20
   (input, n) ->
     return '' unless input
     if input.length <= (n-3) then input else input.substring(0, n-3) + '...'
 
-angular.module('app.core').filter 'removeHash', ($filter) ->
+angular.module('app.core').filter 'removeHash', () ->
   (input, n) ->
     return '' unless input
     input.replace(/#/g, '')
@@ -93,6 +93,11 @@ angular.module('app.core').filter 'truncateQty', () ->
 
 angular.module('app.core').filter 'rangeToText', () ->
   (range) ->
+    if typeof range is 'string' and range.indexOf('-') > 0
+      [min, max] = range.split('-')
+      range =
+        min: parseInt(min) * 100
+        max: parseInt(max) * 100
     if !range?.min and !range?.max then return 'Prices'
     ('$' + Math.floor(range.min)/100 + ' to $' + Math.floor(range.max)/100)
       .replace '$0 to', 'Under'
@@ -112,6 +117,14 @@ angular.module('app.core').filter 'humanize', () ->
     frags = text.split /_|-/
     (frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)) for i in [0..(frags.length - 1)]
     frags.join(' ')
+
+angular.module('app.core').filter 'tokenizeForSearch', ($filter, stopWords) ->
+  (text) ->
+    words = $filter('urlText')(text).split('-')
+    filtered_words = []
+    for word in words
+      if stopWords.indexOf(word) < 0 then filtered_words.push(word.charAt(0).toUpperCase() + word.slice(1))
+    filtered_words
 
 # angular.module('app.core').filter 'in_carousel', () ->
 #   (collections) ->

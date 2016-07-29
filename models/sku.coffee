@@ -5,8 +5,7 @@ sequelize = require '../config/sequelize/setup'
 constants = require '../server.constants'
 utils     = require './utils'
 
-shared =
-  sku: require '../copied-from-ee-back/shared.sku'
+Shared    = require '../copied-from-ee-back/shared'
 
 Customization = require './customization'
 
@@ -26,7 +25,7 @@ Sku =
       product_ids = _.pluck(skus, 'product_id').join(',')
       Customization.findAllByProductIds user.id, product_ids
     .then (customizations) ->
-      shared.sku.setPricesFor scope.skus, user.pricing
+      Shared.Sku.setPricesFor scope.skus, user.pricing
       for sku in scope.skus
         sku.product =
           id:     sku.product_id

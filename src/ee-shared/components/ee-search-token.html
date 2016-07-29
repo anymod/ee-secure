@@ -1,0 +1,47 @@
+<div class="text-left">
+
+  <div class="white-background round-5 pad-2 pad-bottom-0 text-left"
+    style="border: 1px solid #CCC;"
+    ng-click="focusBox()">
+    <span ng-repeat="token in data.fromParams.queryTokens"
+      class="btn btn-default gray-border pad-5"
+      style="margin: 0 2px 2px 0;"
+      ng-bind="token"
+      ng-click="searchToken(token)">
+      <!-- &nbsp; -->
+      <!-- <i class="fa fa-times text-muted" ng-click="removeFromSearch(token)"></i> -->
+    </span>
+    <form ng-submit="addToQuery()" class="inline-block margin-0 pad-5">
+      <input type="text"
+        ng-model="boxValue"
+        ng-keydown="adjustBox()"
+        ng-style="{ width: boxWidth + 'px' }"
+        class="border-none"
+        style="outline: none !important;"
+        placeholder="Search products">
+    </form>
+  </div>
+
+  <div class="full-width text-right line-height-1"
+    style="padding: 5px 2px;">
+    <small class="pull-left text-muted hover-pointer"
+      ng-click="clearSearchQuery()"
+      ng-if="data.fromParams.queryTokens.length > 0">
+      <i class="fa fa-times"></i>&nbsp;Clear search
+    </small>
+    <small ng-if="showDetails"
+      ng-click="openSearchModal()"
+      class="text-muted hover-pointer">
+      <i class="fa fa-fw fa-sliders"></i>
+      <span ng-if="data.params.c">Category: {{ data.fromParams.categoryTitle }}</span>
+      <br ng-if="data.params.c && data.params.s">
+      <span ng-if="data.params.s">Order: {{ data.fromParams.orderTitle }}</span>
+      <br ng-if="data.params.r && (data.params.s || data.params.c)">
+      <span ng-if="data.params.r">Price: {{ data.params.r | rangeToText }}</span>
+      <span ng-if="!data.params.c && !data.params.s && !data.params.r">
+        Search options
+      </span>
+    </small>
+  </div>
+
+</div>
