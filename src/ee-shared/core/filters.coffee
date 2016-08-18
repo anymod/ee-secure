@@ -6,8 +6,9 @@ angular.module('app.core').filter 'reverse', () ->
     elems.slice().reverse()
 
 angular.module('app.core').filter 'centToDollar', ($filter) ->
-  (cents) ->
-    $filter('currency')(Math.floor(cents)/100)
+  # Usage: | percentage:true
+  (cents, showFull) ->
+    $filter('currency')(Math.floor(cents)/100, "$", (if !showFull and cents % 100 is 0 then 0 else 2))
 
 angular.module('app.core').filter 'priceRange', ($filter) ->
   (msrps) ->

@@ -22,6 +22,10 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeFavorites
 
     return unless scope.user
 
+    scope.bannerSrc = ''
+    if scope.user.username is 'stylishrustic' then scope.bannerSrc = 'https://res.cloudinary.com/eeosk/image/upload/v1463444225/sr-floral.jpg'
+    if scope.user.username is 'houstylish' then scope.bannerSrc = 'https://placeholdit.imgix.net/~text?w=1200&h=50&bg=97D5E0' # 'https://res.cloudinary.com/eeosk/image/upload/v1432154798/storefront_home/fexogyfkc0ct70vghwbu.jpg' # 'https://res.cloudinary.com/eeosk/image/upload/v1470275119/houstylish-modern.jpg'
+
     if !!scope.showScrollnav
       trigger = 75
       angular.element($window).bind 'scroll', (e, a, b) ->
@@ -40,6 +44,7 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeFavorites
     $rootScope.$on 'search:query', (e, data) -> scope.search data.q, 1
 
     assignCategories()
+
     scope.$on 'updated:user', () -> assignCategories()
 
     scope.openOfferModal = () -> eeModal.fns.open 'offer'

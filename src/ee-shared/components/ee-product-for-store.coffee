@@ -15,7 +15,10 @@ angular.module('ee-product-for-store').directive "eeProductForStore", ($rootScop
     if $state.current.name is 'sale' then scope.hideSale = true
 
     scope.imageClick = () ->
-      # title = $filter('urlText')(scope.product.title )
-      # if scope.skuLink and scope.product.skus?.length > 0 then return $state.go 'sku', { obfuscated_id: scope.product.skus[0].obfuscated_id, title: title }
+      return $state.go('storefront') unless scope.product?.id?
+      title = $filter('urlText')(scope.product.title )
       $rootScope.$broadcast 'product:navigate', scope.product
+      $state.go 'product', { id: scope.product.id, title: title, c: scope.product.category_id }, { notify: $state.current.name isnt 'product' }
+      if $state.current.name is 'product' then $rootScope.scrollTo 'body-top'
+
     return

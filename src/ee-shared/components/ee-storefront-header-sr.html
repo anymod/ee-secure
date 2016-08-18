@@ -1,72 +1,61 @@
-<style>
-  .design-band {
-    height: 48px;
-    width: 100%;
-    background: url({{ 'https://res.cloudinary.com/eeosk/image/upload/v1463444225/sr-floral.jpg' | cloudinaryResizeTo:1200:50:'fill' }}) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-  @media (max-width: 678px) {
-    .design-band {
-      background-image: url({{ 'https://res.cloudinary.com/eeosk/image/upload/v1463444225/sr-floral.jpg' | cloudinaryResizeTo:600:40:'fill' }}) no-repeat center center;
-    }
-  }
-</style>
-
 <!-- Coupon Header -->
 <div ng-if="couponData.coupon.uuid"
-  class="full-width pad-5 text-center">
-  Welcome!&nbsp;
-  <strong ng-if="couponData.coupon.percentage_off"><span ng-bind="couponData.coupon.percentage_off | percentage"></span>&nbsp;Off</strong>
-  <strong ng-if="couponData.coupon.dollars_off"><span ng-bind="couponData.coupon.dollars_off | centToDollar"></span>&nbsp;Off</strong>
-  &nbsp;Applied at Checkout&nbsp;
+  class="full-width text-center bg-secondary"
+  style="margin-top: -1px; padding-bottom: 2px;">
+  <span class="inline-block bg-primary round-bottom"
+    style="padding: 5px 15px; border: none !important;">
+    <a ui-sref="cart" class="text-primary">
+      <span ng-if="couponData.coupon.is_signup">Welcome!&nbsp;</span>
+      <strong ng-if="couponData.coupon.off_text" ng-bind="couponData.coupon.off_text"></strong>
+      &nbsp;applied at checkout&nbsp;
+    </a>
+  </span>
 </div>
 <!-- /Coupon Header -->
 
 <!-- SR Nav -->
-<nav class="navbar navbar-default bg-white round-0 margin-0 no-side-border" style="border-top: none;">
+<nav class="navbar navbar-default bg-secondary round-0 margin-0 border-none">
   <div class="container container-narrow">
     <div class="margin-7">
       <!-- Logo -->
       <a ui-sref="storefront">
-        <img ng-src="{{ user.logo | cloudinaryTrim }}" class="logo"/>
+        <img ng-src="{{ user.logo | cloudinaryTrim }}"
+          class="logo"/>
       </a>
       <!-- /Logo -->
       <div class="pull-right vert-10">
 
         <div class="hidden-xs">
-          <h4 class="inline-block vert-10 text-right font-weight-200 text-success">
+          <h4 class="inline-block vert-10 text-right font-weight-200 text-secondary">
             Free Shipping over $49
           </h4>
-          <a ui-sref="cart" class="text-muted no-underline"
+          <a ui-sref="cart" class="text-secondary no-underline"
             style="margin: 0 5px 0 20px;">
             <i class="fa fa-2x fa-shopping-cart"></i>
           </a>
         </div>
-        <small class="inline-block vert-5 text-right text-muted line-height-1 visible-xs">
+        <small class="inline-block vert-5 text-right text-secondary line-height-1 visible-xs">
           Free Shipping<br>Over $49
         </small>
       </div>
     </div>
   </div>
 </nav>
-<div class="design-band">
+<div class="design-band bg-primary">
   <div class="container container-narrow">
     <div class="row">
       <div class="col-xs-4">
-        <a href ng-click="sidenavOpen = true" class="text-white no-underline">
+        <a href ng-click="sidenavOpen = true" class="text-primary no-underline">
           <i class="fa fa-2x fa-bars pad-10"></i>
         </a>
       </div>
       <div class="col-xs-4 text-center">
-        <div ng-click="openSearchModal()" class="text-white no-underline hover-pointer">
+        <div ng-click="openSearchModal()" class="text-primary no-underline hover-pointer">
           <i class="fa fa-2x fa-search pad-10"></i>
         </div>
       </div>
       <div class="col-xs-4 text-right">
-        <i class="fa fa-2x fa-heart pad-10 text-white hover-pointer" ng-click="modalOrFavorites()"></i>
+        <i class="fa fa-2x fa-heart pad-10 text-primary hover-pointer" ng-click="modalOrFavorites()"></i>
       </div>
     </div>
   </div>

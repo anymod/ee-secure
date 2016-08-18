@@ -2,7 +2,7 @@
 
 angular.module 'ee-signup', []
 
-angular.module('ee-signup').directive 'eeSignup', ($window, $timeout, eeModal, eeBack, eeAnalytics) ->
+angular.module('ee-signup').directive 'eeSignup', ($window, $timeout, eeModal, eeBack, eeDefiner, eeAnalytics) ->
   templateUrl: 'ee-shared/components/ee-signup.html'
   restrict: 'EA'
   scope:
@@ -10,6 +10,7 @@ angular.module('ee-signup').directive 'eeSignup', ($window, $timeout, eeModal, e
     hideSocial: '@'
     identifier: '@'
   link: (scope, ele, attr) ->
+    scope.ee = eeDefiner.ee
 
     scope.subscribe = () ->
       scope.submitting = true

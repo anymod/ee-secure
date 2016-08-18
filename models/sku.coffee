@@ -22,10 +22,11 @@ Sku =
     sequelize.query q, { type: sequelize.QueryTypes.SELECT }
     .then (skus) ->
       scope.skus = skus
-      product_ids = _.pluck(skus, 'product_id').join(',')
+      Shared.Sku.setPricesFor scope.skus, user
+    .then () ->
+      product_ids = _.pluck(scope.skus, 'product_id').join(',')
       Customization.findAllByProductIds user.id, product_ids
     .then (customizations) ->
-      Shared.Sku.setPricesFor scope.skus, user.pricing
       for sku in scope.skus
         sku.product =
           id:     sku.product_id

@@ -16,26 +16,11 @@ angular.module('ee-search-token').directive 'eeSearchToken', ($state, eeProducts
     scope.boxWidth = minBoxWidth
     scope.boxValue = ''
 
-    # scope.$watch 'boxValue', (e, data) -> scope.$emit 'search:boxValue', data
-
-    # scope.collectionData = eeCollection.data
-    # scope.state = $state
-
-    # scope.setCategory = (category) ->
-    #   if !category?.id?
-    #     $stateParams.c = null
-    #     $state.go 'search', $stateParams
-    #   else
-    #     $stateParams.id = category.id
-    #     $stateParams.title =  category.title
-    #     $state.go 'category', $stateParams
-
     scope.openSearchModal = () -> eeModal.fns.open 'search'
 
     scope.searchToken = (token) ->
       eeProducts.fns.setParam 'p', 1
-      eeProducts.fns.setParam 'q', token
-      # $state.go 'search', { p: 1, q: token }
+      eeProducts.fns.setParam 'q', token, { goTo: 'search' }
 
     scope.focusBox = () ->
       box.focus()
@@ -48,13 +33,13 @@ angular.module('ee-search-token').directive 'eeSearchToken', ($state, eeProducts
       if scope.boxWidth > maxBoxWidth then scope.boxWidth = maxBoxWidth
 
     scope.addToQuery = () ->
-      eeProducts.fns.setParam 'p', 1
       eeProducts.fns.addToQuery eeProducts.data.fromParams.queryTokens.join(' ') + ' ' + scope.boxValue
       scope.boxValue = ''
+      eeProducts.fns.setParam 'p', 1, { goTo: 'search' }
 
     scope.clearSearchQuery = () ->
       eeProducts.fns.setParam 'q', null
-      eeProducts.fns.setParam 'p', 1
+      eeProducts.fns.setParam 'p', 1, { goTo: 'search' }
 
     scope.$on 'search:submit', () -> scope.addToQuery()
 

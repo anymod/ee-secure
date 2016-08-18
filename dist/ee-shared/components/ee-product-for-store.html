@@ -12,15 +12,17 @@
         style="background: rgba(255,255,255,0.65); padding: 0 2px;">favorite
       </h6>
     </div> -->
-    <div ng-hide="hidePrice"
-      class="position-absolute text-left"
-      style="bottom: 14px; left: 4px;">
-      <h6 class="inline-block vert-0 round-5 line-height-1-1"
-        style="padding: 1px 3px; border: none !important;"
-        ng-class="product.discounted ? 'bg-themed text-white' : 'text-dark bg-white-clear'"
-        ng-bind="product.prices | priceRange">
-      </h6>
-    </div>
+    <h6 class="vert-5 round-5 line-height-1-1 text-dark">
+      <div ng-bind="product.title"
+      style="font-size: 12px;
+        line-height: 14px;
+        width: 100%;
+        text-overflow: ellipsis;
+        height: 14px;
+        overflow: hidden;
+        white-space: nowrap;"></div>
+      <div ng-bind="product.prices | priceRange"></div>
+    </h6>
     <!-- <h5 class="product-title vert-5 text-dark-blue font-weight-200" ng-bind="product.title"></h5> -->
   </div>
   <!-- <div ng-if="!product.discounted">
@@ -44,23 +46,22 @@
     </a>
   </div> -->
   <div ng-if="product.discounted"
-    ng-hide="hideSale"
     class="position-absolute"
-    style="bottom: 8px; left: -1px;">
+    style="bottom: 44px; left: -1px;">
     <a ui-sref="sale({ id: product.discounted })"
       class="btn btn-themed btn-arrow">
-      Sale
-      <!-- <small ng-bind="product.prices | priceRange"></small> -->
+      <span ng-hide="hideSale">Sale</span>
+      <span ng-show="hideSale" ng-bind="1 - (product.prices[0] / product.msrps[0]) | percentage:0"></span>
     </a>
   </div>
-  <div ng-hide="hideHeart "
+  <!-- <div ng-hide="hideHeart"
     class="position-absolute"
     style="bottom: -4px; right: -4px; padding: 10px 0 0 10px;">
     <ee-favorites-heart
       ng-if="product.skus"
       product-skus="product.skus">
     </ee-favorites-heart>
-  </div>
+  </div> -->
 
   <!-- <div class="vert-5">
     <h4 class="inline-block vert-0 text-dark-gray" ng-bind="product.prices | priceRange"></h4>

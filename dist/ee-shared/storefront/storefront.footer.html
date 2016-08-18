@@ -1,10 +1,15 @@
-<div id="store-footer-region" class="position-relative" ng-hide="storefront.ee.User.reading || storefront.ee.Collections.reading || storefront.ee.Products.reading">
+<div id="store-footer-region"
+  class="position-relative"
+  ng-hide="storefront.ee.User.reading || storefront.ee.Collections.reading || storefront.ee.Products.reading">
   <!-- blocker -->
-  <div ng-show="storefront.ee.blocked" class="position-absolute top-left-bottom-right-0" style="z-index: 2005;"></div>
+  <div ng-show="storefront.ee.blocked"
+    class="position-absolute top-left-bottom-right-0"
+    style="z-index: 2005;">
+  </div>
   <!-- /blocker -->
 
   <div class="section vert-20"></div>
-  <div class="full-width pad-15 position-relative text-muted bg-gray">
+  <div class="full-width pad-15 position-relative text-footer bg-footer">
 
     <div class="container max-width-900">
       <div class="row">
@@ -50,7 +55,7 @@
           </ul>
         </div>
         <div class="col col-sm-2" ng-if="storefront.ee.User.user.storefront_meta.audience.social.facebook || storefront.ee.User.user.storefront_meta.audience.social.pinterest || !!storefront.ee.User.user.storefront_meta.audience.social.twitter || !!storefront.ee.User.user.storefront_meta.audience.social.instagram"
-          ng-hide="storefront.ee.User.user.username == 'stylishrustic'">
+          ng-hide="storefront.ee.User.user.alpha">
           <ul class="nav nav-pills nav-stacked nav-compact">
             <li class="disabled">Connect</li>
             <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
@@ -61,11 +66,12 @@
             </li>
           </ul>
         </div>
-        <div class="col col-sm-6" ng-show="storefront.ee.User.user.username == 'stylishrustic'">
+        <div class="col col-sm-6"
+          ng-show="storefront.ee.User.user.alpha">
           <br class="visible-xs">
-          <div class="margin-0-auto text-center bg-themed pad-10 round-5" style="max-width: 320px;">
+          <div class="margin-0-auto text-center bg-primary pad-10 round-5" style="max-width: 320px;">
             <h3 ee-signup-message class="font-weight-200 vert-5"></h3>
-            <div class="bg-white pad-10">
+            <div class="inline-block bg-white pad-5 round-5 vert-5">
               <ee-signup identifier="footer"></ee-signup>
             </div>
           </div>

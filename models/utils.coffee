@@ -21,7 +21,7 @@ utils =
     '' + parsed.protocol + '//' + parsed.host
 
   assignBootstrap: (bootstrap, attrs) ->
-    bootstrap[attr] = attrs[attr] for attr in ['id', 'username', 'tr_uuid', 'logo', 'pricing']
+    bootstrap[attr] = attrs[attr] for attr in ['id', 'username', 'tr_uuid', 'logo', 'pricing', 'alpha', 'beta']
     bootstrap.storefront_meta   = attrs.storefront_meta
     bootstrap.title             = attrs.storefront_meta?.name
     bootstrap.site_name         = attrs.storefront_meta?.name

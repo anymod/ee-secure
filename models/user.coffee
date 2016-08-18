@@ -14,6 +14,6 @@ Collection = require './collection'
 User =
 
   findById: (id) ->
-    sequelize.query 'SELECT id, logo, username, pricing, storefront_meta, domain, proposition FROM "Users" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
+    sequelize.query 'SELECT id, logo, username, pricing, storefront_meta, domain, proposition, alpha, beta FROM "Users" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
 
 module.exports = User

@@ -18,12 +18,36 @@ fns.getMargin = (marginRows, price) ->
       return row.margin
   throw 'No margin found'
 
-fns.calcPrice = (marginRows, baseline_price) ->
-  firstMargin   = fns.getMargin marginRows, baseline_price
-  firstGuess    = parseInt((baseline_price / (1 - firstMargin))/100) * 100 + 99
-  secondMargin  = fns.getMargin marginRows, firstGuess
-  if firstMargin >= secondMargin then return firstGuess
-  parseInt((baseline_price / (1 - secondMargin))/100) * 100 + 99
+# fns.calcPrice = (marginRows, baseline_price, evenPrices) ->
+#   firstMargin   = fns.getMargin marginRows, baseline_price
+#   firstGuess    = parseInt((baseline_price / (1 - firstMargin))/100) * 100 + 99
+#   if evenPrices? then firstGuess += 1
+#   secondMargin  = fns.getMargin marginRows, firstGuess
+#   if firstMargin >= secondMargin then return firstGuess
+#   secondGuess = parseInt((baseline_price / (1 - secondMargin))/100) * 100 + 99
+#   if evenPrices? then secondGuess += 1
+#   secondGuess
+
+fns.calcPrice = (sku, user, collection) ->
+  # sku to be calculated
+  # user for which to be calculated
+  # sale collection, if any
+  if !sku?.id? or !sku.baseline_price? then throw 'Missing sku in price calculation'
+  if !user?.id? then throw 'Missing user in price calculation'
+  collection ||= {}
+  if collection.id? and collection.discount_up_to > 0 and collection.product_ids.indexOf(sku.product_id) > -1
+    sku.discounted = collection.id
+    discounted = parseInt(sku.msrp * (1 - collection.discount_up_to))
+    if discounted > sku.baseline_price then return discounted else return sku.baseline_price
+  else
+    firstMargin = fns.getMargin user.pricing, sku.baseline_price
+    firstGuess  = parseInt((sku.baseline_price / (1 - firstMargin))/100) * 100 + 99
+    if user.alpha then firstGuess += 1
+    secondMargin = fns.getMargin user.pricing, firstGuess
+    if firstMargin >= secondMargin then return firstGuess
+    secondGuess = parseInt((sku.baseline_price / (1 - secondMargin))/100) * 100 + 99
+    if user.alpha then secondGuess += 1
+    return secondGuess
 
 fns.calcSellerEarnings = (marginRows, baseline_price) ->
   margin = fns.getMargin marginRows, baseline_price
@@ -47,6 +71,15 @@ fns.luminance = (hex, lum) ->
     c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16)
     rgb += ("00" + c).substr(c.length)
   rgb
+
+fns.resizeCloudinaryImageTo = (url, w, h, c) ->
+  if !!url and url.indexOf("image/upload") > -1
+    regex = /\/v\d{8,12}\//g
+    id = url.match(regex)[0]
+    crop = if c then c else 'pad'
+    url.split(regex).join('/c_' + crop + ',w_' + w + ',h_' + h + id)
+  else
+    url
 
 # https://github.com/ivanakimov/hashids.node.js
 fns.obfuscateId = (id) -> hashids.encode id

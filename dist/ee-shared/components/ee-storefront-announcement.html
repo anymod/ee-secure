@@ -1,16 +1,11 @@
 <!-- SR-SPECIFIC -->
-<div ng-if="user.username == 'stylishrustic'" ng-include="'ee-shared/components/ee-storefront-announcement-sr.html'"></div>
+<div ng-if="user.alpha"
+  ng-include="'ee-shared/components/ee-storefront-announcement-sr.html'">
+</div>
 <!-- /SR-SPECIFIC -->
 
 <!-- NON-SR -->
-<div ng-if="user.username != 'stylishrustic'">
-  <style ng-if="user.storefront_meta.brand.color">
-    .alert-themed {
-      background-color: {{ user.storefront_meta.brand.color.tertiary }};
-      border-color: {{ user.storefront_meta.brand.color.tertiaryAccent }};
-      color: {{ user.storefront_meta.brand.color.secondaryAccent }};
-    }
-  </style>
+<div ng-if="!user.alpha">
   <div class="full-width alert alert-themed text-center round-0 pad-5 no-side-border"
     style="font-weight: bold; font-size: 14px; margin: 0 0 4px;">
     Free Shipping on orders over $49

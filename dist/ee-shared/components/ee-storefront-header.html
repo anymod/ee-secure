@@ -1,9 +1,11 @@
 <!-- SR-SPECIFIC -->
-<div ng-if="user.username == 'stylishrustic'" ng-include="'ee-shared/components/ee-storefront-header-sr.html'"></div>
+<div ng-if="user.alpha"
+  ng-include="'ee-shared/components/ee-storefront-header-sr.html'">
+</div>
 <!-- /SR-SPECIFIC -->
 
 <!-- NON-SR -->
-<div ng-if="user.username != 'stylishrustic'">
+<div ng-if="!user.alpha">
   <!-- Desktop nav -->
   <div class="position-relative hidden-xs" style="z-index: 5;">
     <div class="container container-narrow">

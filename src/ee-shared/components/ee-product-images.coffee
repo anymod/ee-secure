@@ -13,5 +13,7 @@ module.directive "eeProductImages", () ->
     scope.setMainImage = (url) -> scope.mainImage = url
 
     if scope.product?.image then scope.setMainImage scope.product.image
-    
+
+    scope.$on 'product:navigate', (e, prod) -> scope.setMainImage prod.image
+
     return

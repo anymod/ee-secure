@@ -3,10 +3,6 @@ elasticsearch = require '../config/elasticsearch/setup'
 ESQ           = require 'esq'
 Promise       = require 'bluebird'
 _             = require 'lodash'
-# argv          = require('yargs').argv
-
-# Temporary for printing
-# util = require 'util'
 
 shared =
   defaults: require './shared.defaults'
@@ -27,6 +23,9 @@ fns.User.addAccentColors = (obj) ->
   for attr in ['primary', 'secondary', 'tertiary']
     obj.storefront_meta.brand.color[attr + 'Accent'] = shared.utils.luminance(obj.storefront_meta.brand.color[attr], -0.1)
   obj
+
+fns.User.trimDesignBand = (obj) ->
+  obj.design_band_image = shared.utils.resizeCloudinaryImageTo obj.design_band_image, 1200, 50, 'fill'
 
 fns.User.addPricing = (obj) ->
   defaultMargins = shared.defaults.marginRows
@@ -52,7 +51,7 @@ esqSetSearch = (esq, opts) ->
   if opts?.search then esq.query 'query', 'bool', ['must'], 'match', title: { query: opts.search, fuzziness: 1, prefix_length: 3 }
 
 esqSetSort = (esq, opts) ->
-  return unless opts?.order?
+  return unless opts?.order
   order = if opts.order.slice(-1) is 'a' then 'asc' else 'desc'
   sku_sort_order =
     nested_path: 'skus'
@@ -93,7 +92,7 @@ esqSetSort = (esq, opts) ->
     #   order = "profit ASC"
 
 esqSetExclusions = (esq, opts) ->
-  return if opts?.admin?
+  return if opts?.admin
   nested_match =
     nested:
       path: 'skus'
@@ -107,7 +106,7 @@ esqSetExclusions = (esq, opts) ->
   esq.query 'query', 'bool', ['must'], nested_match
 
 esqSetPrice = (esq, opts) ->
-  return unless opts?.min_price? or opts?.max_price
+  return unless opts?.min_price or opts?.max_price
   min_price = parseInt opts.min_price
   max_price = parseInt opts.max_price
   return if min_price is 0 and max_price is 0
@@ -126,21 +125,33 @@ esqSetPrice = (esq, opts) ->
   esq.query 'query', 'bool', ['must'], nested_match
 
 esqSetCategories = (esq, opts) ->
-  return unless opts?.category_ids? and opts.category_ids.split(',').length > 0
+  return unless opts?.category_ids and opts.category_ids.split(',').length > 0
   id_match =
     terms:
       category_id: opts.category_ids.split(',')
   esq.query 'query', 'bool', ['must'], id_match
 
+esqSetTag = (esq, opts) ->
+  return unless opts?.tag
+  tag_match =
+    nested:
+      path: 'skus'
+      query:
+        bool:
+          must: [
+            match: { 'skus.tags': opts.tag }
+          ]
+  esq.query 'query', 'bool', ['must'], tag_match
+
 esqSetProductIds = (esq, opts) ->
-  return unless opts?.product_ids? and opts.product_ids.split(',').length > 0
+  return unless opts?.product_ids and opts.product_ids.split(',').length > 0
   id_match =
     terms:
       id: opts.product_ids.split(',')
   esq.query 'query', 'bool', ['must'], id_match
 
 esqSetSkuIds = (esq, opts) ->
-  return if !opts?.sku_ids? or opts.sku_ids.split(',').length < 1
+  return if !opts?.sku_ids or opts.sku_ids.split(',').length < 1
   sku_ids = _.map opts.sku_ids.split(','), (id) -> parseInt(id) || 999999999999
   nested_match =
     nested:
@@ -154,7 +165,6 @@ esqSetSkuIds = (esq, opts) ->
   esq.query 'query', 'bool', ['must'], nested_match
 
 esqSetNoDimensions = (esq, opts) ->
-  # console.log esq, opts
   return unless opts?.no_dimensions
   nested_match =
     nested:
@@ -172,7 +182,7 @@ esqSetNoDimensions = (esq, opts) ->
 
 esqSetCollectionId = (esq, opts) ->
   new Promise (resolve, reject) ->
-    return resolve(true) unless opts?.collection_id?
+    return resolve(true) unless opts?.collection_id
     sequelize.query 'SELECT product_ids FROM "Collections" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [opts.collection_id] }
     .then (data) ->
       opts.product_ids = data[0].product_ids.join(',')
@@ -187,11 +197,12 @@ fns.Product.search = (user, opts) ->
   user  ||= {}
   opts  ||= {}
 
+  if !opts.order? and !opts.search? and !opts.collection_id? then opts.order = 'cd'
+
   esq = new ESQ()
 
   # Defaults
   opts.size ||= 48
-  category_ids = if opts.category_ids then ('' + opts.category_ids).split(',') else user.categorization_ids
 
   # Form query
   esq.query 'size', opts.size
@@ -202,6 +213,7 @@ fns.Product.search = (user, opts) ->
   esqSetPrice esq, opts         # Price:      opts.min_price, opts.max_price
   # esqSetMaterial esq, opts      # Material: opts.material
   esqSetCategories esq, opts    # Categorization: opts.category_ids
+  esqSetTag esq, opts           # Tag:        opts.tag
   esqSetProductIds esq, opts    # Product ids: opts.product_ids
   esqSetSkuIds esq, opts        # Sku ids: opts.sku_ids
   # esqSetSupplierId esq, opts    # Supplier (admin only): opts.supplier_id
@@ -209,9 +221,9 @@ fns.Product.search = (user, opts) ->
   esqSetCollectionId esq, opts  # Collection: opts.collection_id (Promise-based)
   .then () ->
     # console.log 'esq.getQuery() -------------------------------'
-    # console.log esq.getQuery().query.bool.must[0].nested.query.bool.must[0]
+    # console.log esq.getQuery().query.bool.must
     elasticsearch.client.search
-      index: 'nested_search'
+      index: 'nested_search' # 'test_search'
       _source: fns.Product.elasticsearch_findall_attrs
       body: esq.getQuery()
   .then (res) ->
@@ -270,31 +282,20 @@ fns.Product.findAllByIds = (ids, opts) ->
   sequelize.query q, { type: sequelize.QueryTypes.SELECT }
 
 fns.Product.addCustomizationsFor = (user, products) ->
-  if !products or products.length < 1 then return
+  if !user?.id? or !products or products.length < 1 then return products
   product_ids = _.map products, 'id'
-  for product in products
-    if product.baseline_prices
-      product.prices = _.map(product.baseline_prices, (baseline_price) -> shared.utils.calcPrice(user.pricing, baseline_price))
-    if product.skus
-      fns.Sku.setPricesFor product.skus, user.pricing, true
-  fns.Collection.setDiscountsFor user, products
+  all_skus = _.flatten(_.map products, 'skus')
+  fns.Sku.setPricesFor all_skus, user
   .then () ->
+    for product in products
+      for product_sku in product.skus
+        for priced_sku in all_skus
+          if product_sku.id is priced_sku.id
+            product_sku[attr] = priced_sku[attr] for attr in ['price', 'baseline_price']
+            product.discounted ||= priced_sku.discounted
     _.map(products, (prod) -> prod.msrps = _.map prod.skus, 'msrp')
     _.map(products, (prod) -> prod.prices = _.map prod.skus, 'price')
     products
-  ## TODO temporarily(?) disabling custom titles
-  # q = 'SELECT product_id, title FROM "Customizations" WHERE seller_id = ? AND product_id IN (' + product_ids.join(',') + ');'
-  # sequelize.query q, { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
-  # .then (customizations) ->
-  #   for product in products
-  #     for customization in customizations
-  #       if customization.product_id is product.id
-  #         ## TEMPORARILY disabling sku custom pricing
-  #         # if product.skus then fns.Customization.alterSkus product.skus, customization
-  #         # if !product.skus and customization.selling_prices and customization.selling_prices.length > 0 then product.prices = _.map customization.selling_prices, 'selling_price'
-  #         # if product.skus then fns.Sku.setPricesFor(product.skus, user.pricing)
-  #         fns.Customization.alterProduct product, customization
-  #     if !product.skus then product.skus = null
 
 fns.Product.addAdminDetailsFor = (user, products) ->
   if user.admin isnt true or !products or products.length < 1 then return
@@ -321,14 +322,30 @@ fns.Product.elasticsearch_findall_attrs = [
 fns.Sku.setObfuscatedId = (sku) ->
   sku.obfuscated_id = fns.Utils.obfuscateId sku.id
 
-fns.Sku.setPriceFor = (sku, marginArray, skipDelete) ->
-  sku.price = fns.Utils.calcPrice(marginArray, sku.baseline_price)
-  delete sku.baseline_price unless skipDelete
-  sku
+# fns.Sku.setPriceFor = (sku, marginArray, skipDelete, evenPrices) ->
+fns.Sku.setPriceFor = (sku, user, collection, opts) ->
+  opts ||= {}
+  new Promise (resolve, reject) ->
+    if collection?.id? or opts.noCollection
+      return resolve collection
+    else
+      fns.Collection.findSaleForUser user
+      .then (coll) -> return resolve coll
+  .then (coll) ->
+    sku.price = fns.Utils.calcPrice sku, user, coll
+    delete sku.baseline_price unless opts.skipDelete
+    sku
 
-fns.Sku.setPricesFor = (skus, marginArray, skipDelete) ->
-  fns.Sku.setPriceFor(sku, marginArray, skipDelete) for sku in skus
-  skus
+# fns.Sku.setPricesFor = (skus, marginArray, skipDelete, evenPrices) ->
+fns.Sku.setPricesFor = (skus, user, opts) ->
+  opts ||= {}
+  return [] unless skus?.length > 0
+  fns.Collection.findSaleForUser user
+  .then (collection) ->
+    if !collection?.id? then opts.noCollection = true
+    Promise.reduce skus, ((total, sku) -> fns.Sku.setPriceFor(sku, user, collection, opts)), 0
+  .then () ->
+    skus
 
 fns.Sku.findById = (id) ->
   sequelize.query 'SELECT * FROM "Skus" WHERE id = ?', { type: sequelize.QueryTypes.SELECT, replacements: [id] }
@@ -342,7 +359,8 @@ fns.Sku.findComplete = (id, user) ->
     fns.Product.findCompleteById sku.product_id, user
   .then (product) ->
     scope.sku.product = product
-    fns.Sku.setPriceFor scope.sku, user.pricing
+    fns.Sku.setPriceFor scope.sku, user
+  .then () ->
     fns.Sku.setObfuscatedId scope.sku
     scope.sku
 
@@ -384,6 +402,10 @@ fns.Collection.formattedResponse = (collection, user, opts) ->
     res.collection = _.omit collection, fns.Collection.restricted_attrs
     res
 
+fns.Collection.findSaleForUser = (user) ->
+  sequelize.query 'SELECT id, product_ids, discount_up_to, discount_sale_section, discount_title, discount_code, discount_expires_at FROM "Collections" WHERE seller_id = ? AND discount_sale_section = true AND deleted_at IS NULL', { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
+  .then (collections) -> collections[0]
+
 fns.Collection.findHomeCarousel = (collection_ids, user) ->
   collection_ids ||= '0'
   sequelize.query 'SELECT id, banner FROM "Collections" WHERE id IN (' + collection_ids + ') AND banner IS NOT NULL AND show_banner IS TRUE AND seller_id = ? AND deleted_at IS NULL', { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
@@ -407,25 +429,25 @@ fns.Collection.findHomeArranged = (collection_ids, user) ->
     Promise.reduce collections, ((total, collection) -> addProductsIfNoBanner collection), 0
   .then () -> shared.utils.orderedResults arranged, collection_ids.split(',')
 
-fns.Collection.setDiscountsFor = (user, products) ->
-  skus = _.flatten(_.map products, 'skus')
-  if !user?.id? or !skus? or skus.length is 0 then return products
-  # TODO implement array search by product_ids to further narrow amount of collections returned?
-  sequelize.query 'SELECT id, product_ids, discount_up_to, discount_expires_at, discount_title, discount_sale_section FROM "Collections" WHERE seller_id = ? AND discount_up_to IS NOT NULL AND (discount_expires_at IS NULL OR discount_expires_at > CURRENT_TIMESTAMP) AND deleted_at IS NULL', { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
-  .then (colls) ->
-    # Use the maximum discount for each product
-    for product in products
-      collections_with_product = _.filter(colls, (c) -> c.product_ids.indexOf(product.id) > -1)
-      max_discount_collection = _.max collections_with_product, 'discount_up_to'
-      max_discount = max_discount_collection?.discount_up_to
-      if max_discount > 0 and max_discount <= 0.7
-        product.discounted = max_discount_collection.id
-        for sku in product.skus
-          sku.price = parseInt(sku.msrp * (1 - max_discount))
-          sku.discounted = max_discount_collection.id
-          if sku.price < sku.baseline_price then sku.price = sku.baseline_price
-      _.map product.skus, (sku) -> delete sku.baseline_price
-    products
+# fns.Collection.setDiscountsFor = (user, products) ->
+#   skus = _.flatten(_.map products, 'skus')
+#   if !user?.id? or !skus? or skus.length is 0 then return products
+#   # TODO implement array search by product_ids to further narrow amount of collections returned?
+#   sequelize.query 'SELECT id, product_ids, discount_up_to, discount_expires_at, discount_title, discount_sale_section FROM "Collections" WHERE seller_id = ? AND discount_up_to IS NOT NULL AND (discount_expires_at IS NULL OR discount_expires_at > CURRENT_TIMESTAMP) AND deleted_at IS NULL', { type: sequelize.QueryTypes.SELECT, replacements: [user.id] }
+#   .then (colls) ->
+#     # Use the maximum discount for each product
+#     for product in products
+#       collections_with_product = _.filter(colls, (c) -> c.product_ids.indexOf(product.id) > -1)
+#       max_discount_collection = _.max collections_with_product, 'discount_up_to'
+#       max_discount = max_discount_collection?.discount_up_to
+#       if max_discount > 0 and max_discount <= 0.7
+#         product.discounted = max_discount_collection.id
+#         for sku in product.skus
+#           sku.price = parseInt(sku.msrp * (1 - max_discount))
+#           sku.discounted = max_discount_collection.id
+#           if sku.price < sku.baseline_price then sku.price = sku.baseline_price
+#       _.map product.skus, (sku) -> delete sku.baseline_price
+#     products
 
 fns.Collection.restricted_attrs = ['title', 'headline', 'button', 'cloned_from', 'creator_id', 'seller_id', 'deleted_at']
 

@@ -188,32 +188,32 @@
         <tr ng-repeat="pair in checkout.ee.cart.quantity_array">
           <td class="border-none pad-0"><small ng-bind="pair.product.title"></small></td>
           <td class="border-none pad-0"><small class="text-muted" style="padding: 0 10px;">x{{ pair.quantity }}</small></td>
-          <td class="border-none pad-0 text-right"><small ng-bind="(pair.sku.price * pair.quantity) | centToDollar"></small></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="(pair.sku.price * pair.quantity) | centToDollar:true"></small></td>
         </tr>
         <tr>
           <td class="pad-0"><small>Subtotal</small></td>
           <td class="pad-0"></td>
-          <td class="pad-0 text-right"><small ng-bind="checkout.ee.cart.cumulative_price | centToDollar"></small></td>
+          <td class="pad-0 text-right"><small ng-bind="checkout.ee.cart.cumulative_price | centToDollar:true"></small></td>
         </tr>
         <tr ng-if="checkout.ee.cart.coupon_total > 0">
           <td class="border-none pad-0"><small>Discount</small></td>
           <td class="border-none pad-0"></td>
-          <td class="border-none pad-0 text-right"><small ng-bind="'-' + checkout.ee.cart.coupon_total | centToDollar"></small></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="'-' + checkout.ee.cart.coupon_total | centToDollar:true"></small></td>
         </tr>
         <tr>
           <td class="border-none pad-0"><small>Taxes</small></td>
           <td class="border-none pad-0"></td>
-          <td class="border-none pad-0 text-right"><small ng-bind="checkout.ee.cart.taxes_total | centToDollar"></small></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="checkout.ee.cart.taxes_total | centToDollar:true"></small></td>
         </tr>
         <tr>
           <td class="border-none pad-0"><small>Shipping</small></td>
           <td class="border-none pad-0"></td>
-          <td class="border-none pad-0 text-right"><small ng-bind="checkout.ee.cart.shipping_total | centToDollar"></small></td>
+          <td class="border-none pad-0 text-right"><small ng-bind="checkout.ee.cart.shipping_total | centToDollar:true"></small></td>
         </tr>
         <tr>
           <td style="padding: 3px 0 0;"><small>Total</small></td>
           <td style="padding: 3px 0 0;"></td>
-          <td style="padding: 3px 0 0;" class="text-right"><small ng-bind="checkout.ee.cart.grand_total | centToDollar"></small></td>
+          <td style="padding: 3px 0 0;" class="text-right"><small ng-bind="checkout.ee.cart.grand_total | centToDollar:true"></small></td>
         </tr>
       </table>
       <!-- /CHECKOUT Order Details -->
@@ -230,7 +230,7 @@
       <div class="form-group vert-20 margin-bottom-0">
         <div class="col-sm-12">
           <button type="submit" class="btn btn-lg btn-success btn-block" ng-disabled="ccForm.$invalid || ccForm.$error.ccExp || checkout.processing || !checkout.ee.cart.grand_total">
-            Pay <span ng-bind="checkout.ee.cart.grand_total | centToDollar"></span>
+            Pay <span ng-bind="checkout.ee.cart.grand_total | centToDollar:true"></span>
           </button>
         </div>
       </div>

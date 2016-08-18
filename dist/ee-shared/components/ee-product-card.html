@@ -2,7 +2,7 @@
 <div class="margin-0-auto text-left">
 
   <!-- CARD NOT EXPANDED -->
-  <div ng-if="!expanded">
+  <!-- <div ng-if="false">
     <div class="text-center bg-white">
       <span class="homepage-product inline-block vertical-align-top position-relative">
         <div ng-click="expand()" class="product inline-block hover-pointer"
@@ -25,7 +25,6 @@
         <div class="bg-white overflow-hidden" style="padding: 0 3px 0 8px">
           <div ng-bind="product.title" class="vert-5 margin-top-0 line-height-1-1"></div>
 
-          <!-- Single Sku -->
           <div ng-if="product.skus.length == 1" class="line-height-1-1">
             <h4 ng-bind="currentSku.price | centToDollar"
               class="inline-block margin-0" style="margin-right: 10px !important;">
@@ -38,18 +37,12 @@
               class="inline-block margin-0 text-success">Free Shipping
             </h5>
 
-            <!-- <div class="btn btn-default btn-block vert-5" style="background-color: #FFBA1E;">Express Checkout</div> -->
             <div class="vert-7">
               <ee-paypal-button
                 sku="currentSku"
                 button-size="small">
               </ee-paypal-button>
-              <!-- <div class="btn btn-block btn-themed"
-                ng-if="currentSku.quantity > 0 && !currentSku.discontinued"
-                ng-disabled="disabled || adding"
-                ng-click="addToCart(currentSku)"
-                ng-bind="addingText || 'Add to cart'">
-              </div> -->
+
               <div class="btn btn-info btn-block disabled" ng-if="currentSku.quantity < 1 && !currentSku.discontinued" disabled>Out of Stock</div>
               <div class="btn btn-info btn-block disabled" ng-if="currentSku.discontinued" disabled>Discontinued</div>
             </div>
@@ -68,9 +61,7 @@
               Details & Options&nbsp;<i class="fa fa-caret-down"></i>
             </div>
           </div>
-          <!-- /Single Sku -->
 
-          <!-- Multiple Skus -->
           <div ng-if="product.skus.length > 1">
             <h4 ng-bind="product.prices | priceRange"
               class="inline-block margin-0">
@@ -82,50 +73,35 @@
               Details & Options&nbsp;<i class="fa fa-caret-down"></i>
             </div>
           </div>
-          <!-- /Multiple Skus -->
         </div>
       </span>
 
     </div>
-  </div>
+  </div> -->
   <!-- /CARD NOT EXPANDED -->
 
   <!-- CARD EXPANDED -->
-  <div ng-if="expanded">
+  <div>
     <div class="row">
       <div class="col col-sm-6 max-height-600">
         <ee-product-images product="product"></ee-product-images>
       </div>
       <div class="col col-sm-6 col-md-5">
         <div class="pad-10">
-          <h1 ng-bind="product.title" class="vert-5 margin-top-0 font-weight-200" style="font-size: 24px;"></h1>
+          <h1 ng-bind="product.title" class="vert-5 margin-top-0 font-weight-200" style="font-size: 18px;"></h1>
           <div ng-if="product.skus.length > 1">
             <h4 ng-bind="currentSku.selection_text" class="inline-block font-weight-200 margin-top-0" style="width: 85%;"></h4>
-            <!-- <div class="pull-right btn-group" uib-dropdown>
-              <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu-right max-width-300 overflow-hidden" uib-dropdown-menu>
-                <li ng-repeat="sku in skus" ng-if="!sku.discontinued">
-                  <a href ng-click="setCurrentSku(sku)">
-                    <small ng-bind="sku.price | centToDollar" class="inline-block text-muted min-width-40"></small>
-                    <span ng-bind="sku.selection_text"></span>
-                  </a>
-                </li>
-              </ul>
-            </div> -->
           </div>
           <a ng-if="currentSku.discounted" ui-sref="sale({ id: currentSku.discounted })" class="btn btn-themed btn-arrow">Sale</a>
           <div class="row">
             <div class="col col-xs-7">
               <h2 ng-bind="currentSku.price | centToDollar"
                 class="margin-0 inline-block"
-                style="margin-right: 12px !important;">
+                style="font-size: 26px; margin-right: 12px !important;">
               </h2>
               <h5 ng-if="currentSku.shipping_price > 0"
                 class="margin-0 text-muted inline-block">
                 <span ng-bind="currentSku.shipping_price | centToDollar"></span>&nbsp;s&h
-                <!-- <span style="margin-left: 15px;">Free shipping on orders over $49</span> -->
               </h5>
             </div>
             <div class="col col-xs-5">
@@ -135,26 +111,21 @@
               </h4>
             </div>
           </div>
-          <h4 ng-if="currentSku.shipping_price == 0" class="vert-15 margin-top-0 text-success">
+          <h4 ng-if="currentSku.shipping_price == 0" class="vert-10 margin-top-0 text-success">
             Free Shipping
           </h4>
 
           <div class="vert-7">
-            <ee-paypal-button sku="currentSku"></ee-paypal-button>
-
-            <h4 class="vert-10 text-center text-muted font-weight-200">
-              OR
-            </h4>
-
-            <div class="btn btn-block btn-default"
-              ng-if="currentSku.quantity > 0 && !currentSku.discontinued"
-              ng-disabled="disabled || adding"
-              ng-click="addToCart(currentSku)">
-              <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Add to cart
+            <div ng-if="currentSku.quantity > 0 && !currentSku.discontinued">
+              <div class="btn btn-lg btn-block btn-default vert-10 margin-top-0"
+                ng-disabled="disabled || adding"
+                ng-click="addToCart(currentSku)">
+                <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Add to cart
+              </div>
+              <ee-paypal-button sku="currentSku"></ee-paypal-button>
             </div>
-            <div class="btn btn-info btn-block disabled" ng-if="currentSku.quantity < 1" disabled>Out of Stock</div>
-            <div class="btn btn-info btn-block disabled" ng-if="currentSku.discontinued" disabled>Discontinued</div>
-
+            <div class="btn btn-lg btn-info btn-block disabled" ng-if="currentSku.quantity < 1" disabled>Out of Stock</div>
+            <div class="btn btn-lg btn-info btn-block disabled" ng-if="currentSku.discontinued" disabled>Discontinued</div>
           </div>
           <div class="text-center product-info">
             <h4 ng-if="currentSku.length || currentSku.width || currentSku.height"
@@ -167,7 +138,13 @@
               <strong ng-if="currentSku.width && currentSku.height">&times;</strong>
               <span ng-if="currentSku.height">{{ currentSku.height }}"H </span>
             </h4>
-            <h4 class="vert-5 font-weight-200">Ships from USA</h4>
+              <h5 class="vert-5 font-weight-200">
+                <a href ng-click="expanded = !expanded">
+                  Details<i class="fa fa-fw" ng-class="expanded ? 'fa-caret-up' : 'fa-caret-down'"></i>
+                </a>
+                &nbsp;&nbsp;
+                Ships from USA
+              </h5>
           </div>
         </div>
       </div>
@@ -209,14 +186,9 @@
     <!-- /Sku options -->
 
     <!-- currentSku Details -->
-    <div class="vert-10" id="details">
-      <ul class="nav nav-tabs">
-        <li class="active">
-          <a href class="bg-white" style="padding: 4px 10px">Details</a>
-        </li>
-      </ul>
+    <div class="vert-10" id="details" ng-if="expanded">
       <!-- <h4 ng-bind="product.title" class="vert-5 pad-5 font-weight-200"></h4> -->
-      <h4 ng-if="product.content" ng-bind="product.content" class="vert-15 pad-5 font-weight-200" style="white-space: pre-line;"></h4>
+      <h4 ng-if="product.content" ng-bind="product.content" class="vert-5 margin-top-0 pad-5 font-weight-200" style="white-space: pre-line;"></h4>
       <h5 ng-if="currentSku.selection_text" ng-bind="currentSku.selection_text" class="vert-5 pad-5 font-weight-200"></h5>
       <table class="table table-condensed vert-5">
         <tr ng-if="currentSku.msrp && currentSku.msrp > currentSku.price">
@@ -264,6 +236,11 @@
         <tr ng-if="currentSku.meta.warranty">
           <td>Warranty</td><td ng-bind="currentSku.meta.warranty"></td>
         </tr>
+        <tr ng-repeat="pair in currentSku.meta.attributes.split('||')"
+          ng-if="pair.split(':=')[0].slice(0,6) != 'Carton'">
+          <td ng-bind="pair.split(':=')[0]"></td>
+          <td ng-bind="pair.split(':=')[1]"></td>
+        </tr>
       </table>
     </div>
     <!-- /currentSku details -->
@@ -271,15 +248,11 @@
   <!-- /CARD EXPANDED -->
 
   <!-- Similar products -->
-  <div class="vert-5 margin-bottom-0 text-center">
+  <div class="vert-25 margin-bottom-0 text-center">
     <a ui-sref="search({ q: product.title })"
-      class="text-center pad-5 vert-10 margin-bottom-0 text-muted">
-      <i class="fa fa-search"></i>&nbsp;<span class="text-underline">More like this</span>
+      class="inline-block text-center pad-5 vert-10 text-muted">
+      <i class="fa fa-search"></i>&nbsp;<strong class="text-underline">You might also like</strong>
     </a>
-
-    <div class="max-width-450 margin-0-auto">
-      <!-- <ee-search-token show-details=true></ee-search-token> -->
-    </div>
 
     <div ng-if="products.length > 0">
       <ee-products-list
