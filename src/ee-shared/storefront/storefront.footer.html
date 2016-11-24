@@ -1,99 +1,194 @@
-<div id="store-footer-region"
-  class="position-relative"
-  ng-hide="storefront.ee.User.reading || storefront.ee.Collections.reading || storefront.ee.Products.reading">
-  <!-- blocker -->
-  <div ng-show="storefront.ee.blocked"
-    class="position-absolute top-left-bottom-right-0"
-    style="z-index: 2005;">
-  </div>
-  <!-- /blocker -->
-
-  <div class="section vert-20"></div>
-  <div class="full-width pad-15 position-relative text-footer bg-footer">
-
-    <div class="container max-width-900">
+<footer id="footer"><!--Footer-->
+  <div class="footer-top">
+    <div class="container">
       <div class="row">
-        <div class="col col-xs-12">
-          <h4 ng-bind="storefront.ee.User.user.storefront_meta.name"></h4>
-        </div>
-      </div> <!-- /row -->
-
-      <div class="row">
-        <div class="col col-sm-2">
-          <ul class="nav nav-pills nav-stacked nav-compact">
-            <li class="disabled">Sections</li>
-            <li>
-              <a ui-sref="storefront">Home</a>
-            </li>
-            <li>
-              <a ui-sref="help">Help</a>
-            </li>
-            <li ng-if="storefront.ee.User.user.storefront_meta.blog.url">
-              <a href="{{ storefront.ee.User.user.storefront_meta.blog.url | addHttp }}" target="_blank">Blog</a>
-            </li>
-            <li ng-if="storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content">
-              <a ui-sref="storefront-about">About</a>
-            </li>
-            <li>
-              <a ui-sref="privacy">Privacy Policy</a>
-            </li>
-            <li>
-              <a ui-sref="terms">Terms of Service</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col col-sm-2" ng-if="storefront">
-          <ul class="nav nav-pills nav-stacked nav-compact">
-            <li class="disabled">Shop</li>
-            <li ng-repeat="category in storefront.categories">
-              <a ui-sref="category({ id: category.id, title: (category.title | urlText) })" class="nav nav-pills nav-stacked nav-compact" ng-bind="category.title"></a>
-            </li>
-            <!-- <ee-collection-nav
-              collections="storefront.ee.Collections.nav.alphabetical"
-              class="nav nav-pills nav-stacked nav-compact">
-            </ee-collection-nav> -->
-          </ul>
-        </div>
-        <div class="col col-sm-2" ng-if="storefront.ee.User.user.storefront_meta.audience.social.facebook || storefront.ee.User.user.storefront_meta.audience.social.pinterest || !!storefront.ee.User.user.storefront_meta.audience.social.twitter || !!storefront.ee.User.user.storefront_meta.audience.social.instagram"
-          ng-hide="storefront.ee.User.user.alpha">
-          <ul class="nav nav-pills nav-stacked nav-compact">
-            <li class="disabled">Connect</li>
-            <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
-                ng-if="!!storefront.ee.User.user.storefront_meta.audience.social[site]">
-              <a href="http://{{ site }}.com/{{ storefront.ee.User.user.storefront_meta.audience.social[site] }}" target="_blank">
-                <span ng-bind="site | humanize"></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col col-sm-6"
-          ng-show="storefront.ee.User.user.alpha">
-          <br class="visible-xs">
-          <div class="margin-0-auto text-center bg-primary pad-10 round-5" style="max-width: 320px;">
-            <h3 ee-signup-message class="font-weight-200 vert-5"></h3>
-            <div class="inline-block bg-white pad-5 round-5 vert-5">
-              <ee-signup identifier="footer"></ee-signup>
-            </div>
+        <div class="col-sm-2">
+          <div class="companyinfo" style="margin-top: 85px;">
+            <h2><span>Stylish Rustic</span></h2>
+            <p>Uptown decor with rustic charm</p>
           </div>
         </div>
-      </div> <!-- /row -->
-    </div> <!-- /container -->
-    <div class="section vert-10"></div>
-  </div> <!-- /bg-gray -->
+        <div class="col-sm-10" style="margin-top: 55px;">
 
-  <div class="container max-width-900 vert-20">
-    <div class="row margin-0">
-      <div class="col col-sm-7">
-        <small>
-          &copy;&nbsp;2016&nbsp;<span ng-bind="storefront.ee.User.user.storefront_meta.name"></span>.&nbsp;&nbsp;
-          <a href="https://eeosk.com" target="_blank" class="gray-color">Ecommerce by eeosk</a>.
-        </small>
-      </div>
-      <div class="col col-sm-5">
-        <img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-paypal.png" alt="PayPal">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-visa.png" alt="Visa">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-mastercard.png" alt="Mastercard">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-amex.png" alt="American Express">&nbsp;<img class="width-35" src="//cdn.shopify.com/s/files/1/0269/1895/t/2/assets/cc-discover.png" alt="Discover">
+          <div style="margin-left: 0px; color: #666663; font-family: 'Roboto', sans-serif; font-size: 16px;">
+            As seen on these blogs
+          </div>
+
+          <div class="col-sm-4">
+            <div class="video-gallery vert-10 text-center">
+              <a href="http://simplestylings.com/fun-new-finds-from-a-favorite-online-home-decor-shop/" target="_blank">
+                <div class="iframe-img">
+                  <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1469580962/simple-stylings.jpg' | cloudinaryResizeTo:300:80:'pad' }}" alt="Simple Stylings" />
+                </div>
+                <div class="overlay-icon">
+                  <i class="fa fa-external-link-square"></i>
+                </div>
+              </a>
+              <p>Simple Stylings</p>
+              <h2>OCTOBER 2016</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="video-gallery vert-10 text-center">
+              <a href="http://thewickerhouse.blogspot.com/2016/08/a-new-hammock-on-our-patio.html" target="_blank">
+                <div class="iframe-img">
+                  <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1470245854/the-wicker-house.png' | cloudinaryResizeTo:300:80:'pad' }}"
+                    alt="The Wicker House" />
+                </div>
+                <div class="overlay-icon">
+                  <i class="fa fa-external-link-square"></i>
+                </div>
+              </a>
+              <p>The Wicker House</p>
+              <h2>AUGUST 2016</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="video-gallery vert-10 text-center">
+              <a href="http://simplestylings.com/dining-room-update-giveaway-stylish-rustic/" target="_blank">
+                <div class="iframe-img">
+                  <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1469580962/simple-stylings.jpg' | cloudinaryResizeTo:300:80:'pad' }}" alt="Simple Stylings" />
+                </div>
+                <div class="overlay-icon">
+                  <i class="fa fa-external-link-square"></i>
+                </div>
+              </a>
+              <p>Simple Stylings</p>
+              <h2>JULY 2016</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="video-gallery vert-10 text-center">
+              <a href="http://www.mysweetsavannahblog.com/2016/07/stylish-rustic-giveaway.html" target="_blank">
+                <div class="iframe-img">
+                  <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1469580980/my-sweet-savannah.jpg' | cloudinaryResizeTo:300:80:'pad' }}" alt="My Sweet Savannah" />
+                </div>
+                <div class="overlay-icon">
+                  <i class="fa fa-external-link-square"></i>
+                </div>
+              </a>
+              <p>My Sweet Savannah</p>
+              <h2>JULY 2016</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="video-gallery vert-10 text-center">
+              <a href="http://bliss-athome.com/decor-love-pineapple-giveaway/" target="_blank">
+                <div class="iframe-img">
+                  <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1469582891/bliss-at-home-2.png' | cloudinaryResizeTo:300:80:'pad' }}"
+                    alt="Bliss at Home" />
+                </div>
+                <div class="overlay-icon">
+                  <i class="fa fa-external-link-square"></i>
+                </div>
+              </a>
+              <p>Bliss at Home</p>
+              <h2>JUNE 2015</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="video-gallery vert-10 text-center">
+              <a href="http://carriebradshawlied.com/2015/06/paris-stamped-ottoman.html" target="_blank">
+                <div class="iframe-img">
+                  <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1469580902/carrie-bradshaw-lied.jpg' | cloudinaryResizeTo:300:80:'pad' }}"
+                    alt="Carrie Bradshaw Lied" />
+                </div>
+                <div class="overlay-icon">
+                  <i class="fa fa-external-link-square"></i>
+                </div>
+              </a>
+              <p>Carrie Bradshaw Lied</p>
+              <h2>JUNE 2015</h2>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
 
+  <div class="footer-widget">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="single-widget">
+            <h2>Service</h2>
+            <ul class="nav nav-pills nav-stacked">
+              <li><a ui-sref="help">Online Help</a></li>
+              <li><a ui-sref="help">Returns</a></li>
+              <li><a ui-sref="help">Contact Us</a></li>
+              <!-- <li><a href="#">Order Status</a></li> -->
+              <!-- <li><a href="#">Change Location</a></li> -->
+              <!-- <li><a href="#">FAQs</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="single-widget">
+            <h2>Quick Shop</h2>
+            <ul class="nav nav-pills nav-stacked">
+              <li ng-repeat="(tag1, branch1) in storefront.ee.Products.tagTree">
+                <a ui-sref="search({ t1: (tag1 | urlText) })" ng-bind="tag1"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="single-widget">
+            <h2>Policies</h2>
+            <ul class="nav nav-pills nav-stacked">
+              <li><a ui-sref="help">Return Policy</a></li>
+              <li><a ui-sref="terms">Terms of Use</a></li>
+              <li><a ui-sref="privacy">Privacy Policy</a></li>
+              <!-- <li><a href="#">Billing System</a></li> -->
+              <!-- <li><a href="#">Ticket System</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="single-widget">
+            <h2>Stylish Rustic</h2>
+            <ul class="nav nav-pills nav-stacked">
+              <li><a ui-sref="about">Company Information</a></li>
+              <!-- <li><a href="#">Careers</a></li> -->
+              <!-- <li><a href="#">Store Location</a></li> -->
+              <!-- <li><a href="#">Affillate Program</a></li> -->
+              <!-- <li><a href="#">Copyright</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-3 col-sm-offset-1">
+          <div class="single-widget">
+            <h2>Join</h2>
+            <div class="searchform">
+              <ee-signup></ee-signup>
+              <p><ee-signup-message></ee-signup-message></p>
+            </div>
+          </div>
+        </div>
 
-</div><!-- /store-footer-region -->
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <p class="pull-left">Copyright © 2016 Stylish Rustic. All rights reserved.</p>
+        <p class="pull-right">Ecommerce by <span><a target="_blank" href="https://eeosk.com" style="color: #363432;">eeosk</a></span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row vert-10 text-right">
+      <img src="https://shapebootstrap.net/images/payment-methods.png" alt="Payment Methods">
+    </div>
+  </div>
+
+</footer><!--/Footer-->

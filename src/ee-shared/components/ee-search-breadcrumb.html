@@ -1,0 +1,60 @@
+<div>
+  <div class="full-width pad-10" style="background: #F0F0E9;">
+    <div class="row">
+      <div class="col-xs-9">
+        <span ng-show="data.reading">Searching</span>
+        <span ng-hide="data.reading">
+          <span ng-if="data.count > 0 && data.count >= getEnd()">
+            <span ng-bind="getStart()"></span>&nbsp;-&nbsp;<span ng-bind="getEnd()"></span>&nbsp;of
+          </span>
+          <span ng-bind="data.count"></span>&nbsp;results
+          <span ng-if="$state.currentTag1 || $state.currentTag2 || $state.currentTag3 || $stateParams.q.length > 0">for</span>
+        </span>
+        <!-- currentTag1 -->
+        <strong ng-if="$state.currentTag1" ng-bind="$state.currentTag1"></strong>
+        <span ng-if="$state.currentTag1 && !$state.currentTag2 && !$state.currentTag3 && !$stateParams.q" ng-click="clearTagLevel(1)" class="fa fa-fw fa-times-circle text-muted hover-pointer"></span>
+        <!-- /currentTag1 -->
+        <!-- currentTag2 -->
+        <span ng-if="$state.currentTag1 && $state.currentTag2">:</span>
+        <strong ng-if="$state.currentTag2" ng-bind="$state.currentTag2"></strong>
+        <span ng-if="$state.currentTag2 && !$state.currentTag3 && !$stateParams.q" ng-click="clearTagLevel(2)" class="fa fa-fw fa-times-circle text-muted hover-pointer"></span>
+        <!-- /currentTag2 -->
+        <!-- currentTag3 -->
+        <span ng-if="$state.currentTag2 && $state.currentTag3">:</span>
+        <strong ng-if="$state.currentTag3" ng-bind="$state.currentTag3"></strong>
+        <span ng-if="$state.currentTag3 && !$stateParams.q" ng-click="clearTagLevel(3)" class="fa fa-fw fa-times-circle text-muted hover-pointer"></span>
+        <!-- /currentTag3 -->
+        <!-- query -->
+        <span ng-if="($state.currentTag1 || $state.currentTag2 || $state.currentTag3) && $stateParams.q">:</span>
+        <strong ng-if="$stateParams.q" ng-bind="$stateParams.q"></strong>
+        <span ng-if="$stateParams.q" ng-click="clearSearch()" class="fa fa-fw fa-times-circle text-muted hover-pointer"></span>
+        <!-- /query -->
+
+      </div>
+
+      <!-- sort order -->
+      <div class="col-xs-3 text-right">
+        <div class="pull-right">
+          Sort by
+          <span class="dropdown" uib-dropdown>
+            <div class="btn btn-xs btn-default" uib-dropdown-toggle>
+              <span ng-bind="getOrderTitle()"></span>&nbsp;<i class="fa fa-caret-down"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right" style="min-width: 90px;" uib-dropdown-menu>
+              <li ng-repeat="order in data.sortOrders">
+                <a href ng-bind="order.title" ng-click="setOrder(order.order)"></a>
+              </li>
+            </ul>
+          </span>
+        </div>
+      </div>
+      <!-- /sort order -->
+    </div>
+  </div>
+
+  <div class="pad-5" ng-if="getRange()">
+    <span class="badge">
+      <span ng-bind="getRange()"></span> <i class="fa fa-fw fa-times hover-pointer" ng-click="clearRange()"></i>
+    </span>
+  </div>
+</div>

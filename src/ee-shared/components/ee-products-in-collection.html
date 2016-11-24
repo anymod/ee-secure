@@ -1,7 +1,7 @@
 <div class="container" ng-hide="data.reading || data.products.length <= 0">
 
   <div class="full-width text-center margin-0">
-    <uib-pagination ng-if="data.count > data.perPage"
+    <div uib-pagination ng-if="data.count > data.perPage"
       total-items="data.count"
       items-per-page="data.perPage"
       ng-model="data.page"
@@ -10,20 +10,20 @@
       previous-text="&lsaquo;" next-text="&rsaquo;"
       rotate="false"
       ng-change="update()">
-    </uib-pagination>
+    </div>
   </div>
 
   <!-- PRODUCTS -->
   <!-- <h4 class="margin-0" ng-if="showTitle" ng-bind="data.collection.title | humanize"></h4> -->
   <div class="full-width text-center vert-20 overflow-hidden">
     <div ng-repeat="product in data.products" class="template-container text-left inline-block width-250 vertical-align-top">
-      <ee-product-for-store product="product"></ee-product-for-store>
+      <ee-product-single product="product"></ee-product-single>
     </div>
   </div>
   <!-- /PRODUCTS -->
 
   <div class="full-width text-center margin-0">
-    <uib-pagination ng-if="data.count > data.perPage"
+    <div uib-pagination ng-if="data.count > data.perPage"
       total-items="data.count"
       items-per-page="data.perPage"
       ng-model="data.page"
@@ -32,7 +32,7 @@
       previous-text="&lsaquo;" next-text="&rsaquo;"
       rotate="false"
       ng-change="update()">
-    </uib-pagination>
+    </div>
   </div>
 
 </div>

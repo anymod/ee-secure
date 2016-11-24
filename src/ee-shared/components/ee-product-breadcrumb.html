@@ -1,0 +1,26 @@
+<div>
+  <div class="full-width pad-10" style="background: #F0F0E9;">
+    <div class="row">
+      <div class="col-xs-9">
+        <span ng-if="tag1">
+          <span ui-sref="search({ t1: (tag1 | urlText) })" ng-bind="tag1" class="hover-pointer hover-underline"></span>&nbsp;<i class="fa fa-fw fa-angle-right"></i>
+        </span>
+        <span ng-if="tag1 && tag2">
+          <span ui-sref="search({ t1: (tag1 | urlText), t2: (tag2 | urlText) })" ng-bind="tag2" class="hover-pointer hover-underline"></span>&nbsp;<i class="fa fa-fw fa-angle-right"></i>
+        </span>
+        <span ng-if="tag1 && tag2 && tag3">
+          <span ui-sref="search({ t1: (tag1 | urlText), t2: (tag2 | urlText), t3: (tag3 | urlText) })" ng-bind="tag3" class="hover-pointer hover-underline"></span>&nbsp;<i class="fa fa-fw fa-angle-right"></i>
+        </span>
+        <span ng-bind="product.title"></span>
+      </div>
+
+      <!-- sort order -->
+      <div class="col-xs-3 text-right">
+        <a ui-sref="search({ q: product.title })" class="btn btn-xs btn-default pull-right">
+          More like this <i class="fa fa-fw fa-search"></i>
+        </a>
+      </div>
+      <!-- /sort order -->
+    </div>
+  </div>
+</div>

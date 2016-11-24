@@ -71,7 +71,7 @@
         <span ng-hide="data.inputs.order.order">Sort by</span>&nbsp;<i class="caret"></i>
       </div>
       <ul class="dropdown-menu" uib-dropdown-menu>
-        <li ng-repeat="order in data.inputs.orderArray" ng-class="{ active: data.inputs.order.order == order.order }">
+        <li ng-repeat="order in data.inputs.sortOrders" ng-class="{ active: data.inputs.order.order == order.order }">
           <a href ng-bind="order.title" ng-click="fns.setOrder(order)"></a>
         </li>
         <li ng-show="data.inputs.order.order" class="divider"></li>
@@ -88,7 +88,7 @@
         <span ng-hide="data.inputs.order.order">Material</span>&nbsp;<i class="caret"></i>
       </div>
       <ul class="dropdown-menu" uib-dropdown-menu>
-        <li ng-repeat="order in data.inputs.orderArray" ng-class="{ active: data.inputs.order.order == order.order }">
+        <li ng-repeat="order in data.inputs.sortOrders" ng-class="{ active: data.inputs.order.order == order.order }">
           <a href ng-bind="order.title" ng-click="fns.setOrder(order)"></a>
         </li>
         <li ng-show="data.inputs.order.order" class="divider"></li>

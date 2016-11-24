@@ -5,6 +5,7 @@ angular.module 'ee-favorites-heart', []
 angular.module('ee-favorites-heart').directive 'eeFavoritesHeart', (eeFavorites, eeModal) ->
   templateUrl: 'ee-shared/components/ee-favorites-heart.html'
   restrict: 'EA'
+  replace: true
   scope:
     productSkus: '='
   link: (scope, ele, attr) ->

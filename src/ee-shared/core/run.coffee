@@ -15,7 +15,6 @@ angular.module('app.core').run ($rootScope, $location, $anchorScroll, $state, pe
     $location.search search
     return
 
-
   $rootScope.$on '$stateChangeSuccess', () ->
     $rootScope.scrollTo 'body-top'
     return

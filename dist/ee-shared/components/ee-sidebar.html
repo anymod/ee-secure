@@ -1,0 +1,110 @@
+<div class="left-sidebar">
+
+  <!-- collection -->
+  <span ng-if="$stateParams.coll > 0 && ee.Collection.collection.banner">
+    <h2>Collection</h2>
+    <div class="vert-50 margin-top-0">
+      <div class="position-relative">
+        <img ng-src="{{ ee.Collection.collection.banner | cloudinaryResizeTo:228:96 }}" class="full-width"/>
+        <div ng-click="clearCollection()"
+          class="position-absolute hover-pointer"
+          style="top: 0; right: 0;">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x fa-inverse opacity-08"></i>
+            <i class="fa fa-times fa-stack-1x"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </span>
+  <!-- /collection -->
+
+  <!-- categories -->
+  <h2 ng-bind="$state.currentTag1 || 'Categories'"></h2>
+  <div class="panel-group category-products" id="accordian">
+    <div ng-repeat="(tag1, branch1) in tagTree"
+      ng-if="$state.currentTag1 && $state.currentTag1 == tag1 || !$state.currentTag1"
+      class="panel panel-default">
+
+      <!-- No currentTag1 -->
+      <div ng-if="!$state.currentTag1">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a href ng-click="setTags({ t1: tag1 })" ng-bind="tag1"></a>
+          </h4>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li ng-repeat="(tag2, branch2) in branch1">
+              <a href ng-click="setTags({ t1: tag1, t2: tag2 })" ng-bind="tag2"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- /No currentTag1 -->
+
+      <!-- Has currentTag1 -->
+      <div ng-if="$state.currentTag1" ng-repeat="(tag2, branch2) in branch1">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a href ng-click="setTags({ t1: tag1, t2: tag2 })"
+              ng-class="{ active: $state.currentTag2 && $state.currentTag2 == tag2 }">
+              <span ng-bind="tag2"></span>
+              <!-- <span class="badge pull-right">
+                <i class="fa" ng-class="openTag ? 'fa-minus' : 'fa-plus'"></i>
+              </span> -->
+            </a>
+          </h4>
+        </div>
+        <div class="panel-body" ng-if="!$state.currentTag2 || $state.currentTag2 == tag2">
+          <ul>
+            <li ng-repeat="tag3 in branch2">
+              <a href ng-click="setTags({ t1: tag1, t2: tag2, t3: tag3 })"
+                ng-class="{ 'text-primary-background': $state.currentTag3 && $state.currentTag3 == tag3 }"
+                ng-bind="tag3">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- /Has currentTag1 -->
+    </div>
+    <!--/ categories -->
+  </div>
+
+  <!-- brands -->
+  <!-- <div class="brands_products">
+    <h2>Brands</h2>
+    <div class="brands-name">
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
+        <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
+        <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
+        <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
+        <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
+        <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
+        <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+      </ul>
+    </div>
+  </div> -->
+  <!--/ brands -->
+
+  <!--price-range-->
+  <div class="price-range">
+    <h2>Price Range</h2>
+    <rzslider rz-slider-model="ee.Products.searchInputs.minValue"
+      rz-slider-high="ee.Products.searchInputs.maxValue"
+      rz-slider-options="ee.Products.searchInputs.options">
+    </rzslider>
+  </div>
+  <!--/price-range-->
+
+  <!--shipping-->
+  <div class="vert-50 margin-bottom-0">
+    <img ng-src="{{ 'https://res.cloudinary.com/eeosk/image/upload/v1475888542/Free-Shipping-Square.jpg' | cloudinaryResizeTo:300:300:'pad' }}"
+      class="full-width"
+      alt="Free shipping on orders over $49">
+  </div>
+  <!--/shipping-->
+
+</div>

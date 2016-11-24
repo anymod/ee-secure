@@ -1,20 +1,14 @@
 <div>
-  <!-- TODO replace zoom.js -->
-  <div class="position-relative pad-5 bg-white text-center min-height-120">
+  <div class="position-relative bg-white text-center min-height-120">
     <img ee-image-fadein
       watch="true"
       ee-src="mainImage"
-      ee-w=600 ee-h=500 ee-crop="pad" ee-trim="true"
+      ee-w=480 ee-h=480 ee-crop="pad"
       load-boolean="hideFavoriteButton"
-      class="full-width transition-400 main-image"
-      style="max-height: 450px; width: auto;"
+      class="full-width transition-400 main-image pad-10"
+      style="max-height: 480px; width: auto;"
       name="mainImage"
-      data-action="zoom">
-    <div ng-hide="hideFavoriteButton"
-      class="position-absolute"
-      style="bottom: 0; right: 0; padding: 15px 0 0 15px;">
-      <ee-favorites-heart ng-if="product.skus" product-skus="product.skus"></ee-favorites-heart>
-    </div>
+      data-zoom="{{ mainImage | cloudinaryResizeTo:1440:1440:'pad' }}">
   </div>
   <!-- images -->
   <div ng-show="product.additional_images.length > 0" class="vert-5">

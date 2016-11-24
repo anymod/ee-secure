@@ -13,6 +13,8 @@ Sku =
 
   forCheckout: (sku_ids, user) ->
     scope = {}
+    sku_ids ||= []
+    if sku_ids.length < 1 then sku_ids = [0]
     q =
       'SELECT ' + _.map(Sku.attrs, (a) -> 's.' + a).join(',') + ', p.title as product_title
         FROM "Skus" s

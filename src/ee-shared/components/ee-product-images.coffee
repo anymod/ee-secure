@@ -16,4 +16,10 @@ module.directive "eeProductImages", () ->
 
     scope.$on 'product:navigate', (e, prod) -> scope.setMainImage prod.image
 
+    new Drift document.querySelector('img.main-image'), {
+      paneContainer: document.querySelector('#main-image-zoom')
+      # hoverBoundingBox: true
+      # touchBoundingBox: true
+    }
+
     return

@@ -29,6 +29,6 @@ angular.module('ee-signup').directive 'eeSignup', ($window, $timeout, eeModal, e
       $window.FB?.XFBML?.parse(parent)
       $window.PinUtils?.build(parent)
     # $timeout(socialParse, 100)
-    socialParse() unless scope.hideSocial
+    # socialParse() unless scope.hideSocial
 
     return

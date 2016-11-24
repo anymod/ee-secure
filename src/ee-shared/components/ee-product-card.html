@@ -1,86 +1,6 @@
 <!-- PRODUCT CARD -->
 <div class="margin-0-auto text-left">
 
-  <!-- CARD NOT EXPANDED -->
-  <!-- <div ng-if="false">
-    <div class="text-center bg-white">
-      <span class="homepage-product inline-block vertical-align-top position-relative">
-        <div ng-click="expand()" class="product inline-block hover-pointer"
-          style="width: 300px; max-width: 100%; min-height: 160px;">
-          <img ee-image-fadein
-            ee-src="product.image"
-            ee-w=220 ee-h=220 ee-trim=true
-            load-boolean=false
-            watch=true
-            class="img-responsive full-width transition-400">
-          <div class="position-absolute"
-            style="bottom: 0; left: 0; padding: 15px 15px 0 0;">
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x text-white" style="opacity: 0.7;"></i>
-              <i class="fa fa-expand fa-stack-1x text-dark"></i>
-            </span>
-          </div>
-        </div>
-      </span><span class="homepage-product full-width inline-block vertical-align-top text-left">
-        <div class="bg-white overflow-hidden" style="padding: 0 3px 0 8px">
-          <div ng-bind="product.title" class="vert-5 margin-top-0 line-height-1-1"></div>
-
-          <div ng-if="product.skus.length == 1" class="line-height-1-1">
-            <h4 ng-bind="currentSku.price | centToDollar"
-              class="inline-block margin-0" style="margin-right: 10px !important;">
-            </h4>
-            <h5 ng-if="currentSku.shipping_price > 0"
-              class="inline-block margin-0 text-muted">
-              <span ng-bind="currentSku.shipping_price | centToDollar"></span>&nbsp;s&h
-            </h5>
-            <h5 ng-if="currentSku.shipping_price == 0"
-              class="inline-block margin-0 text-success">Free Shipping
-            </h5>
-
-            <div class="vert-7">
-              <ee-paypal-button
-                sku="currentSku"
-                button-size="small">
-              </ee-paypal-button>
-
-              <div class="btn btn-info btn-block disabled" ng-if="currentSku.quantity < 1 && !currentSku.discontinued" disabled>Out of Stock</div>
-              <div class="btn btn-info btn-block disabled" ng-if="currentSku.discontinued" disabled>Discontinued</div>
-            </div>
-
-            <div ng-if="currentSku.length || currentSku.width || currentSku.height"
-              ng-click="expand()">
-              <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_30/v1447453155/ruler.png"
-                class="hidden-xs"/>
-              <span ng-if="currentSku.length">{{ currentSku.length }}"L </span>
-              <strong ng-if="currentSku.length && currentSku.width">&times;</strong>
-              <span ng-if="currentSku.width">{{ currentSku.width }}"W </span>
-              <strong ng-if="currentSku.width && currentSku.height">&times;</strong>
-              <span ng-if="currentSku.height">{{ currentSku.height }}"H </span>
-            </div>
-            <div ng-click="expand()" class="text-muted hover-pointer">
-              Details & Options&nbsp;<i class="fa fa-caret-down"></i>
-            </div>
-          </div>
-
-          <div ng-if="product.skus.length > 1">
-            <h4 ng-bind="product.prices | priceRange"
-              class="inline-block margin-0">
-            </h4>
-            <h5 class="inline-block margin-0 text-success">
-              <span ng-bind="product.skus.length"></span>&nbsp;styles
-            </h5>
-            <div ng-click="expand()" class="text-muted hover-pointer">
-              Details & Options&nbsp;<i class="fa fa-caret-down"></i>
-            </div>
-          </div>
-        </div>
-      </span>
-
-    </div>
-  </div> -->
-  <!-- /CARD NOT EXPANDED -->
-
-  <!-- CARD EXPANDED -->
   <div>
     <div class="row">
       <div class="col col-sm-6 max-height-600">
@@ -138,13 +58,14 @@
               <strong ng-if="currentSku.width && currentSku.height">&times;</strong>
               <span ng-if="currentSku.height">{{ currentSku.height }}"H </span>
             </h4>
-              <h5 class="vert-5 font-weight-200">
-                <a href ng-click="expanded = !expanded">
-                  Details<i class="fa fa-fw" ng-class="expanded ? 'fa-caret-up' : 'fa-caret-down'"></i>
-                </a>
-                &nbsp;&nbsp;
-                Ships from USA
-              </h5>
+            <ee-favorites-heart product-skus="product.skus" class="btn btn-default"></ee-favorites-heart>
+            <h5 class="vert-5 font-weight-200">
+              <a href ng-click="expanded = !expanded">
+                Details<i class="fa fa-fw" ng-class="expanded ? 'fa-caret-up' : 'fa-caret-down'"></i>
+              </a>
+              &nbsp;&nbsp;
+              Ships from USA
+            </h5>
           </div>
         </div>
       </div>
@@ -245,7 +166,6 @@
     </div>
     <!-- /currentSku details -->
   </div>
-  <!-- /CARD EXPANDED -->
 
   <!-- Similar products -->
   <div class="vert-25 margin-bottom-0 text-center">

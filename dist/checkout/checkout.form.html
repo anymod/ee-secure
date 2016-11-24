@@ -1,4 +1,13 @@
-<div class="container vert-20">
+<div class="container vert-20 text-center"
+  ng-show="checkout.ee.cart.grand_total == 0">
+  <div class="alert alert-success margin-0-auto"
+    style="max-width: 320px;">
+    Thank you for shopping with us!
+  </div>
+</div>
+
+<div class="container vert-20"
+  ng-hide="checkout.ee.cart.grand_total == 0">
 
   <!-- <div class="max-width-300 margin-0-auto">
     <a href="{{ checkout.ee.cart_path }}" class="btn btn-link pad-left-0 font-weight-200">
@@ -145,6 +154,19 @@
       </div>
       <!-- /CHECKOUT billing -->
 
+      <!-- CHECKOUT email -->
+      <div class="form-group vert-20 margin-top-0">
+        <div class="col-sm-12">
+          <div class="input-group input-group-plain">
+            <span class="input-group-addon"><i class="fa fa-phone fa-fw text-muted"></i></span>
+            <input type="text" class="form-control"
+              id="checkout-phone"
+              ng-model="checkout.shipping.phone"
+              placeholder="Phone Number" />
+          </div>
+        </div>
+      </div>
+      <!-- /CHECKOUT email -->
 
       <!-- CHECKOUT Card -->
       <div class="form-group vert-5">

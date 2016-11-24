@@ -1,8 +1,9 @@
 <div class="text-center">
-  <span ng-repeat="prod in products">
-    <span class="homepage-product text-left inline-block vertical-align-top">
-      <ee-product-for-store product="prod"></ee-product-for-store>
-    </span>
+  <span ng-repeat="prod in products" ng-hide="prod.id == excludedId">
+    <div ng-class="customClass || 'col-sm-4'">
+    <!-- <span class="homepage-product text-left inline-block vertical-align-top"> -->
+      <ee-product-single product="prod"></ee-product-single>
+    </div>
     <div ng-if="showSignup && $index == signupIndex"
       class="text-center pad-10 margin-0-auto" style="max-width: 320px;">
       <h3 ee-signup-message

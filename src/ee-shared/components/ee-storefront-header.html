@@ -8,7 +8,7 @@
 <div ng-if="!user.alpha">
   <!-- Desktop nav -->
   <div class="position-relative hidden-xs" style="z-index: 5;">
-    <div class="container container-narrow">
+    <div class="container">
       <!-- blocker -->
       <div ng-show="blocked" class="navbar position-absolute margin-0" style="z-index: 2005; top: 0; left: 0; right: 0; height: 140px;"></div>
       <!-- /blocker -->
@@ -77,7 +77,7 @@
 
   <!-- Desktop Subnav -->
   <nav ng-if="user.username != 'stylishrustic'" class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
-    <div class="container container-narrow">
+    <div class="container">
       <ul class="nav navbar-nav">
         <li ng-repeat="category in categories">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"

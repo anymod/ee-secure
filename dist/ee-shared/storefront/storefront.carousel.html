@@ -1,21 +1,21 @@
 <!-- Carousel -->
-<div ng-if="storefront.ee.User.user.home_carousel.length > 0" class="container container-narrow">
+<div ng-if="storefront.ee.User.user.home_carousel.length > 0" class="container">
   <div class="vert-10">
     <div class="margin-0-auto">
-      <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
-        <uib-slide ng-repeat="collection in storefront.ee.User.user.home_carousel" active="collection.active">
+      <div uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
+        <div uib-slide ng-repeat="collection in storefront.ee.User.user.home_carousel" active="collection.active">
           <a ui-sref="collection({ id: collection.id })">
             <img ng-src="{{ collection.banner }}" class="full-width gray-border" style="margin:auto;">
           </a>
-        </uib-slide>
-      </uib-carousel>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <!-- /Carousel -->
 
 <!-- Arranged -->
-<div ng-if="storefront.ee.User.user.home_arranged.length > 0" class="container container-narrow vert-20">
+<div ng-if="storefront.ee.User.user.home_arranged.length > 0" class="container vert-20">
   <div ng-repeat="collection in storefront.ee.User.user.home_arranged">
     <ee-collection-for-store collection="collection"></ee-collection-for-store>
   </div>

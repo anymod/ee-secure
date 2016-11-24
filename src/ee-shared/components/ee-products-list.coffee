@@ -7,6 +7,8 @@ module.directive "eeProductsList", ($rootScope, $state, eeBack) ->
   restrict: 'E'
   scope:
     products: '='
+    excludedId: '='
+    customClass: '@'
     showSignup: '@'
   link: (scope, ele, attrs) ->
     scope.signupIndex = 9999

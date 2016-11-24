@@ -8,7 +8,7 @@
   <div ng-if="collection.products.length > 0 && !collection.show_banner" class="text-center">
     <div ng-repeat="product in collection.products"
       class="homepage-product text-left inline-block vertical-align-top">
-      <ee-product-for-store product="product"></ee-product-for-store>
+      <ee-product-single product="product"></ee-product-single>
     </div>
 
     <div ng-show="collection.products.length == 8">

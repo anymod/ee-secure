@@ -1,0 +1,56 @@
+<div class="product-image-wrapper">
+  <div class="single-products">
+    <div class="productinfo text-center">
+      <a ui-sref="product({ id: product.id, title: (product.title | urlText) })">
+        <img ee-image-fadein
+          ee-src="product.image"
+          ee-w=220 ee-h=220 ee-trim=true
+          load-boolean="hideButtons"
+          alt="{{ product.title }}"
+          class="hover-pointer img-responsive full-width transition-400" />
+      </a>
+      <h2 ng-bind="product.prices | priceRange" class="margin-bottom-0"></h2>
+      <div class="vert-10 margin-top-0" style="height: 15px; line-height: 15px;">
+        <small ng-if="product.prices[0] / product.msrps[0] < 0.901">
+          <span ng-bind="1 - (product.prices[0] / product.msrps[0]) | percentage:0"></span> off <span ng-if="freeShipping">+ </span>
+        </small>
+        <small ng-if="freeShipping" class="text-success">free shipping</small>
+      </div>
+      <p ng-bind="product.title"
+        style="width: 90%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          margin: 0 auto 10px;">
+      </p>
+      <div ng-click="addToCart(product.skus[0])"
+        class="btn btn-default add-to-cart">
+        <i class="fa fa-shopping-cart"></i>&nbsp;Add to cart
+      </div>
+    </div>
+    <a ui-sref="search({ t1: 'doorbusters', t3: doorbusterTag })"
+      ng-if="doorbusterTag"
+      class="doorbuster-ribbon bg-themed white-color no-underline">
+      <span ng-hide="hideSale">Doorbuster</span>
+      <span ng-if="(product.prices[0] / product.msrps[0]) <= 0.85"
+            ng-hide="hideSale || product.prices[0] >= product.msrps[0]">
+        <br>
+        <span ng-bind="1 - (product.prices[0] / product.msrps[0]) | percentage:0"></span> off
+      </span>
+      <span ng-show="hideSale" ng-bind="1 - (product.prices[0] / product.msrps[0]) | percentage:0"></span>
+    </a>
+    <!-- <a ui-sref="sale({ id: product.discounted })"
+      ng-if="product.discounted"
+      class="corner-ribbon top-right bg-themed white-color no-underline">
+      <span ng-hide="hideSale">SALE</span>
+      <span ng-show="hideSale" ng-bind="1 - (product.prices[0] / product.msrps[0]) | percentage:0"></span>
+    </a> -->
+  </div>
+
+  <div class="choose" ng-hide="hideExtra">
+    <ul class="nav nav-pills nav-justified">
+      <li><ee-favorites-heart product-skus="product.skus"></ee-favorites-heart></li>
+      <li><a ui-sref="search({ q: product.title, c: product.category_id })"><i class="fa fa-search"></i>&nbsp;More like this</a></li>
+    </ul>
+  </div>
+</div>
